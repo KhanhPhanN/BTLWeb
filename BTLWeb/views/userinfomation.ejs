@@ -1,0 +1,43 @@
+<!-- <% var i=0  %>
+<% var j=0  %> -->
+<% include template/body1 %>
+<div id = "container">
+    <!-- header starts here-->
+<% include template/header %>
+<div id ="container_inner">
+    <!-- nav starts here-->
+<div id="container_inner_nav">
+<div id="container_inner_nav-inner">
+<% include template/nav %>
+</div>
+</div>
+    <!-- content starts here -->
+<div id = "container_inner_content">
+<div id ="container_inner_content-inner">
+
+
+    <div class="title-sp">
+       Thông tin tài khoản của bạn
+      </div><hr>
+      <div  id =" thongtin">
+                    <% if(kq.length==0){%>
+                     <h2>Không tìm thấy sản phẩm </h2>
+                      
+                  <% } else {  kq.forEach((data)=>{%>
+                      <span class ="ten" id = "ten-1"><b>Họ và tên:</b> <i class="maininfo"><%= data.name%></i></span><hr>
+                        <span class ="ten" id = "ten-1"><b>Tài khoản: </b><i class="maininfo"><%= data.username%></i></span><hr>
+                        <span class ="gia" id = "gia-1"><b>Email:</b> <i class="maininfo"><%= data.email%></i></span><hr>   
+                  <% })} %>
+      </div>
+
+
+</div>
+</div>
+</div>
+    <!-- footer starts here-->
+<div id = "container_inner_footer">
+<% include template/footer %>
+</div>
+</div>
+<% include template/body2 %>
+

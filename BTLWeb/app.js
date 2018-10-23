@@ -801,7 +801,7 @@ if(!name || !price || !describle)
         db.close();
       });
     });
-   var query = {_id: attached+" "+len,image: filename,name: name,price: price,shop: tenuser,label: label, weight: weight, state: state,attached:attached,bargain:bargain,describle:describle,comment:""};
+   var query = {_id: filename.toString().substring(0,filename.length-4),image: filename,name: name,price: price,shop: tenuser,label: label, weight: weight, state: state,attached:attached,bargain:bargain,describle:describle,comment:""};
    var mongoClient = require('mongodb').MongoClient;
    var url = "mongodb://localhost:27017/mydb";
 MongoClient.connect(url, function(err, db) {

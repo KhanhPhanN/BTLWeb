@@ -16,6 +16,8 @@
     margin-top: 10px;
     background-color: rgb(136, 146, 146);
     border-radius: 4px;
+    line-height: 50px;
+    padding-left:2em;
     
 }
 .option{
@@ -74,7 +76,7 @@ color: blueviolet;
      float:right;
  }
 table {
-    margin-top: 1em;
+    margin-top: 2em;
 }
 table tr th {
     width: 250px;
@@ -90,9 +92,8 @@ table tr th {
     height: 50px;
     font-size: 16px;
 }
-.ten :hover{
-    color: brown;
-    background-color: blueviolet;
+.ten:hover{
+    opacity:0.5;
 }
 .gia{
     color: aqua;
@@ -113,8 +114,9 @@ table tr th {
 }
 .cuon-1{
     width: 100%;
-    height: 290px;
-    overflow-x: auto
+  /*  height: 500px;*/
+    overflow-y: auto;
+    
 }
 #thongtin{
     line-height: 60px;

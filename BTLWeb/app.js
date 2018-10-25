@@ -689,25 +689,11 @@ app.get("/sp/sp/:_id",function(req,res){
     mongoClient.connect(url, function(err, db) {
         if (err) throw err;
         var dbo = db.db("mydb");
-        dbo.collection("TempSP").find(query).toArray(function(err, result) {
+        dbo.collection("TempSP").findOne(query,function(err, result) {
             if(err) throw err;
-            var data = result[0];
-            gfs.files.find({filename: result[0].image}).toArray((err, files) => {
-                // Check if files
-                  files.map(file => {
-                    if (
-                      file.contentType === 'image/jpeg' ||
-                      file.contentType === 'image/png'
-                    ) {
-                      file.isImage = true;
-                    } else {
-                      file.isImage = false;
-                    }
-                    db.close();
-                    res.render('template',{ files: files,data: data}); 
-                  });
-                 
-              });
+            res.render('template',{
+                data: result
+            })
                   
         });
 });
@@ -827,84 +813,28 @@ app.get("/",function(req,res){
     var data2=[];
     var da1;
     var da2;
-var mongoClient = require('mongodb').MongoClient;
+var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/mydb";
-    mongoClient.connect(url, function(err, db) {
+   
+
+
+
+MongoClient.connect(url, function(err, db) {
+    if (err) throw err;
+    var dbo = db.db("mydb");
+    dbo.collection("Máy tính").find({}).toArray(function(err, result) {
+      if (err) throw err;
+      dbo.collection("Chuột").find().toArray(function(err, res1){
         if (err) throw err;
-        var dbo=db.db("mydb");
-        dbo.collection("Máy tính").find().toArray(function(err, result1) {
-            if (err) throw err;
-            result1.forEach(function(data){
-                var whe = data.image;
-            
-                var element = data;
-                gfs.files.find({filename: whe}).toArray((err, files) => {
-                    // Check if files
-                    if(err) throw err;
-                      files.map(file => {
-                        if (
-                          file.contentType === 'image/jpeg' ||
-                          file.contentType === 'image/png'
-                        ) {
-                          file.isImage = true;
-                        } else {
-                          file.isImage = false;
-                        }
-                      });
-                data1.push({resu : element, files: files});
-                  });
-            });
-            console.log(data1);
-        });
-            dbo.collection("Chuột").find().toArray(function(err, result2){
-                if (err) throw err;
-            for(var i = 0;i<result2.length;i++){
-                var element = result2[i];
-                var whe = result2[i].image;
-                gfs.files.find({filename: whe}).toArray((err, files) => {
-                    // Check if files
-                    if(err) throw err;
-                      files.map(file => {
-                        if (
-                          file.contentType === 'image/jpeg' ||
-                          file.contentType === 'image/png'
-                        ) {
-                          file.isImage = true;
-                        } else {
-                          file.isImage = false;
-                        }
-                      });
-                data2.push({resu : element, files: files});
+     res.render('homepage',{
+         MayTinh: result,
+         Chuot: res1
+     })
 
-                  });
-            }
+      })
+      db.close();
+    });
+  });
 
-        }); 
-        dbo.collection("Bàn phím").find().toArray(function(err, result2){
-            if (err) throw err;
-            gfs.files.find().toArray((err, files) => {
-                // Check if files
-                if(err) throw err;
-                  files.map(file => {
-                    if (
-                      file.contentType === 'image/jpeg' ||
-                      file.contentType === 'image/png'
-                    ) {
-                      file.isImage = true;
-                    } else {
-                      file.isImage = false;
-                    }
-                  });
-                  res.render("homepage",{
-                    "MayTinh": data1,
-                    "Chuot":data2
-                });
 
-              });
-
-    }); 
-        db.close();
-
-});
-               
 });

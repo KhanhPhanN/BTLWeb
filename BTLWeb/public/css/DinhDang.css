@@ -44,8 +44,9 @@ color: blueviolet;
     margin-left: 150px;
 }
 #mota{
-    margin-left: 50px;
+    margin-left: 0px;
     margin-right: 200px;
+    border: none;
 }
 #showcomment{
     border: 1px solid black;

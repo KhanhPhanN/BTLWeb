@@ -824,17 +824,20 @@ MongoClient.connect(url, function(err, db) {
     var dbo = db.db("mydb");
     dbo.collection("Máy tính").find({}).toArray(function(err, result) {
       if (err) throw err;
+      for(var i=0;i<result.length;i++){
+          data1.push(result[i])
+      }
       dbo.collection("Chuột").find().toArray(function(err, res1){
         if (err) throw err;
      res.render('homepage',{
-         MayTinh: result,
-         Chuot: res1
+         MayTinh: result.reverse(),
+         Chuot: res1.reverse()
      })
 
       })
       db.close();
     });
   });
-
+console.log(data1);
 
 });

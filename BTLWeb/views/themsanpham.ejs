@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>MOKI</title>
     <link rel="stylesheet" href="/css/themsanpham.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/header.css">
     <style>
       img {
         width: 150px;
@@ -14,24 +16,10 @@
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>MOKI</h1>
-      </div>
-      
-      <div class="topnav" id="menungang" > 
-        <a href="#">Link</a>
-        <a href="#">Link</a>
-        <a href="#">Link</a>
-      </div>
-      
+    <% include template/header %>
       <div class="row">
         <div class="column side" id="menuleft">
           <div id="sidebar">
-            <div class="toggle-btn" onclick="toggleSidebar()">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
             <ul>
                 <li><a class="active" href="/">Trang chinh</a></li>
                 <li><a href="#news">Tài khoản</a></li>
@@ -42,22 +30,51 @@
                 <li><a href="#about">Shop</a></li>
              </ul>
          </div>
-        
         </div>
+
         <div class="column middle">
           <% if(err){ %>
             <% err.forEach(function(error){%>
-          <ul>
+          <ul style="list-style: none;">
             <li><%- error.msg%></li>
           </ul>
           <%})%>
             <%}%>
+            <div id="wrapper-addsp">
+                <div class="container">
+                    <div class="row">
+                      <div class="wrapper-image">
+                        <h1 class="text-center display-4 my-4">Thêm ảnh</h1>
+                        <form action="/upload" method="POST" enctype="multipart/form-data">
+                          <div class="custom-file mb-3">
+                            <input type="file" name="file" id="file" class="custom-file-input">
+                           
+                          </div>
+                          <input type="submit" value="Submit" class="btn-primary">
+                        </form>
+                        <hr>
+                        <% if(files){ %>
+                          <% files.forEach(function(file) { %>
+                            <div class="card card-body mb-3">
+                              <% if(file.isImage) { %>
+                                <img src="image/<%= file.filename %>" alt="">
+                                <% } else { %>
+                                  <%= file.filename %>
+                                    <% } %>
+                                      <form method="POST" action="/files/<%= file._id %>?_method=DELETE">
+                                        <button class="btn btn-danger btn-block mt-4">Delete</button>
+                                      </form>
+                            </div>
+                            <% }) %>
+                              <% } else { %>
+                                <p>No files to show</p>
+                                <% } %>
+                      </div>
+                    </div>
+            </div>
             <form action="/themsanpham" method="POST">
             <div class="add">
-                <p id="themsanpham">Thêm sản phẩm </p>
-                <hr>
-                <p><b>Ảnh sản phẩm</b> bạn phải thêm 1 sản phẩm ( tối đa 4 sản phẩm)hoặc 1 video</P>    
-                <input type="text">
+               
                 <div style="display:inline;">
                 <div style="display:flex;">
                     <p id="name">Tên sản phẩm</p>
@@ -65,7 +82,7 @@
                </div> 
                <div style="display:flex;">
                    <p id = "description">Mô tả sản phẩm</p>
-                   <input type="text" id="textarea" name="describleproduct">
+                   <textarea cols="50" rows="50" id="textarea" name="describleproduct"></textarea>
                </div>
                <div style="display: flex">
                    <p>Miễn phí</p>
@@ -142,47 +159,14 @@
             </div>
             </div>
           </form>
-          <div class="update">
-              <div class="container">
-                  <div class="row">
-                    <div class="col-md-6 m-auto">
-                      <h1 class="text-center display-4 my-4">Mongo File Uploads</h1>
-                      <form action="/upload" method="POST" enctype="multipart/form-data">
-                        <div class="custom-file mb-3">
-                          <input type="file" name="file" id="file" class="custom-file-input">
-                          <label for="file" class="custom-file-label">Choose File</label>
-                        </div>
-                        <input type="submit" value="Submit" class="btn btn-primary btn-block">
-                      </form>
-                      <hr>
-                      <% if(files){ %>
-                        <% files.forEach(function(file) { %>
-                          <div class="card card-body mb-3">
-                            <% if(file.isImage) { %>
-                              <img src="image/<%= file.filename %>" alt="">
-                              <% } else { %>
-                                <%= file.filename %>
-                                  <% } %>
-                                    <form method="POST" action="/files/<%= file._id %>?_method=DELETE">
-                                      <button class="btn btn-danger btn-block mt-4">Delete</button>
-                                    </form>
-                          </div>
-                          <% }) %>
-                            <% } else { %>
-                              <p>No files to show</p>
-                              <% } %>
-                    </div>
-                  </div>
-                </div>
-               
+        
           </div>
         </div>
+
         <div class="column side"></div>
       </div>
      
-      <div class="footer">
-        <p>Footer</p>
-      </div>
+      <% include template/footer %>
     
       <script src="/js/themsanpham.js"></script>
       <script src="/js/jqurey.js"></script>

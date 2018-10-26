@@ -116,7 +116,7 @@ body{
 	#user :hover{
 		cursor: pointer;
 	}
-	.header-inner2-link ul
+
 	/*=====NAVIGATION======*/
 	
 	#nav{
@@ -253,4 +253,7 @@ body{
 	}
 	#user-option{
 		display:none;
+	}
+	#info-main{
+		width:40%;
 	}

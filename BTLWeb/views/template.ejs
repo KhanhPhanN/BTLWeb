@@ -33,13 +33,13 @@
                 <table class="row">
                     <tr>
                  <th id = "left"> <div class="col-sm-4">
-                            <% files.forEach(function(file) { %>
+                         
                               <div class="card card-body mb-3">
-                                <% if(file.isImage) { %>
-                                  <img src="/image/<%= file.filename %>" alt="" width="150px" height="150px">
-                                  <% } %>
+                            
+                                  <img src="/image/<%= data.image %>" alt="" width="150px" height="150px">
+                           
                               </div>
-                              <% }) %>
+                  
                   </div></th>
                   <th id="right"><div class="col-sm-6">
                     <label>Tên sản phẩm: </label>
@@ -76,8 +76,7 @@
                 <li onclick="binhluan()">Đánh giá/Bình luận</li>
             </ul>
         </div>
-       <div id="mota">
-        <%- data.describle %>
+        <textarea id="mota" cols="100" rows="20" style="border: none;"><%-data.describle %></textarea>
        </div>
        <div id="binhluan">
             <label>Comment: </label>

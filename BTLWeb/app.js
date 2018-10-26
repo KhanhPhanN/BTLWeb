@@ -788,8 +788,6 @@ if(!name || !price || !describle)
       });
     });
    var query = {_id: filename.toString().substring(0,filename.length-4),image: filename,name: name,price: price,shop: tenuser,label: label, weight: weight, state: state,attached:attached,bargain:bargain,describle:describle,comment:""};
-   var mongoClient = require('mongodb').MongoClient;
-   var url = "mongodb://localhost:27017/mydb";
 MongoClient.connect(url, function(err, db) {
   if (err) throw err;
   var dbo = db.db("mydb");
@@ -815,9 +813,6 @@ app.get("/",function(req,res){
     var da2;
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/mydb";
-   
-
-
 
 MongoClient.connect(url, function(err, db) {
     if (err) throw err;
@@ -827,10 +822,9 @@ MongoClient.connect(url, function(err, db) {
       dbo.collection("Chuột").find().toArray(function(err, res1){
         if (err) throw err;
      res.render('homepage',{
-         MayTinh: result,
-         Chuot: res1
+         MayTinh: result.reverse(),
+         Chuot: res1.reverse()
      })
-
       })
       db.close();
     });
@@ -838,3 +832,4 @@ MongoClient.connect(url, function(err, db) {
 
 
 });
+

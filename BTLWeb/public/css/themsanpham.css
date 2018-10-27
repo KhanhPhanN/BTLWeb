@@ -3,6 +3,7 @@
 }
  body {
   margin: 0;
+  background-color: #f1f1f1;
 }
  .header {
     background-color: #f1f1f1;
@@ -27,15 +28,15 @@
 }
  .column {
     float: left;
-    height : 1700px;
+    height : 1500px;
     padding:20px;
     background-color: black;
 }
  .column.side {
     width: 15%;
-    height: 1700x;
+    height: 1500x;
     padding: 0;
-    background-color: pink;
+    background-color:#d3d3d3;
 }
 .column.side ul{
   margin: 0;
@@ -43,7 +44,7 @@
 }
 .column.middle {
     width: 70%;
-    height:1700px;
+    height:1500px;
     padding:20px;
     background-color: white;
 }
@@ -63,11 +64,27 @@
     text-align: center;
 }
 .add{
-    background-color: rgb(253, 248, 241);
-    height: 1600px;
-    width: 50%;
-    float: left;
+    padding-top:2em;
+    height: 940px;
+    width: 70%;
+    padding-left:200px;
+    margin:auto 0px;
    
+}
+.custom-file-input{
+    border:1px solid #d3d3d3;
+    padding:5px;
+    height:40px;
+
+}
+.btn-primary{
+  padding:5px;
+  background-color:#e91111;
+  margin-left:200px;
+  border:1px solid #d3d3d3;
+  border-radius:4px;
+  margin-top:10px;
+  color:#fff;
 }
 #themsanpham{
   color: #e91111;
@@ -92,6 +109,9 @@
     height: 150px;
     border-radius: 5px;
     
+}
+.wrapper-image{
+  padding-left:200px;
 }
 #textinput {
     background-color: white;
@@ -361,7 +381,7 @@ ul {
  
   width: 200px;
   height: 100%;
-  background-color: #e6ecf3;
+  background-color: #d3d3d3;
   width: -200px;
  }
  #sidebar ul li{

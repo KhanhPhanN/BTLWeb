@@ -44,11 +44,10 @@
                 <div class="container">
                     <div class="row">
                       <div class="wrapper-image">
-                        <h1 class="text-center display-4 my-4">Thêm ảnh</h1>
+                        <h1 class="text-center display-4 my-4">Chọn ảnh khác</h1>
                         <form action="/upload" method="POST" enctype="multipart/form-data">
                           <div class="custom-file mb-3">
                             <input type="file" name="file" id="file" class="custom-file-input">
-                           
                           </div>
                           <input type="submit" value="Submit" class="btn-primary">
                         </form>
@@ -67,53 +66,72 @@
                             </div>
                             <% }) %>
                               <% } else { %>
-                                <p>No files to show</p>
+                                <img src="/image/<%= data.image %>" alt="">
+                                <form method="POST" action="/deleteimage/<%= data.image %>?_method=DELETE">
+                                  <button class="btn btn-danger btn-block mt-4">Delete</button>
+                                </form>
                                 <% } %>
                       </div>
                     </div>
             </div>
-            <form action="/themsanpham" method="POST">
-            <div class="add">
-               
+            <form action="/updatesp" method="POST">
+              <div class="add">
+              <input type="text" id ="textinput" name ="filename" value="<%= data._id%>" hidden>
                 <div style="display:inline;">
                 <div style="display:flex;">
                     <p id="name">Tên sản phẩm</p>
-                    <input type="text" id ="textinput" name ="nameproduct">
+                    <input type="text" id ="textinput" name ="nameproduct" value="<%= data.name %>">
                </div> 
                <div style="display:flex;">
                    <p id = "description">Mô tả sản phẩm</p>
-                   <textarea cols="50" rows="50" id="textarea" name="describleproduct"></textarea>
+                   <textarea cols="50" rows="50" id="textarea" name="describleproduct"><%= data.describle%></textarea>
                </div>
-               <div style="display: flex">
-                   <p>Miễn phí</p>
+                   
+                   <%if(data.bargain=="Miễn phí".valueOf()){%>
+                    <div style="display: flex">
+                    <p>Miễn phí</p>
                    <label class="switch" id="switch1">
+                        <input type="checkbox" checked name="bargainproduct1">
+                        <span class="slider round"></span>
+                    </label>
+                  </div>
+                    <div style="display: flex" >
+                      <p>Cho phép mặc cả</p>
+                      <label class="switch" id="switch2">
+                              <input type="checkbox" unchecked name="bargainproduct2">
+                              <span class="slider round"></span>
+                      </label>
+                  </div><br>
+                    <%}else{%>
+                      <div style="display: flex">
+                        <p>Miễn phí</p>
+                      <label class="switch" id="switch1">
                         <input type="checkbox" unchecked name="bargainproduct1">
                         <span class="slider round"></span>
                     </label>
-               </div>
-               <div style="display: flex" >
-                    <p>Cho phép mặc cả</p>
-                    <label class="switch" id="switch2">
-                            <input type="checkbox" unchecked name="bargainproduct2">
-                            <span class="slider round"></span>
-                    </label>
-                </div><br>
+                      </div>
+                    <div style="display: flex" >
+                      <p>Cho phép mặc cả</p>
+                      <label class="switch" id="switch2">
+                              <input type="checkbox" checked name="bargainproduct2">
+                              <span class="slider round"></span>
+                      </label>
+                  </div><br>
+                      <%}%>
+           
                 <div>
                     <div id="list">Danh mục</div>
                     <div class="custom-select" >
-                        <select name="attached">
-                                <option value="Máy tính">Laptop</option>
-                                <option value="Chuột">Chuột</option>
-                                <option value="Bàn phím">Bàn phím</option>
-                                <option value="Ổ cứng">Ổ cứng</option>
-                                <option value="Tai nghe">Tai nghe</option>
+                        <select name="attached" disabled>
+                                <option value="<%= data.attached%>"><%= data.attached%></option>
                         </select>
                     </div>
                 </div>
-                <div>
+          
                     <div id="nhanhieu">Nhãn hiệu</div>
                     <div class="custom-select" >
                          <select name="label">
+                                 <option value = "<%= data.label%>"><%= data.label%></option>
                                  <option value="Asus">Asus</option>
                                  <option value="Dell">Dell</option>
                                  <option value="HP">HP</option>
@@ -125,6 +143,7 @@
                    <div id="khoiluong">Khối lượng</div>
                    <div class="custom-select" >
                          <select name="weight">
+                              <option value = "<%= data.weight%>"><%= data.weight%></option>
                               <option value="0.5kg đến 1kg">0.5kg đến 1kg</option>
                               <option value="1kg đến 2kg">1kg đến 2kg</option>
                               <option value="3kg đến  4kg ">3kg đến  4kg </option>
@@ -133,38 +152,37 @@
                          </select>
                    </div>
                 </div>
-                <div>
                   <div id="trangthai">Trạng thái </div>
                   <div class="custom-select" >
                     <select name="state">
+                        <option value = "<%= data.state%>"><%= data.state%></option>
                          <option value="Còn mới">Còn mới</option>
                          <option value="Đã qua sử dụng">Đã qua sử dụng</option>
                     </select>
                   </div>
-                  </div>
+
                     <div style="display:flex;">
                      <p id = "gia">Giá</p>
-                     <input type="number" id="giatext" name="price">
+                     <input type="number" id="giatext" name="price" value="<%= data.price%>">
                     </div>
                   </div>
-                  <br>
                   <div style="display:flex">
-                    <div>
-                        <input  class="button button3" type="submit" name="Thêm sản phẩm" value="Thêm sản phẩm" >
-                    </div>
-                    <div>
-                        <input  class="button button3" type="submit" name="Quay lại" value="Quay lại" >
-                    </div>
+                        <input  class="button button3" type="submit" name="Chỉnh sửa" value="Chỉnh sửa">
                   </div>
+                </div>
+                </form>
+                <form action="/delete?_method=DELETE" method="POST">
+         
+                        <input   type="text" value="<%= data.image%>" name ="delete" hidden>
+                        <input   type="text" value="<%= data.attached%>" name ="delete1" hidden>
+                        <input  class="button button3" type="submit" name="Xóa sản phẩm" value="Xóa sản phẩm" >
+             
+                   </form>
             </div>
             </div>
-          </form>
+            </div>
         
-          </div>
-        </div>
-
-        <div class="column side"></div>
-      </div>
+ 
      
       <% include template/footer %>
     

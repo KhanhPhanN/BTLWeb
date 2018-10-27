@@ -700,6 +700,111 @@ app.get("/sp/sp/:_id",function(req,res){
 });
 
 
+app.get('/deleteandupdate/:id',function(req,res){
+    var _id = req.params.id;
+    var query = {_id: _id};
+    var MongoClient = require('mongodb').MongoClient;
+    var url = "mongodb://localhost:27017/";
+    test = 1;
+    MongoClient.connect(url, function(err, db) {
+      if (err) throw err;
+      var dbo = db.db("mydb");
+      dbo.collection("TempSP").findOne(query,function(err, result) {
+        if (err) throw err;
+        test = result.image;
+        res.render('deleteandupdate',{err: [{msg: ""}],files: 0,data: result});
+        db.close();
+      });
+    });
+})
+
+//Xóa và chỉnh sửa sản phẩm
+app.delete("/delete",function(req,res){
+    gfs.remove({ filename: req.body.delete, root: 'uploads' }, (err, gridStore) => {
+        if (err) {
+          return res.status(404).json({ err: err });
+        }
+      });
+      
+       var attached = req.body.delete1;
+       var query = {image: req.body.delete}
+       var MongoClient = require('mongodb').MongoClient;
+       var url = "mongodb://localhost:27017/";
+       
+       MongoClient.connect(url, function(err, db) {
+         if (err) throw err;
+         var dbo = db.db("mydb");
+         dbo.collection("TempSP").deleteOne(query, function(err, obj) {
+           if (err) throw err;
+         });
+         dbo.collection(attached).deleteOne(query, function(err, obj) {
+            if (err) throw err;
+            
+          });
+          dbo.collection("TempSP").find({shop: tenuser}).toArray(function(err, result) {
+            if (err) throw err;
+           res.render("listproduct",{kq: result});
+            db.close();
+          });
+       });
+})
+
+
+app.post("/updatesp",function(req,res){
+    
+    if(!test){
+        res.render('deleteandupdate',{files: imageFile,err: [{msg:"Bạn chưa tải ảnh"}]});
+    }else{
+    var name = req.body.nameproduct;
+    var describle = req.body.describleproduct;
+    var bargain1 = req.body.bargainproduct1;
+    var bargain2 = req.body.bargainproduct2;
+    var bargain;
+    if(bargain1=='on')
+    bargain = "Miễn phí";
+    else
+    bargain = "Cho phép mặc cả";
+    var attached = req.body.attached;
+    var label    = req.body.label;
+    var weight   = req.body.weight;
+    var state    = req.body.state;
+    var price    = req.body.price;
+    console.log(attached);
+    var filename = test;
+    var errors=0;
+if(!name || !price || !describle)
+      errors = [{msg: "Bạn nhập thiếu dữ liệu"}];
+   if(errors){
+    res.render('deleteandupdate',{files: imageFile,err: errors});
+   }else{
+
+
+    var MongoClient = require('mongodb').MongoClient;
+    var url = "mongodb://localhost:27017/";
+    var where = {_id: req.body.filename }
+var query = {$set: {image: filename,name: name,price: price,label: label, weight: weight, state: state,attached:attached,bargain:bargain,describle:describle}};
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("mydb");
+  dbo.collection(attached).updateOne(where,query, function(err, res) {
+    if (err) throw err;
+  });
+  dbo.collection("TempSP").updateOne(where,query, function(err, res) {
+    if (err) throw err;
+  });
+  db.close();
+  test=0;
+  imageFile = 0;
+  res.render('deleteandupdate',{files: imageFile, err: [{msg: "Chỉnh sửa sản phẩm thành công"}]})
+});
+
+   }
+    }
+
+
+
+})
+
 
 
 // @route GET /image/:filename
@@ -738,6 +843,17 @@ test=0;
   });
 });
 
+
+app.delete('/deleteimage/:id', (req, res) => {
+    gfs.remove({ filename: req.params.id, root: 'uploads' }, (err, gridStore) => {
+      if (err) {
+        return res.status(404).json({ err: err });
+      }
+      test=0;
+      res.redirect('/deleteandupdate');
+    });
+  });
+  
 
 
 var len=1;
@@ -788,8 +904,6 @@ if(!name || !price || !describle)
       });
     });
    var query = {_id: filename.toString().substring(0,filename.length-4),image: filename,name: name,price: price,shop: tenuser,label: label, weight: weight, state: state,attached:attached,bargain:bargain,describle:describle,comment:""};
-   var mongoClient = require('mongodb').MongoClient;
-   var url = "mongodb://localhost:27017/mydb";
 MongoClient.connect(url, function(err, db) {
   if (err) throw err;
   var dbo = db.db("mydb");
@@ -815,9 +929,6 @@ app.get("/",function(req,res){
     var da2;
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/mydb";
-   
-
-
 
 MongoClient.connect(url, function(err, db) {
     if (err) throw err;
@@ -833,7 +944,6 @@ MongoClient.connect(url, function(err, db) {
          MayTinh: result.reverse(),
          Chuot: res1.reverse()
      })
-
       })
       db.close();
     });
@@ -841,3 +951,4 @@ MongoClient.connect(url, function(err, db) {
 console.log(data1);
 
 });
+

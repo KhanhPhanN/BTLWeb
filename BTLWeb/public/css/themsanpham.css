@@ -4,6 +4,7 @@
  body {
   margin: 0;
   background-color: #f1f1f1;
+  padding:2em 4em;
 }
  .header {
     background-color: #f1f1f1;
@@ -28,13 +29,13 @@
 }
  .column {
     float: left;
-    height : 1500px;
+    height : 1300px;
     padding:20px;
     background-color: black;
 }
  .column.side {
     width: 15%;
-    height: 1500x;
+    height: 1300x;
     padding: 0;
     background-color:#d3d3d3;
 }
@@ -44,7 +45,7 @@
 }
 .column.middle {
     width: 70%;
-    height:1500px;
+    height:1300px;
     padding:20px;
     background-color: white;
 }

@@ -778,6 +778,7 @@ if(!name || !price || !describle)
     var MongoClient = require('mongodb').MongoClient;
     var url = "mongodb://localhost:27017/";
     
+    //doan code nay bo duoc
     MongoClient.connect(url, function(err, db) {
       if (err) throw err;
       var dbo = db.db("mydb");
@@ -787,6 +788,7 @@ if(!name || !price || !describle)
         db.close();
       });
     });
+    // doan code phia tren bo duoc
    var query = {_id: filename.toString().substring(0,filename.length-4),image: filename,name: name,price: price,shop: tenuser,label: label, weight: weight, state: state,attached:attached,bargain:bargain,describle:describle,comment:""};
 MongoClient.connect(url, function(err, db) {
   if (err) throw err;
@@ -802,7 +804,6 @@ MongoClient.connect(url, function(err, db) {
   imageFile = 0;
   res.render('themsanpham',{files: imageFile, err: [{msg: "Thêm sản phẩm thành công"}]})
 });
-
    }
     }
 })
@@ -828,6 +829,4 @@ MongoClient.connect(url, function(err, db) {
       db.close();
     });
   });
-
-
 });

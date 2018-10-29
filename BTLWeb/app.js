@@ -699,7 +699,6 @@ app.get("/sp/sp/:_id",function(req,res){
 });
 });
 
-
 app.get('/deleteandupdate/:id',function(req,res){
     var _id = req.params.id;
     var query = {_id: _id};
@@ -752,9 +751,6 @@ app.delete("/delete",function(req,res){
 
 app.post("/updatesp",function(req,res){
     
-    if(!test){
-        res.render('deleteandupdate',{files: imageFile,err: [{msg:"Bạn chưa tải ảnh"}]});
-    }else{
     var name = req.body.nameproduct;
     var describle = req.body.describleproduct;
     var bargain1 = req.body.bargainproduct1;
@@ -769,20 +765,16 @@ app.post("/updatesp",function(req,res){
     var weight   = req.body.weight;
     var state    = req.body.state;
     var price    = req.body.price;
-    console.log(attached);
-    var filename = test;
     var errors=0;
 if(!name || !price || !describle)
       errors = [{msg: "Bạn nhập thiếu dữ liệu"}];
    if(errors){
-    res.render('deleteandupdate',{files: imageFile,err: errors});
+    res.render('deleteandupdate',{err: errors,data: {image: test,_id: req.body.filename, name: name,describle: describle,bargain: bargain,attached: attached,label: label,weight: weight,state: state,price: price}});
    }else{
-
-
     var MongoClient = require('mongodb').MongoClient;
     var url = "mongodb://localhost:27017/";
     var where = {_id: req.body.filename }
-var query = {$set: {image: filename,name: name,price: price,label: label, weight: weight, state: state,attached:attached,bargain:bargain,describle:describle}};
+var query = {$set: {name: name,price: price,label: label, weight: weight, state: state,bargain:bargain,describle:describle}};
 MongoClient.connect(url, function(err, db) {
   if (err) throw err;
   var dbo = db.db("mydb");
@@ -792,16 +784,17 @@ MongoClient.connect(url, function(err, db) {
   dbo.collection("TempSP").updateOne(where,query, function(err, res) {
     if (err) throw err;
   });
-  db.close();
   test=0;
   imageFile = 0;
-  res.render('deleteandupdate',{files: imageFile, err: [{msg: "Chỉnh sửa sản phẩm thành công"}]})
+  dbo.collection("TempSP").find({shop: tenuser}).toArray(function(err, result) {
+    if (err) throw err;
+   res.render("listproduct",{kq: result});
+    db.close();
+  });
 });
 
    }
-    }
-
-
+    
 
 })
 

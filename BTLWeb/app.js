@@ -786,7 +786,6 @@ MongoClient.connect(url, function(err, db) {
   });
   test=0;
   imageFile = 0;
-  db.close();
 });
 var MongoClient1 = require('mongodb').MongoClient;
 MongoClient1.connect(url, function(err, db) {

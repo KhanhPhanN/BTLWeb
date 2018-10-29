@@ -765,15 +765,6 @@ app.post("/updatesp",function(req,res){
     var weight   = req.body.weight;
     var state    = req.body.state;
     var price    = req.body.price;
-<<<<<<< HEAD
-=======
-    console.log(describle);
-    console.log(name);
-    console.log(state);
-    console.log(price);
-    console.log(attached);
-    var filename = test;
->>>>>>> 26fe7b4b2db41bd6395b8ec7a95498d5d60e89ad
     var errors=0;
 if(!name || !price || !describle)
       errors = [{msg: "Bạn nhập thiếu dữ liệu"}];
@@ -793,26 +784,21 @@ MongoClient.connect(url, function(err, db) {
   dbo.collection("TempSP").updateOne(where,query, function(err, res) {
     if (err) throw err;
   });
-<<<<<<< HEAD
   test=0;
   imageFile = 0;
-  dbo.collection("TempSP").find({shop: tenuser}).toArray(function(err, result) {
+  db.close();
+});
+var MongoClient1 = require('mongodb').MongoClient;
+MongoClient1.connect(url, function(err, db) {
+    if (err) throw err;
+  var dbo = db.db("mydb");
+dbo.collection("TempSP").find({shop: tenuser}).toArray(function(err, result) {
     if (err) throw err;
    res.render("listproduct",{kq: result});
-    db.close();
-  });
-=======
-  var Qry = {filename:filename};
-  dbo.collection("temSP").findOne(Qry,function(err,result){
-    if(err) throw err;
-    res.render('deleteandupdate',{data:rersult});
-  db.close();
->>>>>>> 26fe7b4b2db41bd6395b8ec7a95498d5d60e89ad
-});
-
-   }
-    
-
+   db.close();
+  });  
+   })
+}
 })
 
 

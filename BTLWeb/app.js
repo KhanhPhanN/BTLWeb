@@ -769,6 +769,10 @@ app.post("/updatesp",function(req,res){
     var weight   = req.body.weight;
     var state    = req.body.state;
     var price    = req.body.price;
+    console.log(describle);
+    console.log(name);
+    console.log(state);
+    console.log(price);
     console.log(attached);
     var filename = test;
     var errors=0;
@@ -792,10 +796,11 @@ MongoClient.connect(url, function(err, db) {
   dbo.collection("TempSP").updateOne(where,query, function(err, res) {
     if (err) throw err;
   });
+  var Qry = {filename:filename};
+  dbo.collection("temSP").findOne(Qry,function(err,result){
+    if(err) throw err;
+    res.render('deleteandupdate',{data:rersult});
   db.close();
-  test=0;
-  imageFile = 0;
-  res.render('deleteandupdate',{files: imageFile, err: [{msg: "Chỉnh sửa sản phẩm thành công"}]})
 });
 
    }
@@ -856,7 +861,7 @@ app.delete('/deleteimage/:id', (req, res) => {
   
 
 
-var len=1;
+
 // Thêm sản phẩm
 app.post("/themsanpham",function(req,res){
     if(!test){
@@ -900,7 +905,6 @@ if(!name || !price || !describle)
       var dbo = db.db("mydb");
       dbo.collection(attached).find({}).toArray(function(err, result) {
         if (err) throw err;
-        len = result.length+1;
         db.close();
       });
     });

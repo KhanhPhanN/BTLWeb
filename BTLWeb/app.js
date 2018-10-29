@@ -786,16 +786,18 @@ MongoClient.connect(url, function(err, db) {
   });
   test=0;
   imageFile = 0;
-  dbo.collection("TempSP").find({shop: tenuser}).toArray(function(err, result) {
+});
+var MongoClient1 = require('mongodb').MongoClient;
+MongoClient1.connect(url, function(err, db) {
+    if (err) throw err;
+  var dbo = db.db("mydb");
+dbo.collection("TempSP").find({shop: tenuser}).toArray(function(err, result) {
     if (err) throw err;
    res.render("listproduct",{kq: result});
-    db.close();
-  });
-});
-
-   }
-    
-
+   db.close();
+  });  
+   })
+}
 })
 
 

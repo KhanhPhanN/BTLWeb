@@ -62,15 +62,6 @@ conn.once('open', () => {
   gfs = Grid(conn.db, mongoose.mongo);
   gfs.collection('uploads');
 });
-
-
-
-
-
-
-
-
-
 // middleware được gọi ở từng request, kiểm tra session lấy ra passport.user nếu chưa có thì tạo rỗng.
 app.use(passport.initialize());
 // lấy thông tin user rồi gắn vào req.user 
@@ -84,19 +75,12 @@ app.use(function(req,res,next){
 //  res.locals.success_msg = req.flash('success_msg');
   //res.locals.error_msg = req.flash('error_msg');
   //res.locals.error = req.flash('error');
-   // res.locals.message = null;
     res.locals.errors = null;
     res.locals.user = req.user || null;
     res.locals.mail = req.mail || null;
-    res.locals.phone = req.phone || null;
-    
+    res.locals.phone = req.phone || null;  
     next();
 });
-
-
-
-
-
 // Express Validator
 app.use(expressValidator({
     errorFormatter: function(param, msg, value) {
@@ -196,7 +180,7 @@ PhoneNumber1 = PhoneNumber;
                   
                           // Emit to the client
                           io.emit('smsStatus', {data: data, code: text});
-                          res.render("resetPassword",{dt: text});
+                          res.render("Confirm",{dt: text});
                         }
                       }
                     );
@@ -318,17 +302,10 @@ app.post('/resetPassword',function(req,res){
             res.render('login');
             db.close();
         });
+   });       
    });
-
-        
-   });
-
         });
-        
-
-    }
-
-    
+    } 
 });
 
 
@@ -476,17 +453,6 @@ app.get("/userinformation", function(req, res){
 
 
 })
-
-
-//Thêm sản phảma
-
-
-// app.get('/themsanpham',function(req,res){
-//     res.render('themsanpham');
-// });
-
-// Thay đổi mật khẩu
-
 	// change password
     app.get('/user/changePassword',function(req,res){
         res.render("changePassword");
@@ -519,7 +485,6 @@ var errors = req.validationErrors();
                     errors: [{msg : "Mật khẩu cũ không đúng"}]
                 });
                 if(isMatch){
-                                // check validator
              var newPass = {username:tenuser};
             bcrypt.genSalt(10, function(err, salt) {
                 bcrypt.hash(newPassword, salt, function(err, hash) {
@@ -548,20 +513,6 @@ app.get('/logout', function (req, res) {
     res.redirect('/');
 });
 
-// get follow list
-app.get('/followList',checkAuthentication,function(req,res){
-    res.render('followList');
-});
-function checkAuthentication(req,res,next){
-    if(req.isAuthenticated()){
-        //req.isAuthenticated() will return true if user is logged in
-        next();
-    } else{
-        res.send("you have to login first");
-    }
-}
-
-
 io.on("connection",function(socket){
 console.log("ok");
 socket.on("gui-comment",function(data){
@@ -585,14 +536,7 @@ io.on("connection",function(socket){
         socket.emit("Server-send-admin-message",data)
     })
 })
-
-
-
-
-
-
 // Mongo URI
-
 var  test=0;
 // Create storage engine
 const storage = new GridFsStorage({
@@ -683,8 +627,6 @@ app.get("/sp/sp/:_id",function(req,res){
    var mongoClient = require('mongodb').MongoClient;
    var url = "mongodb://localhost:27017/mydb";
     var _id = req.params._id;
- 
-   // id = new require('mongodb').ObjectId;
     var query = {_id: _id};
     mongoClient.connect(url, function(err, db) {
         if (err) throw err;
@@ -786,6 +728,7 @@ MongoClient.connect(url, function(err, db) {
   });
   test=0;
   imageFile = 0;
+  db.close();
 });
 var MongoClient1 = require('mongodb').MongoClient;
 MongoClient1.connect(url, function(err, db) {

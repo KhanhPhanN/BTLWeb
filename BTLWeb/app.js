@@ -311,8 +311,10 @@ app.post('/resetPassword',function(req,res){
 
 // Hàm tìm kiếm
 function search_name(X,Y){
-   var chuoi1 = X.split(" ");
-var chuoi2 = Y.split(" ");
+    var X1 = X.toUpperCase();
+    var Y1 = Y.toUpperCase();
+var chuoi1 = X1.split(" ");
+var chuoi2 = Y1.split(" ");
     var lenX = chuoi1.length;
     var lenY = chuoi2.length;
     var a = new Array(lenX+1);
@@ -726,20 +728,16 @@ MongoClient.connect(url, function(err, db) {
   dbo.collection("TempSP").updateOne(where,query, function(err, res) {
     if (err) throw err;
   });
-  test=0;
-  imageFile = 0;
-  db.close();
-});
-var MongoClient1 = require('mongodb').MongoClient;
-MongoClient1.connect(url, function(err, db) {
-    if (err) throw err;
-  var dbo = db.db("mydb");
-dbo.collection("TempSP").find({shop: tenuser}).toArray(function(err, result) {
+
+  dbo.collection("TempSP").find({shop: tenuser}).toArray(function(err, result) {
+
     if (err) throw err;
    res.render("listproduct",{kq: result});
    db.close();
-  });  
-   })
+  }); 
+  db.close();
+});
+
 }
 })
 
@@ -886,7 +884,6 @@ MongoClient.connect(url, function(err, db) {
       db.close();
     });
   });
-console.log(data1);
 
 });
 

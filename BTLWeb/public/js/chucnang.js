@@ -2,10 +2,11 @@ var socket = io("http://localhost:8084");
 // socket.on("gui-comment",function(data){
 //     $("#showcomment").append($("#showcomment").html()+$("#Comment").val());
 // })
-socket.on("san-pham", function(data){
-    for(var i =0;i<data.lenght;i++ )
-    var ins = '<a href="/data._id"><img id="0" src="/imageMayTinh/<%= MayTinh[i].image%>" width="150px" height="150px"></a><br><span class ="ten" id = "ten-1"><%= MayTinh[i].name%></span><br><span class ="gia" id = "gia-1"><%= MayTinh[i].price%></span><br>' 
-    $("#frame-1").append(ins);
+socket.on("report",function(){
+   $("#send-report").click(function(){
+       $("#text-report").slideUp();
+       $("#thanks-report").fadeTo(2500,1).fadeOut(2500);
+   });
 })
 $(document).ready(function(){
     $('#AlphaNav > ul > li > a').click(function () {
@@ -15,11 +16,19 @@ $(document).ready(function(){
         $(this).find('i').toggleClass('fa-angle-double-up fa-angle-double-down');
         
     });
-    $("#info-main").hover(function(){
-            $("#info").show();
-    },function(){
-        $("#info").hide();
-    })
+
+//report san pham
+$(document).ready(function(){
+    $("#btn-report").click(function(){
+        $("#text-report").slideToggle();
+    });
+});
+
+$("#send-report").click(function(){
+    socket.emit("report",$("#textarea").val());
+   })
+
+   
     socket.emit("list-sp");
     $("#like").click(function(){
         if( $("#like").attr("src")=="/imagei/like.png")

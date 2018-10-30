@@ -13,6 +13,25 @@
         <link rel="stylesheet" href="/css/body.css" type="text/css" >  
         <link rel="stylesheet" href="/css/DinhDang.css" type="text/css" >  
         <link rel="stylesheet" href="/css/bootstrap.css" type="text/css" > 
+        <style>
+            #btn-report,#send-report{
+                padding:5px;
+                border:1px solid #000;
+                border-radius:5px;
+                margin-bottom:5px;
+            }
+            #text-report{
+                width:200px;
+                display:none;
+            }
+           
+            #textarea{
+                padding:5px;
+            }
+            #send-report{
+                margin-left:50px;
+            }
+        </style>
     </head>
     <body>
 <div id = "container">
@@ -36,12 +55,26 @@
                          
                               <div class="card card-body mb-3">
                             
-                                  <img src="/image/<%= data.image %>" alt="" width="150px" height="150px">
+                                  <img id="image"src="/image/<%= data.image %>" alt="" width="250px" height="250px">
                            
-                              </div>
+                              </div><br>
+                              <div id="report">
+                              <button id="btn-report">report sản phẩm</button>
+                              <div id="text-report">
+                                    <form method="POST" action="">
+                                        <textarea id="textarea" rows="10" cols="35">Lí do report:</textarea>
+                                        <input type="button" value="send" id="send-report">
+                                    </form>
+                                </div>
+                                <div id="thanks-report" style="display:none;">
+                                    <p>Cảm ơn sự góp ý của bạn!</p>
+                                </div>
+                            </div>
+                                
                   
                   </div></th>
-                  <th id="right"><div class="col-sm-6">
+                  <th id="right">
+                      <div class="col-sm-6">
                     <label>Tên sản phẩm: </label>
                     <span id="name"><%- data.name %></span><hr>
                     <label>Giá sản phẩm: </label>

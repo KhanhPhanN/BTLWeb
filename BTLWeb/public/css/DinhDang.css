@@ -54,6 +54,15 @@ color: blueviolet;
     height: 200px;
     overflow-wrap: break-word;
 }
+#send{
+    padding:5px;
+    position: relative;
+    top:-30px;
+}
+label{
+    position: relative;
+    top:-30px; 
+}
 #gio_hang{
     position: relative;
     top:-0.7em;

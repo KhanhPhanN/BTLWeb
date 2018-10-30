@@ -520,6 +520,9 @@ console.log("ok");
 socket.on("gui-comment",function(data){
     io.sockets.emit("gui-comment",data);
 })
+socket.on("report",function(data){
+socket.emit("report")
+})
 });
 
 

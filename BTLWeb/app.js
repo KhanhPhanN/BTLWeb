@@ -436,8 +436,8 @@ app.get("/listproduct", function(req, res){
 
 })
 
+ 
 // Thông tin tài khoản người dùng 
-
 app.get("/userinformation", function(req, res){
 
     var MongoClient = require('mongodb').MongoClient;
@@ -452,8 +452,54 @@ app.get("/userinformation", function(req, res){
         db.close();
       });
     });
+})
 
+// chỉnh sửa thông tin người dùng
+app.get('/user/modifier',function(req,res){
+    var MongoClient = require('mongodb').MongoClient;
+    var url = "mongodb://localhost:27017/";
+    MongoClient.connect(url,function(err,db){
+        if (err) throw err;
+        var dbo = db.db("loginapp");
+        dbo.collection("users").find({username:tenuser}).toArray(function(err,result){
+            if(err) throw err;
+            res.render("modifierUser",{user:result});
+            db.close();
+        })
+    })
+})
+app.post('/user/modifier',function(req,res){
+    //check validator
+    var username = req.body.username
+    var email = req.body.email;
+    var phone = req.body.phone;
 
+    req.checkBody('username',"Họ và tên bắt buộc!").notEmpty();
+    req.checkBody('email',"Email bắt buộc!").notEmpty();
+    req.checkBody('phone','Số điện thoại bắt buộc!').notEmpty();
+
+    var errors = req.validationErrors();
+    if(errors){
+        res.render('modifierUser',{errors:errors})
+    }else{
+        var MongoClient = require('mongodb').MongoClient;
+        var url='mongodb://localhost:27017/';
+        MongoClient.connect(url,function(err,db){
+            if(err) throw err;
+            var dbo = db.db("loginapp");
+            var where ={name : req.body.name};
+            var query={$set: {username:username,email:email,PhoneNumber:phone}};
+            dbo.collection("users").updateOne(where,query,function(err,res){
+                if(err) throw err;
+            })
+            dbo.collection("users").find({name:tenuser}).toArray(function(err,result){
+                if(err) throw err;
+                res.render('userinfomation',{kq:result});
+                db.close();
+            })
+            db.close();
+        })
+    }
 })
 	// change password
     app.get('/user/changePassword',function(req,res){
@@ -671,7 +717,7 @@ app.delete("/delete",function(req,res){
           return res.status(404).json({ err: err });
         }
       });
-      
+     
        var attached = req.body.delete1;
        var query = {image: req.body.delete}
        var MongoClient = require('mongodb').MongoClient;
@@ -828,7 +874,8 @@ if(!name || !price || !describle)
    if(errors){
     res.render('themsanpham',{files: imageFile,err: errors});
    }else{
-
+    
+    
 
     var MongoClient = require('mongodb').MongoClient;
     var url = "mongodb://localhost:27017/";

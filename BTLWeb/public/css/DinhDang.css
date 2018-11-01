@@ -59,10 +59,7 @@ color: blueviolet;
     position: relative;
     top:-30px;
 }
-label{
-    position: relative;
-    top:-30px; 
-}
+
 #gio_hang{
     position: relative;
     top:-0.7em;
@@ -133,5 +130,30 @@ table tr th {
 }
 .maininfo{
 margin-left: 20em
+}
+.maininfo1{
+    margin-left: 16em
+    }
+.maininfo2{
+        margin-left: 14em
+        }
+    
 
+#modifier-user{
+   float:right;
+   border-radius:5px;
+    padding:5px;
+    text-align:center;
+}
+#modifier-user a{
+    text-decoration:none;
+    color:#000;
+}
+#update-user{
+    padding:5px;
+    border-radius: 5px;
+    float:right;
+}
+table,td,th{
+    border-collapse: collapse;
 }

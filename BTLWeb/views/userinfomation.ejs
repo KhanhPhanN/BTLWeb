@@ -1,5 +1,4 @@
-<!-- <% var i=0  %>
-<% var j=0  %> -->
+
 <% include template/body1 %>
 <div id = "container">
     <!-- header starts here-->
@@ -27,6 +26,9 @@
                       <span class ="ten" id = "ten-1"><b>Họ và tên:</b> <i class="maininfo"><%= data.name%></i></span><hr>
                         <span class ="ten" id = "ten-1"><b>Tài khoản: </b><i class="maininfo"><%= data.username%></i></span><hr>
                         <span class ="gia" id = "gia-1" style="color:#000;"><b>Email:</b> <i class="maininfo"><%= data.email%></i></span><hr>   
+                        <span class ="sdt" id = "sdt-1" style="color:#000;"><b>Số điện thoại:</b> <i class="maininfo1"><%= data.PhoneNumber%></i></span><hr> 
+                       
+                        <button id="modifier-user"><a href="/user/modifier">Chỉnh sửa thông tin</a> </button>
                   <% })} %>
       </div>
 

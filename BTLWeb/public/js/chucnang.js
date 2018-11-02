@@ -6,6 +6,14 @@ var socket = io("http://localhost:8084");
  socket.on("add-product",function(){
      alert("Có sản phẩm mới được tải lên !! Vui lòng load lại trang để xem sản phẩm mới nhất");
  })
+
+socket.on("report",function(){
+   $("#send-report").click(function(){
+       $("#text-report").slideUp();
+       $("#thanks-report").fadeTo(2500,1).fadeOut(2500);
+   });
+})
+
 $(document).ready(function(){
     $('#AlphaNav > ul > li > a').click(function () {
         $(this).closest('li').siblings().find('ul:visible').slideUp(); // ADDED
@@ -14,11 +22,19 @@ $(document).ready(function(){
         $(this).find('i').toggleClass('fa-angle-double-up fa-angle-double-down');
         
     });
-    $("#info-main").hover(function(){
-            $("#info").show();
-    },function(){
-        $("#info").hide();
-    })
+
+//report san pham
+$(document).ready(function(){
+    $("#btn-report").click(function(){
+        $("#text-report").slideToggle();
+    });
+});
+
+$("#send-report").click(function(){
+    socket.emit("report",$("#textarea").val());
+   })
+
+   
     socket.emit("list-sp");
     $("#like").click(function(){
         if( $("#like").attr("src")=="/imagei/like.png")

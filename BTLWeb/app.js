@@ -63,15 +63,6 @@ conn.once('open', () => {
   gfs = Grid(conn.db, mongoose.mongo);
   gfs.collection('uploads');
 });
-
-
-
-
-
-
-
-
-
 // middleware được gọi ở từng request, kiểm tra session lấy ra passport.user nếu chưa có thì tạo rỗng.
 app.use(passport.initialize());
 // lấy thông tin user rồi gắn vào req.user 
@@ -85,19 +76,12 @@ app.use(function(req,res,next){
 //  res.locals.success_msg = req.flash('success_msg');
   //res.locals.error_msg = req.flash('error_msg');
   //res.locals.error = req.flash('error');
-   // res.locals.message = null;
     res.locals.errors = null;
     res.locals.user = req.user || null;
     res.locals.mail = req.mail || null;
-    res.locals.phone = req.phone || null;
-    
+    res.locals.phone = req.phone || null;  
     next();
 });
-
-
-
-
-
 // Express Validator
 app.use(expressValidator({
     errorFormatter: function(param, msg, value) {
@@ -319,17 +303,10 @@ app.post('/resetPassword',function(req,res){
             res.render('login');
             db.close();
         });
+   });       
    });
-
-        
-   });
-
         });
-        
-
-    }
-
-    
+    } 
 });
 var tenuser=0;
 
@@ -460,8 +437,8 @@ app.get("/listproduct", function(req, res){
 
 })
 
+ 
 // Thông tin tài khoản người dùng 
-
 app.get("/userinformation", function(req, res){
 
     var MongoClient = require('mongodb').MongoClient;
@@ -476,10 +453,27 @@ app.get("/userinformation", function(req, res){
         db.close();
       });
     });
-
-
 })
 
+// chỉnh sửa thông tin người dùng
+app.get('/user/modifier',function(req,res){
+    var MongoClient = require('mongodb').MongoClient;
+    var url = "mongodb://localhost:27017/";
+    MongoClient.connect(url,function(err,db){
+        if (err) throw err;
+        var dbo = db.db("loginapp");
+        dbo.collection("users").find({username:tenuser}).toArray(function(err,result){
+            if(err) throw err;
+            res.render("modifierUser",{user:result});
+            db.close();
+        })
+    })
+})
+app.post('/user/modifier',function(req,res){
+    //check validator
+    var username = req.body.username
+    var email = req.body.email;
+    var phone = req.body.phone;
 
 
 // chỉnh sửa thông tin người dùng
@@ -537,6 +531,29 @@ app.post('/user/modifier',function(req,res){
 
 // Thay đổi mật khẩu
 
+    var errors = req.validationErrors();
+    if(errors){
+        res.render('modifierUser',{errors:errors})
+    }else{
+        var MongoClient = require('mongodb').MongoClient;
+        var url='mongodb://localhost:27017/';
+        MongoClient.connect(url,function(err,db){
+            if(err) throw err;
+            var dbo = db.db("loginapp");
+            var where ={name : req.body.name};
+            var query={$set: {username:username,email:email,PhoneNumber:phone}};
+            dbo.collection("users").updateOne(where,query,function(err,res){
+                if(err) throw err;
+            })
+            dbo.collection("users").find({name:tenuser}).toArray(function(err,result){
+                if(err) throw err;
+                res.render('userinfomation',{kq:result});
+                db.close();
+            })
+            db.close();
+        })
+    }
+})
 	// change password
     app.get('/user/changePassword',function(req,res){
         res.render("changePassword");
@@ -569,7 +586,6 @@ var errors = req.validationErrors();
                     errors: [{msg : "Mật khẩu cũ không đúng"}]
                 });
                 if(isMatch){
-                                // check validator
              var newPass = {username:tenuser};
             bcrypt.genSalt(10, function(err, salt) {
                 bcrypt.hash(newPassword, salt, function(err, hash) {
@@ -598,20 +614,6 @@ app.get('/logout', function (req, res) {
     res.redirect('/');
 });
 
-// get follow list
-app.get('/followList',checkAuthentication,function(req,res){
-    res.render('followList');
-});
-function checkAuthentication(req,res,next){
-    if(req.isAuthenticated()){
-        //req.isAuthenticated() will return true if user is logged in
-        next();
-    } else{
-        res.send("you have to login first");
-    }
-}
-
-
 io.on("connection",function(socket){
 socket.on("gui-comment",function(data){
     var  info = data.split("ooo");
@@ -637,6 +639,9 @@ socket.on("gui-comment",function(data){
     });
     
 })
+socket.on("report",function(data){
+socket.emit("report")
+})
 });
 
 
@@ -655,14 +660,7 @@ io.on("connection",function(socket){
         socket.emit("Server-send-admin-message",data)
     })
 })
-
-
-
-
-
-
 // Mongo URI
-
 var  test=0;
 // Create storage engine
 const storage = new GridFsStorage({
@@ -753,8 +751,6 @@ app.get("/sp/sp/:_id",function(req,res){
    var mongoClient = require('mongodb').MongoClient;
    var url = "mongodb://localhost:27017/mydb";
     var _id = req.params._id;
- 
-   // id = new require('mongodb').ObjectId;
     var query = {_id: _id};
     mongoClient.connect(url, function(err, db) {
         if (err) throw err;
@@ -794,7 +790,7 @@ app.delete("/delete",function(req,res){
           return res.status(404).json({ err: err });
         }
       });
-      
+     
        var attached = req.body.delete1;
        var query = {image: req.body.delete}
        var MongoClient = require('mongodb').MongoClient;
@@ -854,7 +850,9 @@ MongoClient.connect(url, function(err, db) {
   dbo.collection("TempSP").updateOne(where,query, function(err, res) {
     if (err) throw err;
   });
+
   dbo.collection("TempSP").find({shop: tenuser}).toArray(function(err, result) {
+
     if (err) throw err;
    res.render("listproduct",{kq: result});
    db.close();
@@ -949,7 +947,8 @@ if(!name || !price || !describle)
    if(errors){
     res.render('themsanpham',{files: imageFile,err: errors});
    }else{
-
+    
+    
 
     var MongoClient = require('mongodb').MongoClient;
     var url = "mongodb://localhost:27017/";

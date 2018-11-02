@@ -54,6 +54,12 @@ color: blueviolet;
     height: 200px;
     overflow-wrap: break-word;
 }
+#send{
+    padding:5px;
+    position: relative;
+    top:-30px;
+}
+
 #gio_hang{
     position: relative;
     top:-0.7em;
@@ -124,7 +130,6 @@ table tr th {
 }
 .maininfo{
 margin-left: 20em
-
 }
 .maininfo1{
     margin-left: 16em
@@ -133,7 +138,8 @@ margin-left: 20em
         margin-left: 14em
         }
     
- #modifier-user{
+
+#modifier-user{
    float:right;
    border-radius:5px;
     padding:5px;

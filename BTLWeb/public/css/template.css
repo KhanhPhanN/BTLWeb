@@ -248,15 +248,20 @@ body{
 	}
 	
 	/*------------USER OPTION -------*/
-	#info-main:hover #user-option{
-		display:block;
-	}
+	
 	#user-option{
 		display:none;
 		margin-left: 900px;
 		line-height: 5px;
 		height: 15px;
 	}
-	#info-main{
-		width:40%;
+	
+	#user-option li{
+		display:block;
+		margin-left:850px;
+		padding-top:5px;
+		
+	}
+	#user-li:hover #user-option{
+		display:block;
 	}

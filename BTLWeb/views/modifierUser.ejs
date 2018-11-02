@@ -59,7 +59,7 @@
  </div>
  <div class = "header-inner2-link">
    <ul>
-         <% kq.forEach(function(data){%>
+         <% user1.forEach(function(data){%>
              <li>
                  <a href="/themsanpham" >Thêm sản phẩm </a> 
              </li>
@@ -102,22 +102,46 @@
 <div id ="container_inner_content-inner">
 
 
-    <div class="title-sp">
-       Thông tin tài khoản của bạn
-      </div><hr>
-      <div  id =" thongtin">
-                    <% if(kq.length==0){%>
-                     <h2>Không tìm thấy sản phẩm </h2>
-                      
-                  <% } else {  kq.forEach((data)=>{%>
-                      <span class ="ten" id = "ten-1"><b>Họ và tên:</b> <i class="maininfo"><%= data.name%></i></span><hr>
-                        <span class ="ten" id = "ten-1"><b>Tài khoản: </b><i class="maininfo"><%= data.username%></i></span><hr>
-                       <span class ="gia" id = "gia-1" style="color:#000;"><b>Email:</b> <i class="maininfo"><%= data.email%></i></span><hr>   
-                 
-                       <span class ="sdt" id = "sdt-1" style="color:#000;"><b>Số điện thoại:</b> <i class="maininfo1"><%= data.PhoneNumber%></i></span><hr> 
-                       
-                        <button id="modifier-user"><a href="/user/modifier">Chỉnh sửa thông tin</a> </button>
-                        <% })} %>
+    <% if(errors) {%>
+        <ul>
+            <% errors.forEach(function(err) {%>
+                <li class ="register-validator"><%= err.msg %></li>
+                <%})%>
+        </ul>
+     <% } %>
+<div class="title-sp">
+   Thông tin tài khoản của bạn
+  </div><hr>
+  <div  id =" thongtin">
+                <% if(user1.length==0){%>
+                 <h2>Không tìm thấy sản phẩm </h2>
+                  
+              <% } else {user1.forEach(function(data) {%>
+                <form method="POST" action="/user/modifier">
+                <table>
+                    <tr>
+                        <th></th>
+                        <td> <input type="text" name="username" id="username" value="<%=data.username %>" hidden>
+                        </td>
+                    </tr>
+                    <tr>
+                            <th>Tài khoản :</th>
+                            <td> <input type="text" name="name" id="name" value="<%=data.name %>">
+                            </td>
+                        </tr>
+                      <tr>
+                                <th>Email :</th>
+                                <td> <input type="text" name="email" id="email" value="<%=data.email %>">
+                                </td>
+                       </tr>
+                       <tr>
+                           <th>Số điện thoại :</th>
+                           <td><input type="text" name="phone" id="phone" value="<%=data.PhoneNumber %>"></td>
+                       </tr>
+                </table><hr>
+                  <input type="submit" value="Cập nhật" id="update-user">
+                </form>
+              <% })} %>
       </div>
 
 

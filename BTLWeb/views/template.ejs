@@ -49,7 +49,7 @@
                     <label>Shop: </label>
                     <span id="shop"><%- data.shop %> </span><br>
                     <label>Số sản phẩm: </label>
-                    <span id="code"> <%- data._id %></span><br>
+                    <span id="code"><%- data._id %></span><br>
                     <label>Nhãn hiệu: </label>
                     <span id="label"><%- data.label %> </span><hr>
                     <label>Trạng thái: </label>
@@ -78,17 +78,17 @@
         </div>
         <textarea id="mota" cols="100" rows="20" style="border: none;"><%-data.describle %></textarea>
        </div>
+       <%if(user){%>
        <div id="binhluan">
-            <label>Comment: </label>
-
+            <label><%-user.username%>: </label>
             <textarea rows="5" cols="50" name="description" placeholder="Comment" id = "Comment"></textarea>
             <input type="button" id="send" value="Send">
-            <textarea rows="5" cols="50" name="description" placeholder="Comment" id = "showcomment" disabled></textarea>
-            <!-- <div id = "showcomment">
-            
-           </div> -->
-       
+            <textarea rows="5" cols="50" name="description" placeholder="Comment" id = "showcomment" disabled><%-data.comment%></textarea>
        </div>
+       <%}%>
+       <%if(!user){%>
+           <div>Bạn hãy đăng nhập để bình luận về sản phẩm</div>
+        <%}%>
 </div>
 
 </div>

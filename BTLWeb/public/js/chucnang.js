@@ -1,12 +1,11 @@
 var socket = io("http://localhost:8084");
-// socket.on("gui-comment",function(data){
-//     $("#showcomment").append($("#showcomment").html()+$("#Comment").val());
-// })
-socket.on("san-pham", function(data){
-    for(var i =0;i<data.lenght;i++ )
-    var ins = '<a href="/data._id"><img id="0" src="/imageMayTinh/<%= MayTinh[i].image%>" width="150px" height="150px"></a><br><span class ="ten" id = "ten-1"><%= MayTinh[i].name%></span><br><span class ="gia" id = "gia-1"><%= MayTinh[i].price%></span><br>' 
-    $("#frame-1").append(ins);
-})
+ socket.on("gui-comment",function(data){
+     $("#showcomment").val(data);
+       $("#Comment").val("");
+ })
+ socket.on("add-product",function(){
+     alert("Có sản phẩm mới được tải lên !! Vui lòng load lại trang để xem sản phẩm mới nhất");
+ })
 $(document).ready(function(){
     $('#AlphaNav > ul > li > a').click(function () {
         $(this).closest('li').siblings().find('ul:visible').slideUp(); // ADDED
@@ -51,11 +50,9 @@ $(document).ready(function(){
     $("#binhluan").click(function(){
         binhluan();
     })
-    
     socket.emit("gui-thong-tin");
     $("#send").click(function(){
-      $("#showcomment").append($("#showcomment").html()+$("#Comment").val());
-        socket.emit("gui-comment",$("#Comment").val());
+        socket.emit("gui-comment",$("#attached").html()+"ooo"+$("#code").html()+"ooo"+$("#showcomment").val()+"ooo"+$("#Comment").val());
     })
 })
 function binhluan(){

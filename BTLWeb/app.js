@@ -863,20 +863,11 @@ app.post("/themsanpham",function(req,res){
     var price = req.body.price;
     var filename = test;
     var errors=0;
-
-//     req.checkBody('name',"Bạn chưa nhập tên cho sản phẩm").notEmpty();
-//     req.checkBody('describle',"Bạn chưa mô tả sản phẩm").notEmpty();
-//     req.checkBody('price',"Bạn chưa nhập giá").notEmpty();
-    
-//    var errors=  req.validationErrors();
 if(!name || !price || !describle)
       errors = [{msg: "Bạn nhập thiếu dữ liệu"}];
    if(errors){
     res.render('themsanpham',{files: imageFile,err: errors});
    }else{
-    
-    
-
     var MongoClient = require('mongodb').MongoClient;
     var url = "mongodb://localhost:27017/";
     
@@ -909,10 +900,6 @@ MongoClient.connect(url, function(err, db) {
     }
 })
 app.get("/",function(req,res){
-    var data1=[];
-    var data2=[];
-    var da1;
-    var da2;
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/mydb";
 
@@ -921,17 +908,31 @@ MongoClient.connect(url, function(err, db) {
     var dbo = db.db("mydb");
     dbo.collection("Máy tính").find({}).toArray(function(err, result) {
       if (err) throw err;
-      for(var i=0;i<result.length;i++){
-          data1.push(result[i])
-      }
       dbo.collection("Chuột").find().toArray(function(err, res1){
         if (err) throw err;
-     res.render('homepage',{
-         MayTinh: result.reverse(),
-         Chuot: res1.reverse()
-     })
+        dbo.collection("Bàn phím").find().toArray(function(err,res2){
+            if(err) throw err;
+            console.log(res2);
+            dbo.collection("Tai nghe").find().toArray(function(err,res3){
+                if(err) throw err;
+                console.log(res3);
+                dbo.collection("Ổ cứng").find().toArray(function(err,res4){
+                    if(err) throw err;
+                    console.log(res4);
+                    res.render('homepage',{
+                        MayTinh: result.reverse(),
+                        Chuot: res1.reverse(),
+                        Banphim:res2.reverse(),
+                        Tainghe:res3.reverse(),
+                        Ocung:res4.reverse()
+                    })
+                    
+                    db.close();
+                })
+                db.close();
+            })
+        })  
       })
-      db.close();
     });
   });
 

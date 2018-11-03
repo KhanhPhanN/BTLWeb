@@ -76,15 +76,15 @@
              <li>
                  <a href="/logout">Đăng xuất</a>
              </li>
-         <li id="user-li">
-              
-               <a id = "user"><i class="fa fa-user"></i>Hello: <%- user.username%></a>
-               <ul id="user-option">
-              <li> <a href="/user/changePassword">Thay đổi mật khẩu</a></li>
-              <li><a href="/userinformation">Thông tin tài khoản</a></li>
-              </ul>
-           
-        </li>
+             <li>
+               <span id = "info-main">
+               <a id = "user"><i class="fa fa-user"></i>Hello: <%- user.name%></a>
+               <div id="user-option">
+              <p><a href="/user/changePassword">Thay đổi mật khẩu</a></p>
+              <p><a href="/userinformation">Thông tin tài khoản</a></p>
+               </div>
+            </span>
+           </li>
              <%}%>
    </ul>
  </div>

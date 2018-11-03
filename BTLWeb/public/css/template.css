@@ -256,6 +256,9 @@ body{
 	
 	#user-option{
 		display:none;
+		margin-left: 900px;
+		line-height: 5px;
+		height: 15px;
 	}
 	
 	#user-option li{

@@ -13,6 +13,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var app = express();
 var server = require("http").Server(app);
 var io = require("socket.io")(server);
+var scanf = require("sscanf");
 // set database
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
@@ -307,7 +308,7 @@ app.post('/resetPassword',function(req,res){
         });
     } 
 });
-
+var tenuser=0;
 
 // Hàm tìm kiếm
 function search_name(X,Y){
@@ -409,7 +410,7 @@ passport.deserializeUser(function (id, done) {
 app.get('/login',function(req,res){
     res.render('login');
     });
-var tenuser;
+
 app.post('/login',
     passport.authenticate('local', { successRedirect: '/', failureRedirect: '/login',successFlash:"Success", failureFlash: 'Invalid username or password.'}),function(req,res){
         console.log("Success");
@@ -474,9 +475,61 @@ app.post('/user/modifier',function(req,res){
     var email = req.body.email;
     var phone = req.body.phone;
 
-    req.checkBody('username',"Họ và tên bắt buộc!").notEmpty();
+
+// chỉnh sửa thông tin người dùng
+app.get('/user/modifier',function(req,res){
+    var MongoClient = require('mongodb').MongoClient;
+    var url = "mongodb://localhost:27017/";
+    MongoClient.connect(url,function(err,db){
+        if (err) throw err;
+        var dbo = db.db("loginapp");
+        dbo.collection("users").find({username:tenuser}).toArray(function(err,result){
+            if(err) throw err;
+            res.render("modifierUser",{user1:result});
+            db.close();
+        })
+    })
+})
+app.post('/user/modifier',function(req,res){
+    //check validator
+    var name = req.body.name;
+    var email = req.body.email;
+    var phone = req.body.phone;
+     req.checkBody('username',"Họ và tên bắt buộc!").notEmpty();
     req.checkBody('email',"Email bắt buộc!").notEmpty();
     req.checkBody('phone','Số điện thoại bắt buộc!').notEmpty();
+     var errors = req.validationErrors();
+    if(errors){
+        res.render('modifierUser',{errors:errors})
+    }else{
+        var MongoClient = require('mongodb').MongoClient;
+        var url='mongodb://localhost:27017/';
+        MongoClient.connect(url,function(err,db){
+            if(err) throw err;
+            var dbo = db.db("loginapp");
+            var where ={username : req.body.username};
+            var query={$set: {name:name,email:email,PhoneNumber:phone}};
+            dbo.collection("users").updateOne(where,query,function(err,res){
+                if(err) throw err;
+            })
+            dbo.collection("users").find({username:tenuser}).toArray(function(err,result){
+                if(err) throw err;
+                res.render('userinfomation',{kq:result});
+                db.close();
+            })
+            db.close();
+        })
+    }
+})	
+
+//Thêm sản phảma
+
+
+// app.get('/themsanpham',function(req,res){
+//     res.render('themsanpham');
+// });
+
+// Thay đổi mật khẩu
 
     var errors = req.validationErrors();
     if(errors){
@@ -562,9 +615,29 @@ app.get('/logout', function (req, res) {
 });
 
 io.on("connection",function(socket){
-console.log("ok");
 socket.on("gui-comment",function(data){
-    io.sockets.emit("gui-comment",data);
+    var  info = data.split("ooo");
+    var MongoClient = require('mongodb').MongoClient;
+    var url = "mongodb://127.0.0.1:27017/";
+    
+    MongoClient.connect(url, function(err, db) {
+      if (err) throw err;
+      var dbo = db.db("mydb");
+      var myquery = { _id : info[1] };
+      var newvalues = { $set: {comment: info[2]+tenuser+":\n"+info[3]+"\n"} };
+      dbo.collection("TempSP").updateOne(myquery, newvalues, function(err, res) {
+        if (err) throw err;
+      });
+      dbo.collection(info[0]).updateOne(myquery, newvalues, function(err, res) {
+        if (err) throw err;
+      });
+      dbo.collection("TempSP").findOne(myquery, function(err, res) {
+        if (err) throw err;
+        io.sockets.emit("gui-comment",res.comment);
+      });
+      db.close();
+    });
+    
 })
 socket.on("report",function(data){
 socket.emit("report")
@@ -895,6 +968,7 @@ MongoClient.connect(url, function(err, db) {
   test=0;
   imageFile = 0;
   res.render('themsanpham',{files: imageFile, err: [{msg: "Thêm sản phẩm thành công"}]})
+ io.sockets.emit("add-product");
 });
    }
     }

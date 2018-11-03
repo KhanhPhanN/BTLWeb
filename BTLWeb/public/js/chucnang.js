@@ -1,13 +1,19 @@
 var socket = io("http://localhost:8084");
-// socket.on("gui-comment",function(data){
-//     $("#showcomment").append($("#showcomment").html()+$("#Comment").val());
-// })
+ socket.on("gui-comment",function(data){
+     $("#showcomment").val(data);
+       $("#Comment").val("");
+ })
+ socket.on("add-product",function(){
+     alert("Có sản phẩm mới được tải lên !! Vui lòng load lại trang để xem sản phẩm mới nhất");
+ })
+
 socket.on("report",function(){
    $("#send-report").click(function(){
        $("#text-report").slideUp();
        $("#thanks-report").fadeTo(2500,1).fadeOut(2500);
    });
 })
+
 $(document).ready(function(){
     $('#AlphaNav > ul > li > a').click(function () {
         $(this).closest('li').siblings().find('ul:visible').slideUp(); // ADDED
@@ -60,11 +66,9 @@ $("#send-report").click(function(){
     $("#binhluan").click(function(){
         binhluan();
     })
-    
     socket.emit("gui-thong-tin");
     $("#send").click(function(){
-      $("#showcomment").append($("#showcomment").html()+$("#Comment").val());
-        socket.emit("gui-comment",$("#Comment").val());
+        socket.emit("gui-comment",$("#attached").html()+"ooo"+$("#code").html()+"ooo"+$("#showcomment").val()+"ooo"+$("#Comment").val());
     })
 })
 function binhluan(){

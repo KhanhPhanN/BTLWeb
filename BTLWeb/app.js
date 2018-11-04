@@ -975,8 +975,9 @@ MongoClient.connect(url, function(err, db) {
 })
 app.get("/",function(req,res){
 var MongoClient = require('mongodb').MongoClient;
-var url = "mongodb://localhost:27017/mydb";
-
+var url = "mongodb://localhost:27017/";
+var data;
+var result,res1,res2,res3,res4;
 MongoClient.connect(url, function(err, db) {
     if (err) throw err;
     var dbo = db.db("mydb");
@@ -984,15 +985,7 @@ MongoClient.connect(url, function(err, db) {
       if (err) throw err;
       dbo.collection("Chuột").find().toArray(function(err, res1){
         if (err) throw err;
-        dbo.collection("Bàn phím").find().toArray(function(err,res2){
-            if(err) throw err;
-            console.log(res2);
-            dbo.collection("Tai nghe").find().toArray(function(err,res3){
-                if(err) throw err;
-                console.log(res3);
-                dbo.collection("Ổ cứng").find().toArray(function(err,res4){
-                    if(err) throw err;
-                    console.log(res4);
+                    db.close();
                     res.render('homepage',{
                         MayTinh: result.reverse(),
                         Chuot: res1.reverse(),
@@ -1001,14 +994,27 @@ MongoClient.connect(url, function(err, db) {
                         Ocung:res4.reverse()
                     })
                     
-                    db.close();
-                })
-                db.close();
-            })
-        })  
+                    
       })
     });
-  });
+   
 
+  
+  });
+ 
+var MongoClient1 = require('mongodb').MongoClient;
+MongoClient1.connect(url, function(err, db) {
+var db1 = db.db("mydb");
+db1.collection("Bàn phím").find().toArray(function(err,r){
+    res2=r;
+})  
+db1.collection("Tai nghe").find().toArray(function(err,r){
+    res3=r;
+})
+db1.collection("Ổ cứng").find().toArray(function(err,r){
+    res4=r;
+})
+db.close();
+})
 });
 

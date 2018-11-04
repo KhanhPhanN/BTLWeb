@@ -20,7 +20,7 @@
                 border-radius:5px;
                 margin-bottom:5px;
             }
-            #text-report{
+            .text-report{
                 width:200px;
                 display:none;
             }
@@ -60,7 +60,9 @@
                               </div><br>
                               <div id="report">
                               <button id="btn-report">report sản phẩm</button>
-                              <div id="text-report">
+
+                              <% if(user) { %>
+                                <div class="text-report">
                                     <form method="POST" action="">
                                         <textarea id="textarea" rows="10" cols="35">Lí do report:</textarea>
                                         <input type="button" value="send" id="send-report">
@@ -69,6 +71,10 @@
                                 <div id="thanks-report" style="display:none;">
                                     <p>Cảm ơn sự góp ý của bạn!</p>
                                 </div>
+                              <% } %>
+                              <% if(!user){ %>
+                                <div class="text-report" >Bạn hãy đăng nhập để report về sản phẩm</div>
+                              <% }%>
                             </div>
                                 
                   
@@ -113,7 +119,7 @@
        </div>
        <%if(user){%>
        <div id="binhluan">
-            <label><%-user.username%>: </label>
+            <label><%-user.name%>: </label>
             <textarea rows="5" cols="50" name="description" placeholder="Comment" id = "Comment"></textarea>
             <input type="button" id="send" value="Send">
             <textarea rows="5" cols="50" name="description" placeholder="Comment" id = "showcomment" disabled><%-data.comment%></textarea>

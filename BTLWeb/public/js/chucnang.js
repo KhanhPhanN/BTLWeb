@@ -7,12 +7,21 @@ var socket = io("http://localhost:8084");
      alert("Có sản phẩm mới được tải lên !! Vui lòng load lại trang để xem sản phẩm mới nhất");
  })
 
+ // report san pham
 socket.on("report",function(){
    $("#send-report").click(function(){
-       $("#text-report").slideUp();
+    $(".text-report").slideUp();
        $("#thanks-report").fadeTo(2500,1).fadeOut(2500);
    });
 })
+$(document).ready(function(){
+    $("#btn-report").click(function(){
+        $(".text-report").slideToggle();
+    });
+});
+$("#send-report").click(function(){
+    socket.emit("report",$("#textarea").val());
+   })
 
 $(document).ready(function(){
     $('#AlphaNav > ul > li > a').click(function () {
@@ -22,18 +31,6 @@ $(document).ready(function(){
         $(this).find('i').toggleClass('fa-angle-double-up fa-angle-double-down');
         
     });
-
-//report san pham
-$(document).ready(function(){
-    $("#btn-report").click(function(){
-        $("#text-report").slideToggle();
-    });
-});
-
-$("#send-report").click(function(){
-    socket.emit("report",$("#textarea").val());
-   })
-
    
     socket.emit("list-sp");
     $("#like").click(function(){

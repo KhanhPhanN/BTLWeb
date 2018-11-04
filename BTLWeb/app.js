@@ -977,30 +977,7 @@ app.get("/",function(req,res){
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/";
 var data;
-var result,res1,res2,res3,res4;
-MongoClient.connect(url, function(err, db) {
-    if (err) throw err;
-    var dbo = db.db("mydb");
-    dbo.collection("Máy tính").find({}).toArray(function(err, result) {
-      if (err) throw err;
-      dbo.collection("Chuột").find().toArray(function(err, res1){
-        if (err) throw err;
-                    db.close();
-                    res.render('homepage',{
-                        MayTinh: result.reverse(),
-                        Chuot: res1.reverse(),
-                        Banphim:res2.reverse(),
-                        Tainghe:res3.reverse(),
-                        Ocung:res4.reverse()
-                    })
-                    
-                    
-      })
-    });
-   
-
-  
-  });
+var res2,res3,res4;
  
 var MongoClient1 = require('mongodb').MongoClient;
 MongoClient1.connect(url, function(err, db) {
@@ -1015,6 +992,23 @@ db1.collection("Ổ cứng").find().toArray(function(err,r){
     res4=r;
 })
 db.close();
+MongoClient.connect(url, function(err, db) {
+    if (err) throw err;
+    var dbo = db.db("mydb");
+    dbo.collection("Máy tính").find({}).toArray(function(err, result) {
+      if (err) throw err;
+      dbo.collection("Chuột").find().toArray(function(err, res1){
+        if (err) throw err;
+                    db.close();
+                    res.render('homepage',{
+                        MayTinh: result.reverse(),
+                        Chuot: res1.reverse(),
+                        Banphim:res2.reverse(),
+                        Tainghe:res3.reverse(),
+                        Ocung:res4.reverse()
+                    })                  
+      })
+    });
+  });
 })
 });
-

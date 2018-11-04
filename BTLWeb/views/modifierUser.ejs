@@ -59,7 +59,7 @@
  </div>
  <div class = "header-inner2-link">
    <ul>
-         <% user1.forEach(function(data){%>
+         <% user.forEach(function(data){%>
              <li>
                  <a href="/themsanpham" >Thêm sản phẩm </a> 
              </li>
@@ -113,10 +113,10 @@
    Thông tin tài khoản của bạn
   </div><hr>
   <div  id =" thongtin">
-                <% if(user1.length==0){%>
+                <% if(user.length==0){%>
                  <h2>Không tìm thấy sản phẩm </h2>
                   
-              <% } else {user1.forEach(function(data) {%>
+              <% } else {user.forEach(function(data) {%>
                 <form method="POST" action="/user/modifier">
                 <table>
                     <tr>
@@ -126,17 +126,17 @@
                     </tr>
                     <tr>
                             <th>Tài khoản :</th>
-                            <td> <input type="text" name="name" id="name" value="<%=data.name %>">
+                            <td> <input type="text" name="name" id="name" class="input-info" value="<%=data.name %>">
                             </td>
                         </tr>
                       <tr>
                                 <th>Email :</th>
-                                <td> <input type="text" name="email" id="email" value="<%=data.email %>">
+                                <td> <input type="text" name="email" id="email" class="input-info" value="<%=data.email %>">
                                 </td>
                        </tr>
                        <tr>
                            <th>Số điện thoại :</th>
-                           <td><input type="text" name="phone" id="phone" value="<%=data.PhoneNumber %>"></td>
+                           <td><input type="text" name="phone" id="phone" class="input-info" value="<%=data.PhoneNumber %>"></td>
                        </tr>
                 </table><hr>
                   <input type="submit" value="Cập nhật" id="update-user">

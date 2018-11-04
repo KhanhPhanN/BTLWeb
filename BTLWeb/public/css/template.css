@@ -255,18 +255,22 @@ body{
 	/*------------USER OPTION -------*/
 	
 	#user-option{
-		display:none;
-		margin-left: 900px;
-		line-height: 5px;
-		height: 15px;
+		display: none;
+	
 	}
 	
 	#user-option li{
-		display:block;
-		margin-left:850px;
-		padding-top:5px;
+		display: block;
+		margin-left:800px;
+		padding-top:4px;
 		
 	}
-	#user-li:hover #user-option{
-		display:block;
+	#user:hover #user-option{
+		display: block;
+	}
+
+	/* modifier user information */
+	.input-info{
+		padding:5px;
+		border-radius: 5px;
 	}

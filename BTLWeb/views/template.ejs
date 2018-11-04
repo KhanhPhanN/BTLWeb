@@ -29,7 +29,7 @@
                 padding:5px;
             }
             #send-report{
-                margin-left:50px;
+                margin-left:58px;
             }
         </style>
     </head>
@@ -64,7 +64,8 @@
                               <% if(user) { %>
                                 <div class="text-report">
                                     <form method="POST" action="">
-                                        <textarea id="textarea" rows="10" cols="35">Lí do report:</textarea>
+                                        <label style="font-weight:normal;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspLí do report:</label>
+                                        <textarea id="textarea" rows="10" cols="35"></textarea>
                                         <input type="button" value="send" id="send-report">
                                     </form>
                                 </div>
@@ -73,7 +74,7 @@
                                 </div>
                               <% } %>
                               <% if(!user){ %>
-                                <div class="text-report" >Bạn hãy đăng nhập để report về sản phẩm</div>
+                                <div class="text-report" style="margin-top:5px;margin-left:23px;">Bạn hãy đăng nhập để report về sản phẩm</div>
                               <% }%>
                             </div>
                                 

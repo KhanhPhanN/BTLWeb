@@ -469,27 +469,8 @@ app.get('/user/modifier',function(req,res){
         })
     })
 })
-app.post('/user/modifier',function(req,res){
-    //check validator
-    var username = req.body.username
-    var email = req.body.email;
-    var phone = req.body.phone;
-
 
 // chỉnh sửa thông tin người dùng
-app.get('/user/modifier',function(req,res){
-    var MongoClient = require('mongodb').MongoClient;
-    var url = "mongodb://localhost:27017/";
-    MongoClient.connect(url,function(err,db){
-        if (err) throw err;
-        var dbo = db.db("loginapp");
-        dbo.collection("users").find({username:tenuser}).toArray(function(err,result){
-            if(err) throw err;
-            res.render("modifierUser",{user1:result});
-            db.close();
-        })
-    })
-})
 app.post('/user/modifier',function(req,res){
     //check validator
     var name = req.body.name;
@@ -521,40 +502,7 @@ app.post('/user/modifier',function(req,res){
         })
     }
 })	
-
-//Thêm sản phảma
-
-
-// app.get('/themsanpham',function(req,res){
-//     res.render('themsanpham');
-// });
-
-// Thay đổi mật khẩu
-
-    var errors = req.validationErrors();
-    if(errors){
-        res.render('modifierUser',{errors:errors})
-    }else{
-        var MongoClient = require('mongodb').MongoClient;
-        var url='mongodb://localhost:27017/';
-        MongoClient.connect(url,function(err,db){
-            if(err) throw err;
-            var dbo = db.db("loginapp");
-            var where ={name : req.body.name};
-            var query={$set: {username:username,email:email,PhoneNumber:phone}};
-            dbo.collection("users").updateOne(where,query,function(err,res){
-                if(err) throw err;
-            })
-            dbo.collection("users").find({name:tenuser}).toArray(function(err,result){
-                if(err) throw err;
-                res.render('userinfomation',{kq:result});
-                db.close();
-            })
-            db.close();
-        })
-    }
-})
-	// change password
+// change password
     app.get('/user/changePassword',function(req,res){
         res.render("changePassword");
     })
@@ -977,30 +925,7 @@ app.get("/",function(req,res){
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/";
 var data;
-var result,res1,res2,res3,res4;
-MongoClient.connect(url, function(err, db) {
-    if (err) throw err;
-    var dbo = db.db("mydb");
-    dbo.collection("Máy tính").find({}).toArray(function(err, result) {
-      if (err) throw err;
-      dbo.collection("Chuột").find().toArray(function(err, res1){
-        if (err) throw err;
-                    db.close();
-                    res.render('homepage',{
-                        MayTinh: result.reverse(),
-                        Chuot: res1.reverse(),
-                        Banphim:res2.reverse(),
-                        Tainghe:res3.reverse(),
-                        Ocung:res4.reverse()
-                    })
-                    
-                    
-      })
-    });
-   
-
-  
-  });
+var res2,res3,res4;
  
 var MongoClient1 = require('mongodb').MongoClient;
 MongoClient1.connect(url, function(err, db) {
@@ -1015,6 +940,23 @@ db1.collection("Ổ cứng").find().toArray(function(err,r){
     res4=r;
 })
 db.close();
+MongoClient.connect(url, function(err, db) {
+    if (err) throw err;
+    var dbo = db.db("mydb");
+    dbo.collection("Máy tính").find({}).toArray(function(err, result) {
+      if (err) throw err;
+      dbo.collection("Chuột").find().toArray(function(err, res1){
+        if (err) throw err;
+                    db.close();
+                    res.render('homepage',{
+                        MayTinh: result.reverse(),
+                        Chuot: res1.reverse(),
+                        Banphim:res2.reverse(),
+                        Tainghe:res3.reverse(),
+                        Ocung:res4.reverse()
+                    })                  
+      })
+    });
+  });
 })
 });
-

@@ -12,16 +12,18 @@ socket.on("report",function(){
    $("#send-report").click(function(){
     $(".text-report").slideUp();
        $("#thanks-report").fadeTo(2500,1).fadeOut(2500);
+       $("#textarea").val("");
    });
 })
 $(document).ready(function(){
     $("#btn-report").click(function(){
         $(".text-report").slideToggle();
     });
+    $("#send-report").click(function(){
+        socket.emit("report",$("#textarea").val());
+       })
+    
 });
-$("#send-report").click(function(){
-    socket.emit("report",$("#textarea").val());
-   })
 
 $(document).ready(function(){
     $('#AlphaNav > ul > li > a').click(function () {

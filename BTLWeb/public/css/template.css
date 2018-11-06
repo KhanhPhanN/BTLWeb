@@ -263,7 +263,7 @@ body{
 		display: block;
 		margin-left:805px;
 		padding-top:4px;
-		
+		margin-left: 82%;
 	}
 	#user:hover #user-option{
 		display: block;

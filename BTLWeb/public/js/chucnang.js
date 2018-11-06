@@ -15,6 +15,19 @@ socket.on("report",function(){
        $("#textarea").val("");
    });
 })
+socket.on("add-like",function(data){
+    $("#listlike").html("");
+$("#numlike").html(data.numLike);
+for(var i=0;i<data.likelist.length-1;i++)
+$("#listlike").append("<li>"+data.likelist[i]+"</li>")
+})
+socket.on("add-unlike",function(data){
+
+    $("#listlike").html("");
+$("#numlike").html(data.numLike);
+for(var i=0;i<data.likelist.length-1;i++)
+$("#listlike").append("<li>"+data.likelist[i]+"</li>")
+    })
 $(document).ready(function(){
     $("#btn-report").click(function(){
         $(".text-report").slideToggle();
@@ -33,15 +46,25 @@ $(document).ready(function(){
         $(this).find('i').toggleClass('fa-angle-double-up fa-angle-double-down');
         
     });
-   
+   $("#listlike").hide()
+   $("#numlike").hover(function(){
+
+    $("#listlike").show()
+   },function(){
+
+    $("#listlike").hide()
+   })
     socket.emit("list-sp");
     $("#like").click(function(){
         if( $("#like").attr("src")=="/imagei/like.png")
        {
+           socket.emit("like",$("#code").html()+"ooo"+$("#attached").html()+"ooo"+$("#tenuser").val());
            $("#like").attr("src","/imagei/like1.png")
         }
-        else
+        else{
+            socket.emit("unlike",$("#code").html()+"ooo"+$("#attached").html()+"ooo"+$("#tenuser").val());
         $("#like").attr("src","/imagei/like.png")
+        }
     })
     $("#follow").click(function(){
         if( $("#follow").attr("src")=="/imagei/unfollow.png")

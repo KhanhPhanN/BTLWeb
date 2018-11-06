@@ -590,6 +590,73 @@ socket.on("gui-comment",function(data){
 socket.on("report",function(data){
 socket.emit("report")
 })
+socket.on("like",function(data){
+    var MongoClient = require('mongodb').MongoClient;
+    var url = "mongodb://127.0.0.1:27017/";
+    var data = data.split("ooo");
+    MongoClient.connect(url, function(err, db) {
+        if (err) throw err;
+        var dbo = db.db("mydb");
+        var myquery = { _id : data[0] };
+        var newvalues = { $set: {like: Likedata+data[2]+","} };
+        dbo.collection("TempSP").updateOne(myquery, newvalues, function(err, res) {
+          if (err) throw err;
+        });
+        dbo.collection(data[1]).updateOne(myquery, newvalues, function(err, res) {
+          if (err) throw err;
+        });
+        dbo.collection("TempSP").findOne(myquery, function(err, res) {
+          if (err) throw err;
+          Likedata = res.like;
+          var numLike = res.like.split(",");
+        io.sockets.emit("add-like",{numLike: numLike.length-1,likelist: numLike});
+        });
+        db.close();
+      });
+
+})
+
+
+socket.on("unlike",function(data){
+    var data = data.split("ooo");
+    var MongoClient = require('mongodb').MongoClient;
+    var url = "mongodb://127.0.0.1:27017/";
+    MongoClient.connect(url, function(err, db) {
+        if (err) throw err;
+        var dbo = db.db("mydb");
+        var myquery = { _id : data[0] };
+        var unlike = Likedata.split(",");
+        for(var i=0;i<unlike.length;i++){
+        if(unlike[i]==data[2])
+        unlike.splice(i,1);
+        }
+        var l="";
+        if(unlike.length==1){
+            l="";
+        }else{
+        for(var i = 0;i<unlike.length-1;i++){
+          l+=unlike[i]+",";
+            }
+        }
+        var newvalues = { $set: {like: l} };
+        dbo.collection("TempSP").updateOne(myquery, newvalues, function(err, res) {
+          if (err) throw err;
+        });
+        dbo.collection(data[1]).updateOne(myquery, newvalues, function(err, res) {
+          if (err) throw err;
+        });
+        dbo.collection("TempSP").findOne(myquery, function(err, res) {
+          if (err) throw err;
+          Likedata = res.like;
+          var numLike = res.like.split(",");
+          io.sockets.emit("add-unlike",{numLike: numLike.length-1,likelist: numLike});
+        });
+        db.close();
+      });
+
+})
+
+
 });
 
 
@@ -693,7 +760,7 @@ app.get('/files/:filename', (req, res) => {
     return res.json(file);
   });
 });
-
+var Likedata;
 
 app.get("/sp/sp/:_id",function(req,res){
    var mongoClient = require('mongodb').MongoClient;
@@ -705,10 +772,30 @@ app.get("/sp/sp/:_id",function(req,res){
         var dbo = db.db("mydb");
         dbo.collection("TempSP").findOne(query,function(err, result) {
             if(err) throw err;
+            Likedata = result.like;
+            if(result.like==""){
+                res.render('template',{
+                    data: result,
+                    like: 0,
+                    checklike : false,
+                    likelist: []
+                })
+            }else{
+                var checklike = false;
+                var numLike = result.like.split(",");
+                console.log(tenuser)
+                
+                    if(numLike.indexOf(tenuser)!=-1)
+                    checklike = true;
+                    
+                
             res.render('template',{
-                data: result
+                data: result,
+                like: numLike.length-1,
+                checklike: checklike,
+                likelist: numLike
             })
-                  
+        }       
         });
 });
 });

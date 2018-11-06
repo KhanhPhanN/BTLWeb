@@ -15,6 +15,19 @@
         <link rel="stylesheet" href="/css/body.css" type="text/css" >  
         <link rel="stylesheet" href="/css/DinhDang.css" type="text/css" >  
         <link rel="stylesheet" href="/css/bootstrap.css" type="text/css" > 
+        <style>
+   #user1:hover #user1-option {
+		display: block;
+	}
+	
+	#user1-option {
+        display: none;
+		margin-left:805px;
+		padding-top:4px;
+		margin-left: 82%;
+	}
+	
+        </style>
     </head>
     <body>
 <div id = "container">
@@ -80,8 +93,8 @@
              </li>
              <li>
                <span id = "info-main">
-               <a id = "user"><i class="fa fa-user"></i>Hello: <%- data.name%></a>
-               <div id="user-option">
+               <a id = "user1"><i class="fa fa-user"></i>Hello: <%- data.name%></a>
+               <div id="user1-option">
               <p><a href="/user/changePassword">Thay đổi mật khẩu</a></p>
               <p><a href="/userinformation">Thông tin tài khoản</a></p>
                </div>

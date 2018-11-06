@@ -31,6 +31,9 @@
             #send-report{
                 margin-left:58px;
             }
+            #listlike{
+                list-style: none
+            }
         </style>
     </head>
     <body>
@@ -100,11 +103,28 @@
                     <span id="weight"><%- data.weight %></span><br>
                     <label> Thương lượng: </label>
                     <span id="bargain"><%- data.bargain %></span><br>
+                    <%if(user){%>
                     <img src="/imagei/shopping.png" width="40px" height="40px">
-                    <input id="gio_hang" type="button" value="Thêm vào giỏ hàng"> 
-                    <img id="like" src="/imagei/like.png" width="40px" height="40px"><br>
+                    <input id="gio_hang" type="button" value="Thêm vào giỏ hàng"> <br>
+                    <input id = "tenuser" type="text" value="<%-user.username%>" hidden >
+                    <%if(!checklike){%>
+                    <i id = "numlike"><%- like%></i><img id="like" src="/imagei/like.png" width="40px" height="40px">
+                    <ul id = "listlike">
+                        <%likelist.forEach(function(data){%>
+                        <li>data</li>
+                            <%})%>
+                    </ul>
+                    <%}else{%>
+                        <i id = "numlike"><%- like%></i><img id="like" src="/imagei/like1.png" width="40px" height="40px">
+                        <div id = "listlike">
+                            <%likelist.forEach(function(data){%>
+                            <li><%-data%></li>
+                                <%})%>
+                            </div>
+                        <%}%>
                     <img id = "follow" src ="/imagei/unfollow.png" width="40px" height="40px">
                     <span id ="theodoi" style="color: rgb(177, 174, 171)"> Theo dõi</span><br>
+                    <%}%>
                   </div>
                 </th>
                 </tr>

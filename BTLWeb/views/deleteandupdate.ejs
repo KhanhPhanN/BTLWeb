@@ -1,21 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>MOKI</title>
-    <link rel="stylesheet" href="/css/themsanpham.css">
-    <link rel="stylesheet" href="/css/footer.css">
-    <link rel="stylesheet" href="/css/header.css">
-    <style>
-      img {
-        width: 150px;
-        height: 150px;
-      }
-    </style>
-</head>
-<body>
+<!doctype html>
+<html>
+    <head>
+        <title>
+            app read books
+        </title>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="/js/jqurey.js"></script>
+        <script src="/js/chucnang.js"></script>
+        <link rel="stylesheet" href="/css/themsanpham.css">
+        <link rel="stylesheet" href="/css/footer.css">
+        <link rel="stylesheet" href="/css/header.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+    <body>
     <% include template/header %>
       <div class="row">
         <div class="column side" id="menuleft">
@@ -48,7 +45,7 @@
                         <h1 class="text-center display-4 my-4">Hình ảnh sản phẩm</h1>
                         <hr>
                         
-                                <img src="/image/<%= data.image %>" alt="">
+                                <img src="/image/<%= data.image %>" alt="" width="150px" height="150px">
                                 
 
                       </div>

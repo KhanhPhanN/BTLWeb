@@ -157,3 +157,9 @@ margin-left: 20em
 table,td,th{
     border-collapse: collapse;
 } 
+/* list-product*/
+.table-listproduct{
+    border-collapse: collapse;
+    padding:10px;
+    border-spacing: 20px
+}

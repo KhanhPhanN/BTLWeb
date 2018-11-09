@@ -18,6 +18,15 @@ var UserSchema = mongoose.Schema({
 	},
 	PhoneNumber:{
 		type: String
+	},
+	follow:{
+     type: Array
+	},
+	block:{
+		type: Array
+	},
+    be_follow:{
+		type : Array
 	}
 });
 

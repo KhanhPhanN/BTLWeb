@@ -202,7 +202,10 @@ app.post('/codeconfirm', function(req,res){
             email: email1,
             username: username1,
             password: password1,
-            PhoneNumber:PhoneNumber1
+            PhoneNumber:PhoneNumber1,
+            follow: [],
+            block: [],
+            be_follow: []
         });
         User.createUser(newUser, function (err, user) {
             if (err) throw err;
@@ -392,6 +395,8 @@ app.post("/search", function(req,res){
     });
      }
 })
+var listmyfollow=[];
+var be_listmyfollow=[];
 //khi login thi chay middleware va goi den cai nay
 passport.use(new LocalStrategy(
     function (username, password, done) {
@@ -405,6 +410,7 @@ passport.use(new LocalStrategy(
                 if (err) throw err;
                 if (isMatch) {
                     tenuser = user.username;
+                    listmyfollow = user.follow;
                     return done(null, user);
                 } else {
                     return done(null, false, { message: 'Invalid password' });
@@ -413,6 +419,9 @@ passport.use(new LocalStrategy(
         };
         });
     }));
+
+
+
 // ham duoc goi khi xac thực thành công để lưu thông tin user vào session
 passport.serializeUser(function (user, done) {
     done(null, user.id);
@@ -455,7 +464,76 @@ app.get("/listproduct", function(req, res){
 
 })
 
- 
+
+//List like
+
+app.get("/likeList", function(req, res){
+
+    var MongoClient = require('mongodb').MongoClient;
+    var url = "mongodb://localhost:27017/";
+    
+    MongoClient.connect(url, function(err, db) {
+      if (err) throw err;
+      var dbo = db.db("mydb");
+      dbo.collection("TempSP").find().toArray(function(err, result) {
+        if (err) throw err;
+        var likelis = [];
+        for(var i =0 ;i<result.length;i++){
+            if(result[i].like.indexOf(tenuser)!=-1)
+            likelis.push(result[i])
+        }
+       res.render("listlike",{kq: likelis});
+        db.close();
+      });
+    });
+
+
+})
+
+// Danh sách theo dõi
+
+app.get("/followList", function(req, res){
+
+    var MongoClient = require('mongodb').MongoClient;
+    var url = "mongodb://localhost:27017/";
+    
+    MongoClient.connect(url, function(err, db) {
+      if (err) throw err;
+      var dbo = db.db("loginapp");
+      dbo.collection("users").findOne({username: tenuser},function(err, result) {
+        if (err) throw err;
+       res.render("followList",{kq: result.follow});
+        db.close();
+      });
+    });
+
+
+})
+
+
+// Danh sách người theo dõi
+
+app.get("/befollowList", function(req, res){
+    var MongoClient = require('mongodb').MongoClient;
+    var url = "mongodb://localhost:27017/";
+    
+    MongoClient.connect(url, function(err, db) {
+      if (err) throw err;
+      var dbo = db.db("loginapp");
+      dbo.collection("users").findOne({username: tenuser},function(err, result) {
+        if (err) throw err;
+       res.render("befollowList",{kq: result.be_follow});
+        db.close();
+      });
+    });
+
+
+
+})
+
+
+
+
 // Thông tin tài khoản người dùng 
 app.get("/userinformation", function(req, res){
 
@@ -608,6 +686,201 @@ socket.on("gui-comment",function(data){
 socket.on("report",function(data){
 socket.emit("report")
 })
+socket.on("like",function(data){
+    var MongoClient = require('mongodb').MongoClient;
+    var url = "mongodb://127.0.0.1:27017/";
+    var data = data.split("ooo");
+    MongoClient.connect(url, function(err, db) {
+        if (err) throw err;
+        var dbo = db.db("mydb");
+        var myquery = { _id : data[0] };
+        var newvalues = { $set: {like: Likedata+data[2]+","} };
+        dbo.collection("TempSP").updateOne(myquery, newvalues, function(err, res) {
+          if (err) throw err;
+        });
+        dbo.collection(data[1]).updateOne(myquery, newvalues, function(err, res) {
+          if (err) throw err;
+        });
+        dbo.collection("TempSP").findOne(myquery, function(err, res) {
+          if (err) throw err;
+          Likedata = res.like;
+          var numLike = res.like.split(",");
+        io.sockets.emit("add-like",{numLike: numLike.length-1,likelist: numLike});
+        });
+        db.close();
+      });
+
+})
+
+
+socket.on("unlike",function(data){
+    var data = data.split("ooo");
+    var MongoClient = require('mongodb').MongoClient;
+    var url = "mongodb://127.0.0.1:27017/";
+    MongoClient.connect(url, function(err, db) {
+        if (err) throw err;
+        var dbo = db.db("mydb");
+        var myquery = { _id : data[0] };
+        var unlike = Likedata.split(",");
+        for(var i=0;i<unlike.length;i++){
+        if(unlike[i]==data[2])
+        unlike.splice(i,1);
+        }
+        var l="";
+        if(unlike.length==1){
+            l="";
+        }else{
+        for(var i = 0;i<unlike.length-1;i++){
+          l+=unlike[i]+",";
+            }
+        }
+        var newvalues = { $set: {like: l} };
+        dbo.collection("TempSP").updateOne(myquery, newvalues, function(err, res) {
+          if (err) throw err;
+        });
+        dbo.collection(data[1]).updateOne(myquery, newvalues, function(err, res) {
+          if (err) throw err;
+        });
+        dbo.collection("TempSP").findOne(myquery, function(err, res) {
+          if (err) throw err;
+          Likedata = res.like;
+          var numLike = res.like.split(",");
+          io.sockets.emit("add-unlike",{numLike: numLike.length-1,likelist: numLike});
+        });
+        db.close();
+      });
+
+})
+
+
+var listuser;
+var MongoClient1 = require('mongodb').MongoClient;
+var url1 = "mongodb://127.0.0.1:27017/";
+MongoClient1.connect(url1, function(err, db) {
+if (err) throw err;
+var dbo = db.db("loginapp")
+dbo.collection("users").find().toArray(function(err,res){
+if(err) throw err
+listuser=res;
+db.close();
+})
+})
+
+
+socket.on("follow",function(data){
+var data=data.split("\n");
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://127.0.0.1:27017/";
+for(var i=0; i<listuser.length;i++){
+    if(listuser[i].username.indexOf(data[0])!=-1){
+    listmyfollow = listuser[i].follow;
+    break;
+    }
+    }
+listmyfollow.push(data[1])
+for(var i=0; i<listuser.length;i++){
+if(listuser[i].username.indexOf(data[1])!=-1){
+be_listmyfollow = listuser[i].be_follow;
+break;
+}
+}
+be_listmyfollow.push(data[0]);
+MongoClient.connect(url, function(err, db) {
+    if (err) throw err;
+    var dbo = db.db("loginapp");
+dbo.collection("users").updateOne({username: data[0]},{$set: {follow: listmyfollow}},function(err,res){
+    if(err) throw err  
+})
+dbo.collection("users").updateOne({username: data[1]},{$set: {be_follow: be_listmyfollow}},function(err,res){
+    if(err) throw err  
+})
+dbo.collection("users").findOne({username:data[0]},function(err,res){
+if(err) throw err
+listmyfollow = res.follow;
+io.sockets.emit("follow",res.follow.length)
+})
+dbo.collection("users").findOne({username:data[1]},function(err,res){
+    if(err) throw err
+    be_listmyfollow = res.be_follow;
+    })
+    var MongoClient2 = require('mongodb').MongoClient;
+var url2 = "mongodb://127.0.0.1:27017/";
+MongoClient2.connect(url2, function(err, db) {
+if (err) throw err;
+var dbo = db.db("loginapp")
+dbo.collection("users").find().toArray(function(err,res){
+if(err) throw err
+listuser=res;
+db.close();
+})
+})
+    console.log(listuser)
+db.close();
+})
+})
+
+
+socket.on("unfollow",function(data){
+    var data=data.split("\n");
+    var MongoClient = require('mongodb').MongoClient;
+    var url = "mongodb://127.0.0.1:27017/";
+    for(var i=0; i<listuser.length;i++){
+        if(listuser[i].username.indexOf(data[0])!=-1){
+        listmyfollow = listuser[i].follow;
+        break;
+        }
+        }
+    for(var i=0;i<listmyfollow.length;i++){
+        if(listmyfollow[i].indexOf(data[1])!=-1)
+          listmyfollow.splice(i,1);
+        }
+      for(var i=0; i<listuser.length;i++){
+        if(listuser[i].username.indexOf(data[0])!=-1){
+        be_listmyfollow = listuser[i].be_follow;
+        break;
+        }
+        }
+    for(var i=0;i<be_listmyfollow.length;i++){
+    if(be_listmyfollow[i].indexOf(data[0])!=-1)
+        be_listmyfollow.splice(i,1);
+    }
+    MongoClient.connect(url, function(err, db) {
+        if (err) throw err;
+    var dbo = db.db("loginapp");
+
+    dbo.collection("users").updateOne({username: data[0]},{$set:{follow: listmyfollow}},function(err,res){
+        if(err) throw err  
+    })
+    dbo.collection("users").updateOne({username: data[1]},{$set: {be_follow: be_listmyfollow}},function(err,res){
+        if(err) throw err  
+    })
+    dbo.collection("users").findOne({username:data[0]},function(err,res){
+    if(err) throw err
+    listmyfollow = res.follow;
+    io.sockets.emit("unfollow",res.follow.length)
+    })
+    dbo.collection("users").findOne({username: data[1]},function(err,res){
+        if(err) throw err  
+        be_listmyfollow=res.be_follow
+    })
+
+    var MongoClient2 = require('mongodb').MongoClient;
+var url2 = "mongodb://127.0.0.1:27017/";
+MongoClient2.connect(url2, function(err, db) {
+if (err) throw err;
+var dbo = db.db("loginapp")
+dbo.collection("users").find().toArray(function(err,res){
+if(err) throw err
+listuser=res;
+db.close();
+})
+})
+    console.log(listuser)
+    db.close();
+    })
+    })
+
+
 });
 
 
@@ -711,24 +984,58 @@ app.get('/files/:filename', (req, res) => {
     return res.json(file);
   });
 });
-
+var Likedata;
 
 app.get("/sp/sp/:_id",function(req,res){
    var mongoClient = require('mongodb').MongoClient;
-   var url = "mongodb://localhost:27017/mydb";
+   var url = "mongodb://localhost:27017/";
     var _id = req.params._id;
     var query = {_id: _id};
     mongoClient.connect(url, function(err, db) {
         if (err) throw err;
         var dbo = db.db("mydb");
+        var checkfollow = false;
         dbo.collection("TempSP").findOne(query,function(err, result) {
             if(err) throw err;
+            var bo = db.db("loginapp")
+bo.collection("users").findOne({username: result.shop},function(er,re){
+if(er) throw er;
+var list_be_follow=re.be_follow;
+if(list_be_follow.indexOf(tenuser)!=-1)
+   {
+       checkfollow=true;
+   }
+            Likedata = result.like;
+            if(result.like==""){
+                res.render('template',{
+                    data: result,
+                    like: 0,
+                    checklike : false,
+                    likelist: [],
+                    checkfollow: checkfollow,
+                })
+            }else{
+                var checklike = false;
+                var numLike = result.like.split(",")   
+                    if(numLike.indexOf(tenuser)!=-1)
+                    checklike = true;      
+                
             res.render('template',{
-                data: result
+                data: result,
+                like: numLike.length-1,
+                checklike: checklike,
+                likelist: numLike,
+                checkfollow: checkfollow
             })
-                  
+            db.close();
+        }     
+})
+db.close();
         });
+      
+ 
 });
+
 });
 
 app.get('/deleteandupdate/:id',function(req,res){
@@ -920,7 +1227,7 @@ if(!name || !price || !describle)
       });
     });
     // doan code phia tren bo duoc
-   var query = {_id: filename.toString().substring(0,filename.length-4),image: filename,name: name,price: price,shop: tenuser,label: label, weight: weight, state: state,attached:attached,bargain:bargain,describle:describle,comment:""};
+   var query = {_id: filename.toString().substring(0,filename.length-4),image: filename,name: name,price: price,shop: tenuser,label: label, weight: weight, state: state,attached:attached,bargain:bargain,describle:describle,comment:"",like:""};
 MongoClient.connect(url, function(err, db) {
   if (err) throw err;
   var dbo = db.db("mydb");
@@ -939,6 +1246,31 @@ MongoClient.connect(url, function(err, db) {
    }
     }
 })
+
+// Danh sách sản phẩm của người theo dõi
+
+app.get("/:id", function(req, res){
+    var title = req.params.id;
+    var data = title.split(" ");
+
+    var MongoClient = require('mongodb').MongoClient;
+    var url = "mongodb://localhost:27017/";
+    
+    MongoClient.connect(url, function(err, db) {
+      if (err) throw err;
+      var dbo = db.db("mydb");
+      dbo.collection("TempSP").find({shop: data[1]}).toArray(function(err, result) {
+        if (err) throw err;
+       res.render("listproductfollow",{kq: result});
+        db.close();
+      });
+    });
+
+
+
+})
+
+
 app.get("/",function(req,res){
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/";

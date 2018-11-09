@@ -94,16 +94,24 @@
 	#user :hover{
 		cursor: pointer;
     }
-    #info-main:hover #user-option{
-		display:block;
-	}
 	#user-option{
-		display:none;
+		display: none;
+	
+	}
+	
+	#user-option li{
+		display: block;
+		margin-left:805px;
+		padding-top:4px;
+		margin-left: 82%;
+	}
+	#user:hover #user-option{
+		display: block;
 	}
 	#info-main{
 		width:40%;
 	}
 	img{
-		width:50px;
-		height:50px;
+		width:150px;
+		height:150px;
 	}

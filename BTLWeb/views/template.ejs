@@ -90,7 +90,7 @@
                     <label>Giá sản phẩm: </label>
                     <span id="price"><%- data.price %></span><br>
                     <label>Shop: </label>
-                    <span id="shop"><%- data.shop %> </span><br>
+                    <span id="shop"><%- data.shop %></span><br>
                     <label>Số sản phẩm: </label>
                     <span id="code"><%- data._id %></span><br>
                     <label>Nhãn hiệu: </label>
@@ -111,7 +111,7 @@
                     <i id = "numlike"><%- like%></i><img id="like" src="/imagei/like.png" width="40px" height="40px">
                     <ul id = "listlike">
                         <%likelist.forEach(function(data){%>
-                        <li>data</li>
+                        <li><%-data%></li>
                             <%})%>
                     </ul>
                     <%}else{%>
@@ -122,8 +122,16 @@
                                 <%})%>
                             </div>
                         <%}%>
+
+                        <%if(!checkfollow){%>
                     <img id = "follow" src ="/imagei/unfollow.png" width="40px" height="40px">
                     <span id ="theodoi" style="color: rgb(177, 174, 171)"> Theo dõi</span><br>
+                    <%}else{%>
+
+                        <img id = "follow" src ="/imagei/follow.png" width="40px" height="40px">
+                        <span id ="theodoi" style="color:blue"> Đã theo dõi</span><br>
+
+                    <%}%>
                     <%}%>
                   </div>
                 </th>

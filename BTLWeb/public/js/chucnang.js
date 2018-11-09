@@ -28,6 +28,9 @@ $("#numlike").html(data.numLike);
 for(var i=0;i<data.likelist.length-1;i++)
 $("#listlike").append("<li>"+data.likelist[i]+"</li>")
     })
+    socket.on("follow",function(data){
+        
+    })
 $(document).ready(function(){
     $("#btn-report").click(function(){
         $(".text-report").slideToggle();
@@ -72,9 +75,11 @@ $(document).ready(function(){
            $("#follow").attr("src","/imagei/follow.png")
            $("#theodoi").html("Đã theo dõi");
            $("#theodoi").attr("style","color: blue")
+           socket.emit("follow",$("#tenuser").val()+"\n"+$("#shop").html())
         }
         else
        { 
+         socket.emit("unfollow",$("#tenuser").val()+"\n"+$("#shop").html())
            $("#follow").attr("src","/imagei/unfollow.png");
            $("#theodoi").html("Theo dõi");
            $("#theodoi").attr("style","color: rgb(177, 174, 171)")

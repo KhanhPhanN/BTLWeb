@@ -347,36 +347,54 @@ app.post("/search", function(req,res){
     var url = "mongodb://localhost:27017/";
     var data = new Array();
     var data_num = new Array();
-MongoClient.connect(url, function(err, db) {
-  if (err) throw err;
-  var dbo = db.db("mydb");
-  var re = {name: key};
-  dbo.collection("TempSP").find().toArray( function(err, result) {
-    if (err) throw err;
-    for(var i = 0;i<result.length;i++){
-    if(search_name(result[i].name, key)>0){
-        data.push(result[i]);
-        data_num.push(search_name(result[i].name, key));
-    }
-}
-     if(data.length!=0){
-        for(var i = 0; i<data.length-1;i++){
-           var k2;
-           var max;
-        for(var j=i+1;j<data.length;j++)
-        if(data_num[i]<data_num[j]){
-            var k1;
-            k1=data_num[i];data_num[i]=data_num[j];data_num[j]=k1;
-            max = j;
-            k2=data[i];data[i]=data[j];data[j]=k2;
+     var searchuser = req.body.searchUser;
+     if(searchuser == "on"){
+        MongoClient.connect(url,function(err,db){
+            if(err) throw err;
+            var dbo = db.db("loginapp");
+            dbo.collection("users").find().toArray(function(err,result){
+              if(err) throw err;
+              for(var i = 0; i < result.length;i++){
+                  if(search_name(result[i].username,key) > 0){
+                      data.push(result[i]);
+                  }
+              }
+              res.render("searchuser",{ketqua:data});  
+            })
+        })
+     }else{
+       
+    MongoClient.connect(url, function(err, db) {
+      if (err) throw err;
+      var dbo = db.db("mydb");
+      var re = {name: key};
+      dbo.collection("TempSP").find().toArray( function(err, result) {
+        if (err) throw err;
+        for(var i = 0;i<result.length;i++){
+        if(search_name(result[i].name, key)>0){
+            data.push(result[i]);
+            data_num.push(search_name(result[i].name, key));
         }
-       // k2=data[i];data[i]=data[max];data[max]=k2;
     }
-}
-    res.render("searchpage",{kq: data})
-    db.close();
-  });
-});
+         if(data.length!=0){
+            for(var i = 0; i<data.length-1;i++){
+               var k2;
+               var max;
+            for(var j=i+1;j<data.length;j++)
+            if(data_num[i]<data_num[j]){
+                var k1;
+                k1=data_num[i];data_num[i]=data_num[j];data_num[j]=k1;
+                max = j;
+                k2=data[i];data[i]=data[j];data[j]=k2;
+            }
+           // k2=data[i];data[i]=data[max];data[max]=k2;
+        }
+    }
+        res.render("searchpage",{kq: data})
+        db.close();
+      });
+    });
+     }
 })
 var listmyfollow=[];
 var be_listmyfollow=[];

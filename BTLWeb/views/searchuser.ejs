@@ -22,20 +22,10 @@
       <div class="cuon-1" id =" frame-1">
         <table class="table-listproduct">
                 <tr class="table-listproduct">
-                    <% if(kq.length==0){%>
-                     <h2>Không tìm thấy sản phẩm </h2>
-                      
-                  <% } else {  kq.forEach((data)=>{%>
-                    <th style="display:inline-block;" class="table-listproduct">
-                        <a href="/sp/sp/<%= data._id%>"><img id="0" src="/image/<%= data.image%>" width="150px" height="150px"></a><br>
-                        <span class ="ten" id = "ten-1"><%= data.name%></span><br>
-                        <span class ="gia" id = "gia-1"><%= data.price%></span><br>    
-                    </th>
-                  <% })} %>
                    <%if(ketqua.length == 0) { %>
                     <h2>Không tìm thấy username</h2>
                    <%} else { ketqua.forEach((data)=>{%>
-                    <li><%= data.username %></li>
+                    <li style="font-size:1.5em;"><a href="/listproduct <%-data.username%>"><%= data.username %></a></li>
                     <%})}%>
                 </tr>
         </table>

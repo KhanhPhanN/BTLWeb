@@ -25,9 +25,12 @@
                                 <th>
                                
                                       <div class="card card-body mb-3">
-                              
-                                          <a href="/sp/sp/<%-data._id%>">  <img src="image/<%= data.image %>" alt="" width="160px" height="160px"></a>
-     
+                              <%if(user){%>
+                                          <a href="/sp/sp/<%-data._id%>*<%-user.username%>">  <img src="image/<%= data.image %>" alt="" width="160px" height="160px"></a>
+                               <%}else{%>
+                                <a href="/sp/sp/<%-data._id%>*">  <img src="image/<%= data.image %>" alt="" width="160px" height="160px"></a>
+
+                                <%}%>
                                       </div>
                        
                                 <span class ="ten" id = "ten-1"><%= data.name%></span><br>
@@ -46,7 +49,12 @@
                                 <% Chuot.forEach((data)=>{%>
                                   <th>
                                         <div class="card card-body mb-3">
-                                           <a href="/sp/sp/<%-data._id%>"> <img src="image/<%= data.image %>" alt="" width="160px" height="160px"></a>
+                                            <%if(user){%>
+                                              <a href="/sp/sp/<%-data._id%>*<%-user.username%>">  <img src="image/<%= data.image %>" alt="" width="160px" height="160px"></a>
+                                   <%}else{%>
+                                    <a href="/sp/sp/<%-data._id%>*">  <img src="image/<%= data.image %>" alt="" width="160px" height="160px"></a>
+    
+                                    <%}%>
                                         </div>
                                   <span class ="ten" id = "ten-1"><%= data.name%></span><br>
                                   <span class ="gia" id = "gia-1"><%= data.price%></span><br>    
@@ -64,7 +72,12 @@
                                 <% Banphim.forEach((data)=>{%>
                                   <th>
                                         <div class="card card-body mb-3">
-                                           <a href="/sp/sp/<%-data._id%>"> <img src="image/<%= data.image %>" alt="" width="160px" height="160px"></a>
+                                            <%if(user){%>
+                                              <a href="/sp/sp/<%-data._id%>*<%-user.username%>">  <img src="image/<%= data.image %>" alt="" width="160px" height="160px"></a>
+                                   <%}else{%>
+                                    <a href="/sp/sp/<%-data._id%>*">  <img src="image/<%= data.image %>" alt="" width="160px" height="160px"></a>
+    
+                                    <%}%>
                                         </div>
                                   <span class ="ten" id = "ten-1"><%= data.name%></span><br>
                                   <span class ="gia" id = "gia-1"><%= data.price%></span><br>    
@@ -82,7 +95,12 @@
                                 <% Tainghe.forEach((data)=>{%>
                                   <th>
                                         <div class="card card-body mb-3">
-                                           <a href="/sp/sp/<%-data._id%>"> <img src="image/<%= data.image %>" alt="" width="160px" height="160px"></a>
+                                            <%if(user){%>
+                                              <a href="/sp/sp/<%-data._id%>*<%-user.username%>">  <img src="image/<%= data.image %>" alt="" width="160px" height="160px"></a>
+                                   <%}else{%>
+                                    <a href="/sp/sp/<%-data._id%>*">  <img src="image/<%= data.image %>" alt="" width="160px" height="160px"></a>
+    
+                                    <%}%>
                                         </div>
                                   <span class ="ten" id = "ten-1"><%= data.name%></span><br>
                                   <span class ="gia" id = "gia-1"><%= data.price%></span><br>    
@@ -100,7 +118,12 @@
                                 <% Ocung.forEach((data)=>{%>
                                   <th>
                                         <div class="card card-body mb-3">
-                                           <a href="/sp/sp/<%-data._id%>"> <img src="image/<%= data.image %>" alt="" width="160px" height="160px"></a>
+                                            <%if(user){%>
+                                              <a href="/sp/sp/<%-data._id%>*<%-user.username%>">  <img src="image/<%= data.image %>" alt="" width="160px" height="160px"></a>
+                                   <%}else{%>
+                                    <a href="/sp/sp/<%-data._id%>*">  <img src="image/<%= data.image %>" alt="" width="160px" height="160px"></a>
+    
+                                    <%}%>
                                         </div>
                                   <span class ="ten" id = "ten-1"><%= data.name%></span><br>
                                   <span class ="gia" id = "gia-1"><%= data.price%></span><br>    

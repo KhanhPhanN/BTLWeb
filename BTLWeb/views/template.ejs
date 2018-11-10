@@ -34,6 +34,16 @@
             #listlike{
                 list-style: none
             }
+            #right{
+                font-family: Arial, Helvetica, sans-serif;
+                font-size: 15px;
+                font-weight: normal
+                
+            }
+            #listlike{
+                height: 100px;
+                overflow: auto
+            }
         </style>
     </head>
     <body>
@@ -105,7 +115,15 @@
                     <span id="bargain"><%- data.bargain %></span><br>
                     <%if(user){%>
                     <img src="/imagei/shopping.png" width="40px" height="40px">
-                    <input id="gio_hang" type="button" value="Thêm vào giỏ hàng"> <br>
+                        <%if(!checkfollow){%>
+                        <img id = "follow" src ="/imagei/unfollow.png" width="40px" height="40px">
+                        <span id ="theodoi" style="color: rgb(177, 174, 171)"> Theo dõi</span><br>
+                        <%}else{%>
+    
+                            <img id = "follow" src ="/imagei/follow.png" width="40px" height="40px">
+                            <span id ="theodoi" style="color:blue"> Đã theo dõi</span><br>
+    
+                        <%}%>
                     <input id = "tenuser" type="text" value="<%-user.username%>" hidden >
                     <%if(!checklike){%>
                     <i id = "numlike"><%- like%></i><img id="like" src="/imagei/like.png" width="40px" height="40px">
@@ -123,15 +141,7 @@
                             </div>
                         <%}%>
 
-                        <%if(!checkfollow){%>
-                    <img id = "follow" src ="/imagei/unfollow.png" width="40px" height="40px">
-                    <span id ="theodoi" style="color: rgb(177, 174, 171)"> Theo dõi</span><br>
-                    <%}else{%>
 
-                        <img id = "follow" src ="/imagei/follow.png" width="40px" height="40px">
-                        <span id ="theodoi" style="color:blue"> Đã theo dõi</span><br>
-
-                    <%}%>
                     <%}%>
                   </div>
                 </th>

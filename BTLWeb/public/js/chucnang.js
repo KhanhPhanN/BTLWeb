@@ -95,7 +95,7 @@ $(document).ready(function(){
     })
     socket.emit("gui-thong-tin");
     $("#send").click(function(){
-        socket.emit("gui-comment",$("#attached").html()+"ooo"+$("#code").html()+"ooo"+$("#showcomment").val()+"ooo"+$("#Comment").val());
+        socket.emit("gui-comment",$("#attached").html()+"ooo"+$("#code").html()+"ooo"+$("#showcomment").val()+"ooo"+$("#Comment").val()+"ooo"+$("#tenuser").val());
     })
 })
 function binhluan(){

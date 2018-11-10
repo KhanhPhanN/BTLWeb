@@ -101,6 +101,7 @@ app.use(expressValidator({
   }));
 
 
+
 // register
 app.get('/register',function(req,res){
     res.render('register');
@@ -428,15 +429,15 @@ res.redirect('/');
     });
 
     //list product
-app.get("/listproduct", function(req, res){
-
+app.get("/listproduct/:id", function(req, res){
+var title = req.params.id;
     var MongoClient = require('mongodb').MongoClient;
     var url = "mongodb://localhost:27017/";
     
     MongoClient.connect(url, function(err, db) {
       if (err) throw err;
       var dbo = db.db("mydb");
-      dbo.collection("TempSP").find({shop: tenuser}).toArray(function(err, result) {
+      dbo.collection("TempSP").find({shop: title}).toArray(function(err, result) {
         if (err) throw err;
        res.render("listproduct",{kq: result});
         db.close();
@@ -449,8 +450,8 @@ app.get("/listproduct", function(req, res){
 
 //List like
 
-app.get("/likeList", function(req, res){
-
+app.get("/likeList/:id", function(req, res){
+var title = req.params.id;
     var MongoClient = require('mongodb').MongoClient;
     var url = "mongodb://localhost:27017/";
     
@@ -461,7 +462,7 @@ app.get("/likeList", function(req, res){
         if (err) throw err;
         var likelis = [];
         for(var i =0 ;i<result.length;i++){
-            if(result[i].like.indexOf(tenuser)!=-1)
+            if(result[i].like.indexOf(title)!=-1)
             likelis.push(result[i])
         }
        res.render("listlike",{kq: likelis});
@@ -474,15 +475,15 @@ app.get("/likeList", function(req, res){
 
 // Danh sách theo dõi
 
-app.get("/followList", function(req, res){
-
+app.get("/followList/:id", function(req, res){
+var title = req.params.id;
     var MongoClient = require('mongodb').MongoClient;
     var url = "mongodb://localhost:27017/";
     
     MongoClient.connect(url, function(err, db) {
       if (err) throw err;
       var dbo = db.db("loginapp");
-      dbo.collection("users").findOne({username: tenuser},function(err, result) {
+      dbo.collection("users").findOne({username: title},function(err, result) {
         if (err) throw err;
        res.render("followList",{kq: result.follow});
         db.close();
@@ -495,14 +496,15 @@ app.get("/followList", function(req, res){
 
 // Danh sách người theo dõi
 
-app.get("/befollowList", function(req, res){
+app.get("/befollowList/:id", function(req, res){
+    var title = req.params.id;
     var MongoClient = require('mongodb').MongoClient;
     var url = "mongodb://localhost:27017/";
     
     MongoClient.connect(url, function(err, db) {
       if (err) throw err;
       var dbo = db.db("loginapp");
-      dbo.collection("users").findOne({username: tenuser},function(err, result) {
+      dbo.collection("users").findOne({username: title},function(err, result) {
         if (err) throw err;
        res.render("befollowList",{kq: result.be_follow});
         db.close();
@@ -517,15 +519,15 @@ app.get("/befollowList", function(req, res){
 
 
 // Thông tin tài khoản người dùng 
-app.get("/userinformation", function(req, res){
-
+app.get("/userinformation/:id", function(req, res){
+var title = req.params.id;
     var MongoClient = require('mongodb').MongoClient;
     var url = "mongodb://localhost:27017/";
     
     MongoClient.connect(url, function(err, db) {
       if (err) throw err;
       var dbo = db.db("loginapp");
-      dbo.collection("users").find({username: tenuser}).toArray(function(err, result) {
+      dbo.collection("users").find({username: title}).toArray(function(err, result) {
         if (err) throw err;
        res.render("userinfomation",{kq: result});
         db.close();
@@ -534,13 +536,14 @@ app.get("/userinformation", function(req, res){
 })
 
 // chỉnh sửa thông tin người dùng
-app.get('/user/modifier',function(req,res){
+app.get('/user/modifier/:id',function(req,res){
+    var title = req.params.id;
     var MongoClient = require('mongodb').MongoClient;
     var url = "mongodb://localhost:27017/";
     MongoClient.connect(url,function(err,db){
         if (err) throw err;
         var dbo = db.db("loginapp");
-        dbo.collection("users").find({username:tenuser}).toArray(function(err,result){
+        dbo.collection("users").find({username:title}).toArray(function(err,result){
             if(err) throw err;
             res.render("modifierUser",{user:result});
             db.close();
@@ -549,7 +552,8 @@ app.get('/user/modifier',function(req,res){
 })
 
 // chỉnh sửa thông tin người dùng
-app.post('/user/modifier',function(req,res){
+app.post('/user/modifier/:id',function(req,res){
+    var title = req.params.id;
     //check validator
     var name = req.body.name;
     var email = req.body.email;
@@ -571,7 +575,7 @@ app.post('/user/modifier',function(req,res){
             dbo.collection("users").updateOne(where,query,function(err,res){
                 if(err) throw err;
             })
-            dbo.collection("users").find({username:tenuser}).toArray(function(err,result){
+            dbo.collection("users").find({username:title}).toArray(function(err,result){
                 if(err) throw err;
                 res.render('userinfomation',{kq:result});
                 db.close();
@@ -584,7 +588,8 @@ app.post('/user/modifier',function(req,res){
     app.get('/user/changePassword',function(req,res){
         res.render("changePassword");
     })
-     app.post("/changePassword",function(req,res){
+     app.post("/changePassword/:id",function(req,res){
+         var title = req.params.id;
          var oldPassword = req.body.oldPassword;
         var newPassword = req.body.newPassword;
         var newPassword2 = req.body.newPassword2;
@@ -604,7 +609,7 @@ var errors = req.validationErrors();
         MongoClient.connect(url,function(err,foundUser){
             if(err) throw err;
             var dbo = foundUser.db("loginapp");
-            dbo.collection("users").findOne({username: tenuser},function(err,user){
+            dbo.collection("users").findOne({username: title},function(err,user){
                 if(err) throw err;
                 if(user){
                      User.comparePassword(oldPassword,user.password,function(err,isMatch){
@@ -612,7 +617,7 @@ var errors = req.validationErrors();
                     errors: [{msg : "Mật khẩu cũ không đúng"}]
                 });
                 if(isMatch){
-             var newPass = {username:tenuser};
+             var newPass = {username:title};
             bcrypt.genSalt(10, function(err, salt) {
                 bcrypt.hash(newPassword, salt, function(err, hash) {
                     var newpass = { $set: {password: hash } };
@@ -650,7 +655,7 @@ socket.on("gui-comment",function(data){
       if (err) throw err;
       var dbo = db.db("mydb");
       var myquery = { _id : info[1] };
-      var newvalues = { $set: {comment: info[2]+tenuser+":\n"+info[3]+"\n"} };
+      var newvalues = { $set: {comment: info[2]+info[3]+":\n"+info[3]+"\n"} };
       dbo.collection("TempSP").updateOne(myquery, newvalues, function(err, res) {
         if (err) throw err;
       });
@@ -969,10 +974,12 @@ app.get('/files/:filename', (req, res) => {
 var Likedata;
 
 app.get("/sp/sp/:_id",function(req,res){
+    var title = req.params._id;
+    title = title.split("*")
    var mongoClient = require('mongodb').MongoClient;
    var url = "mongodb://localhost:27017/";
     var _id = req.params._id;
-    var query = {_id: _id};
+    var query = {_id: title[0]};
     mongoClient.connect(url, function(err, db) {
         if (err) throw err;
         var dbo = db.db("mydb");
@@ -983,7 +990,7 @@ app.get("/sp/sp/:_id",function(req,res){
 bo.collection("users").findOne({username: result.shop},function(er,re){
 if(er) throw er;
 var list_be_follow=re.be_follow;
-if(list_be_follow.indexOf(tenuser)!=-1)
+if(list_be_follow.indexOf(title[1])!=-1)
    {
        checkfollow=true;
    }
@@ -999,7 +1006,7 @@ if(list_be_follow.indexOf(tenuser)!=-1)
             }else{
                 var checklike = false;
                 var numLike = result.like.split(",")   
-                    if(numLike.indexOf(tenuser)!=-1)
+                    if(numLike.indexOf(title[1])!=-1)
                     checklike = true;      
                 
             res.render('template',{
@@ -1047,6 +1054,7 @@ app.delete("/delete",function(req,res){
       });
      
        var attached = req.body.delete1;
+       var title = req.body.nameuser;
        var query = {image: req.body.delete}
        var MongoClient = require('mongodb').MongoClient;
        var url = "mongodb://localhost:27017/";
@@ -1061,7 +1069,7 @@ app.delete("/delete",function(req,res){
             if (err) throw err;
             
           });
-          dbo.collection("TempSP").find({shop: tenuser}).toArray(function(err, result) {
+          dbo.collection("TempSP").find({shop: title}).toArray(function(err, result) {
             if (err) throw err;
            res.render("listproduct",{kq: result});
             db.close();
@@ -1076,6 +1084,7 @@ app.post("/updatesp",function(req,res){
     var describle = req.body.describleproduct;
     var bargain1 = req.body.bargainproduct1;
     var bargain2 = req.body.bargainproduct2;
+    var title = req.body.nameuser;
     var bargain;
     if(bargain1=='on')
     bargain = "Miễn phí";
@@ -1090,7 +1099,7 @@ app.post("/updatesp",function(req,res){
 if(!name || !price || !describle)
       errors = [{msg: "Bạn nhập thiếu dữ liệu"}];
    if(errors){
-    res.render('deleteandupdate',{err: errors,data: {image: test,_id: req.body.filename, name: name,describle: describle,bargain: bargain,attached: attached,label: label,weight: weight,state: state,price: price}});
+    res.render('deleteandupdate',{err: errors,data: {image: test,_id: req.body.filename, name: name,describle: describle,bargain: bargain,attached: attached,label: label,weight: weight,state: state,price: price + "VNĐ"}});
    }else{
     var MongoClient = require('mongodb').MongoClient;
     var url = "mongodb://localhost:27017/";
@@ -1106,7 +1115,7 @@ MongoClient.connect(url, function(err, db) {
     if (err) throw err;
   });
 
-  dbo.collection("TempSP").find({shop: tenuser}).toArray(function(err, result) {
+  dbo.collection("TempSP").find({shop: title}).toArray(function(err, result) {
 
     if (err) throw err;
    res.render("listproduct",{kq: result});
@@ -1179,6 +1188,7 @@ app.post("/themsanpham",function(req,res){
     var describle = req.body.describleproduct;
     var bargain1 = req.body.bargainproduct1;
     var bargain2 = req.body.bargainproduct2;
+    var title = req.body.nameuser
     var bargain;
     if(bargain1=='on')
     bargain = "Miễn phí";
@@ -1199,17 +1209,7 @@ if(!name || !price || !describle)
     var MongoClient = require('mongodb').MongoClient;
     var url = "mongodb://localhost:27017/";
     
-    //doan code nay bo duoc
-    MongoClient.connect(url, function(err, db) {
-      if (err) throw err;
-      var dbo = db.db("mydb");
-      dbo.collection(attached).find({}).toArray(function(err, result) {
-        if (err) throw err;
-        db.close();
-      });
-    });
-    // doan code phia tren bo duoc
-   var query = {_id: filename.toString().substring(0,filename.length-4),image: filename,name: name,price: price,shop: tenuser,label: label, weight: weight, state: state,attached:attached,bargain:bargain,describle:describle,comment:"",like:""};
+   var query = {_id: filename.toString().substring(0,filename.length-4),image: filename,name: name,price: price+" VNĐ",shop: title,label: label, weight: weight, state: state,attached:attached,bargain:bargain,describle:describle,comment:"",like:""};
 MongoClient.connect(url, function(err, db) {
   if (err) throw err;
   var dbo = db.db("mydb");
@@ -1231,17 +1231,15 @@ MongoClient.connect(url, function(err, db) {
 
 // Danh sách sản phẩm của người theo dõi
 
-app.get("/:id", function(req, res){
+app.get("/list_product/:id", function(req, res){
     var title = req.params.id;
-    var data = title.split(" ");
-
     var MongoClient = require('mongodb').MongoClient;
     var url = "mongodb://localhost:27017/";
     
     MongoClient.connect(url, function(err, db) {
       if (err) throw err;
       var dbo = db.db("mydb");
-      dbo.collection("TempSP").find({shop: data[1]}).toArray(function(err, result) {
+      dbo.collection("TempSP").find({shop: title }).toArray(function(err, result) {
         if (err) throw err;
        res.render("listproductfollow",{kq: result});
         db.close();
@@ -1254,6 +1252,7 @@ app.get("/:id", function(req, res){
 
 
 app.get("/",function(req,res){
+    var user = {username: ""}
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/";
 var data;
@@ -1285,7 +1284,7 @@ MongoClient.connect(url, function(err, db) {
                         Chuot: res1.reverse(),
                         Banphim:res2.reverse(),
                         Tainghe:res3.reverse(),
-                        Ocung:res4.reverse()
+                        Ocung:res4.reverse(),
                     })                  
       })
     });

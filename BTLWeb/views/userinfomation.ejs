@@ -80,23 +80,23 @@
                  <a href="/themsanpham" >Thêm sản phẩm </a> 
              </li>
              <li>
-                   <a href="/listproduct" >Danh sách sản phẩm đăng</a>
-               </li>
-               <li>
-                 <a href=# >Danh sách người theo dõi</a>
-             </li>
-             <li>
-                   <a href="/followList" >Danh sách theo dõi</a>
-               </li>
+                <a href="/befollowList/<%-data.username%>" >Người theo dõi</a>
+            </li>
+            <li>
+               <a href="/followList/<%-data.username%>" >Theo dõi</a>
+           </li>
+            <li>
+                  <a href="/likeList/<%-data.username%>" >Đã thích</a>
+              </li>
          <li>
                  <a href="/logout">Đăng xuất</a>
              </li>
              <li>
                <span id = "info-main">
-               <a id = "user1"><i class="fa fa-user"></i>Hello: <%- data.name%></a>
-               <div id="user1-option">
+               <a id = "user"><i class="fa fa-user"></i>Hello: <%- data.name%></a>
+               <div id="user-option">
               <p><a href="/user/changePassword">Thay đổi mật khẩu</a></p>
-              <p><a href="/userinformation">Thông tin tài khoản</a></p>
+              <p><a href="/userinformation/<%-data.username%>">Thông tin tài khoản</a></p>
                </div>
             </span>
            </li>
@@ -132,7 +132,7 @@
                  
                        <span class ="sdt" id = "sdt-1" style="color:#000;"><b>Số điện thoại:</b> <i class="maininfo1"><%= data.PhoneNumber%></i></span><hr> 
                        
-                        <button id="modifier-user"><a href="/user/modifier">Chỉnh sửa thông tin</a> </button>
+                        <button id="modifier-user"><a href="/user/modifier/<%-data.username%>">Chỉnh sửa thông tin</a> </button>
                         <% })} %>
       </div>
 

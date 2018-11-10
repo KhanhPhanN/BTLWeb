@@ -65,16 +65,16 @@
                  <a href="/themsanpham" >Thêm sản phẩm </a> 
              </li>
              <li>
-                   <a href="/listproduct" >Sản phẩm đăng</a>
+                   <a href="/listproduct/<%-user.username%>" >Sản phẩm đăng</a>
                </li>
                <li>
-                 <a href="/befollowList" >Người theo dõi</a>
+                 <a href="/befollowList/<%-user.username%>" >Người theo dõi</a>
              </li>
              <li>
-                <a href="/followList" >Theo dõi</a>
+                <a href="/followList/<%-user.username%>" >Theo dõi</a>
             </li>
              <li>
-                   <a href="/likeList" >Đã thích</a>
+                   <a href="/likeList/<%-user.username%>" >Đã thích</a>
                </li>
              <li>
                  <a href="/logout">Đăng xuất</a>
@@ -84,7 +84,7 @@
                <a ><i class="fa fa-user"></i>Hello: <%- user.name%></a>
                <ul id="user-option">
                     <li><a href="/user/changePassword">Thay đổi mật khẩu</a></>
-                    <li><a href="/userinformation">Thông tin tài khoản</a></li>
+                    <li><a href="/userinformation/<%-user.username%>">Thông tin tài khoản</a></li>
               </ul>
            </li>
              <%}%>

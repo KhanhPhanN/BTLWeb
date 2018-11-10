@@ -144,12 +144,13 @@
                     </div>
                   </div>
                   <div style="display:flex">
+                    <input type="text" value="<%= user.username%>" name ="nameuser" hidden>
                         <input  class="button button2" type="submit" name="Chỉnh sửa" value="Chỉnh sửa">
                   </div>
                 </div>
                 </form>
                 <form action="/delete?_method=DELETE" method="POST">
-         
+                        <input type="text" value="<%= user.username%>" name ="nameuser" hidden>
                         <input   type="text" value="<%= data.image%>" name ="delete" hidden>
                         <input   type="text" value="<%= data.attached%>" name ="delete1" hidden>
                         <input  class="button button3" type="submit" name="Xóa sản phẩm" value="Xóa sản phẩm" >

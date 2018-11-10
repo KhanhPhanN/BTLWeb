@@ -64,14 +64,17 @@
                  <a href="/themsanpham" >Thêm sản phẩm </a> 
              </li>
              <li>
-                   <a href="/listproduct" >Danh sách sản phẩm đăng</a>
+                   <a href="/listproduct/<%-data.username%>" >Danh sách sản phẩm đăng</a>
                </li>
                <li>
-                 <a href=# >Danh sách người theo dõi</a>
-             </li>
-             <li>
-                   <a href="/followList" >Danh sách theo dõi</a>
-               </li>
+                <a href="/befollowList/<%-data.username%>" >Người theo dõi</a>
+            </li>
+            <li>
+               <a href="/followList/<%-data.username%>" >Theo dõi</a>
+           </li>
+            <li>
+                  <a href="/likeList/<%-data.username%>" >Đã thích</a>
+              </li>
          <li>
                  <a href="/logout">Đăng xuất</a>
              </li>
@@ -80,7 +83,7 @@
                <a id = "user"><i class="fa fa-user"></i>Hello: <%- data.name%></a>
                <div id="user-option">
               <p><a href="/user/changePassword">Thay đổi mật khẩu</a></p>
-              <p><a href="/userinformation">Thông tin tài khoản</a></p>
+              <p><a href="/userinformation/<%-data.username%>">Thông tin tài khoản</a></p>
                </div>
             </span>
            </li>
@@ -117,7 +120,7 @@
                  <h2>Không tìm thấy sản phẩm </h2>
                   
               <% } else {user.forEach(function(data) {%>
-                <form method="POST" action="/user/modifier">
+                <form method="POST" action="/user/modifier/<%-data.username%>">
                 <table>
                     <tr>
                         <th></th>

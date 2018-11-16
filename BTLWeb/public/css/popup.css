@@ -8,7 +8,7 @@
     opacity: 0.8;
     position: fixed;
     bottom: 23px;
-    right: 28px;
+    right: 120px;
     width: 80px;
     height: 80px;
     vertical-align: middle;
@@ -22,7 +22,7 @@
   .pop-up-box{
       position: fixed;
       bottom: 0px;
-      right: 20px;
+      right: 316px;
       height: 350px;
       width: 286px;
   }

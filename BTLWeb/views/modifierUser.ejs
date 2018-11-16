@@ -76,11 +76,11 @@
                   <a href="/likeList/<%-data.username%>" >Đã thích</a>
               </li>
          <li>
-                 <a href="/logout">Đăng xuất</a>
+                 <a href="/logout/<%-user.username%>">Đăng xuất</a>
              </li>
              <li>
                <span id = "info-main">
-               <a id = "user"><i class="fa fa-user"></i>Hello: <%- data.name%></a>
+               <a id = "user"><i class="fa fa-user"></i>Hello: <%- data.username%></a>
                <div id="user-option">
               <p><a href="/user/changePassword">Thay đổi mật khẩu</a></p>
               <p><a href="/userinformation/<%-data.username%>">Thông tin tài khoản</a></p>

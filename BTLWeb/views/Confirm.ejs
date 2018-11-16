@@ -2,20 +2,38 @@
 <script>
 function checkCode(){
 if($(".Confirm-number").val()==<%- dt%>){
-alert("Đăng kí thành công");
-window.location="login"
+return true;
 }  //window.location="FixedLayout.html";
 else
 alert("Bạn nhập sai mã xác nhân Vui lòng nhập lại")
+return false
 }
 
 </script>
-<h2 class="page-header">Confirm Phone number</h2>
-<form method="post" action="/codeconfirm">
-   <div class="form-group">
-    <input type="number" class="Confirm-number" placeholder="Code Confirm" name="code">
-  </div>
-  <button type="submit" class="form-button" onclick="checkCode()" value="Confirm Phone Number">Xác nhận</button>
-</form>
-
+<% include template/header %>
+			<div class="col-md-8 col-md-offset-2">
+				<div class="checkout_info_price">
+					<div class="headings">
+						<h5>Đăng ký</h5><hr>
+					</div>
+					<div class="content">
+						<form action="/codeconfirm" encoding="" class="form-horizontal form-validate" id="UserAccuracyForm" method="post" onsubmit="checkCode()"><div style="display:none;"><input type="hidden" name="_method" value="POST"/></div>						<div class="form-group">
+							<div class="col-sm-6 col-sm-offset-3">
+                                                            <p style="word-break: break-word">Chúng tôi đã gửi mã xác nhận đến tin nhắn của số điện thoại mà bạn đăng ký</p>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">Mã xác nhận:</label>
+							<div class="col-sm-6">
+								<div class="input number"><input name="code" class="Confirm-number" placeholder="Xin vui lòng nhập mã xác nhận" autofocus="autofocus" data-rule-required="true" data-msg-required="Vui lòng nhập mã xác nhận của bạn" data-rule-number="true" data-msg-number="Vui lòng chỉ nhập số" type="number" id="UserCodeVerify"/></div>								</div>
+							</div>
+							<div class="form-group hidden-xs" style="margin-top: 50px;">
+								<div class="col-sm-6 col-sm-offset-3">
+									<button id="code_verify" class="btn btn-default text-right btn-verify" data-blocked="0" type="submit">Xác minh</button>								</div>
+							</div>
+						</form>							</div>
+						</div>
+					</div>
+				</div>
+        <% include template/footer %>
 <% include template/body2 %>

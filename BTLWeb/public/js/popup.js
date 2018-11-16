@@ -33,7 +33,10 @@ $(document).ready(function(){
     })
     $("#mess").keyup(function(event){
         if((event.keyCode == 13 ) && ($("#mess").val()!=null) && ($("#mess").val()!="")){
-            $("#btnSend").click();
+            $("#btnSend").click(function(){
+
+                
+            });
         }        
     });
 })

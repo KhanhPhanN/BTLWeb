@@ -43,6 +43,7 @@
  <div class = "header-inner2-link">
    <ul>
        <% if(!user){ %>
+        <div id = "tentk" hidden>aaaa</div>
            <li>
                <a href="#" >Sản phẩm giảm giá</a>
            </li>
@@ -62,6 +63,7 @@
          
          <%}%>
          <% if(user) {%>
+            <div id = "tentk" hidden><%-user.username%></div>
              <li>
                  <a href="/themsanpham" >Thêm sản phẩm </a> 
              </li>
@@ -78,11 +80,11 @@
                    <a href="/likeList/<%-user.username%>" >Đã thích</a>
                </li>
              <li>
-                 <a href="/logout">Đăng xuất</a>
+                 <a href="/logout/<%-user.username%>">Đăng xuất</a>
              </li>
              <li id = "user">
               
-               <a ><i class="fa fa-user"></i>Hello: <%- user.name%></a>
+               <a ><i class="fa fa-user"></i>Hello: <%- user.username%></a>
                <ul id="user-option">
                     <li><a href="/user/changePassword">Thay đổi mật khẩu</a></>
                     <li><a href="/userinformation/<%-user.username%>">Thông tin tài khoản</a></li>

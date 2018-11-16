@@ -19,9 +19,9 @@ var mongo = require('mongodb');
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/loginapp');
 var db = mongoose.connection;
-
+var List_user_connected=[];
 // init app
-
+var list_user=[]
 const multer = require('multer');
 const GridFsStorage = require('multer-gridfs-storage');
 const Grid = require('gridfs-stream');
@@ -101,6 +101,16 @@ app.use(expressValidator({
   }));
 
 
+  var Mongo = require('mongodb').MongoClient;
+  Mongo.connect("mongodb://localhost:27017/",function(err,db){
+      var dbo = db.db("loginapp")
+dbo.collection("users").find().toArray(function(err,res){
+    for(var i=0;i<res.length;i++)
+    list_user.push(res[i].username)
+})
+db.close();
+  })
+
 
 // register
 app.get('/register',function(req,res){
@@ -110,8 +120,8 @@ app.get('/register',function(req,res){
 //Nexmo
 
 const nexmo = new Nexmo({
-    apiKey: '5e555a5e',
-    apiSecret: 'i5xyaslqhHZwW00z'
+    apiKey: '97520364',
+    apiSecret: 'Slep6sF2IJlaaz2X'
   }, { debug: true });
 
 // Catch form submit
@@ -122,25 +132,13 @@ var email1;
 var password1;
 var PhoneNumber1;
 app.post('/register', (req, res) => {
-    var name = req.body.name;
-    var email = req.body.email;
-    var username = req.body.username;
     var PhoneNumber = req.body.PhoneNumber;
     var password = req.body.password;
-    var password2 = req.body.password2;
-name1 = name;
-username1 = username;
-email1 = email;
 password1 = password;
 PhoneNumber1 = PhoneNumber;
     // Validation
-    req.checkBody('name', 'Name is required').notEmpty();
-    req.checkBody('email', 'Email is required').notEmpty();
-    req.checkBody('email', 'Email is not valid').isEmail();
-    req.checkBody('username', 'Username is required').notEmpty();
     req.checkBody('PhoneNumber','PhoneNumber is required').notEmpty();
     req.checkBody('password', 'Password is required').notEmpty();
-    req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
     var errors = req.validationErrors();
     if (errors) {
         res.render('register', {
@@ -148,20 +146,11 @@ PhoneNumber1 = PhoneNumber;
         });
     }else {
         //checking for email and username are already taken
-        User.findOne({ username: { 
-            "$regex": "^" + username + "\\b", "$options": "i"
-        }}, function (err, user) {
-            User.findOne({ email: { 
-                "$regex": "^" + email1 + "\\b", "$options": "i"
-        }}, function (err, mail) {
             User.findOne({PhoneNumber: {
                 "$regex": "^" + PhoneNumber + "\\b","$options": "i"
             }},function(err,phone){
-
-                if (user || mail ||phone) {
+                if (phone) {
                     res.render('register', {
-                        user: user,
-                        mail: mail,
                         phone: phone
                     });
                 }
@@ -188,8 +177,7 @@ PhoneNumber1 = PhoneNumber;
                     );
                 }
             })
-            });
-        });
+      
     }
   });
 
@@ -199,9 +187,14 @@ app.post('/codeconfirm', function(req,res){
      var code1 = req.body.code;
     if(code == code1){
         var newUser = new User({
-            name: name1,
-            email: email1,
-            username: username1,
+            email: "",
+            username: "",
+            status: "",
+            fisrtname: "",
+            lastname: "",
+            avatar: "",
+            address: "",
+            city: "",
             password: password1,
             PhoneNumber:PhoneNumber1,
             follow: [],
@@ -210,9 +203,8 @@ app.post('/codeconfirm', function(req,res){
         });
         User.createUser(newUser, function (err, user) {
             if (err) throw err;
-            console.log(user);
+            res.render('updatelogin',{user: user,msg: false});
         });
-        res.render('login');
     }else{
         res.render('Confirm',{dt: code})
     }
@@ -224,6 +216,44 @@ app.get('/forgetPassword',function(req,res){
     res.render("forgetPassword")
 })
 
+app.post("/update_register",function(req,res1){
+var phone= req.body.sdt;
+var username = req.body.username;
+var email = req.body.Email;
+var First = req.body.First;
+var Last = req.body.Last;
+var address = req.body.Address;
+var City = req.body.City;
+var MongoClient = require('mongodb').MongoClient;
+var url='mongodb://localhost:27017/';
+MongoClient.connect(url,function(err,db){
+    if(err) throw err;
+    var dbo = db.db("loginapp");
+    var where ={PhoneNumber : phone};
+    var c = false;
+    var query={$set: {email:email,username: username,fisrtname: First,lastname: Last, address: address, city: City}};
+    dbo.collection("users").find().toArray(function(err,res){
+        if(err) throw err;
+       for(var i=0;i<res.length;i++){
+        if(res[i].username==username){
+            c=true;
+            res1.render("updatelogin",{msg: "Tài khoản đã tồn tại",user: res})  
+            break;
+        }
+       }
+       console.log(c);
+       if(!c){
+           dbo.collection("users").updateOne(where,query,function(err,res){
+               if(err) throw err;
+               res1.redirect("/")
+           })
+          }
+       db.close();
+    })
+ 
+    })
+   
+})
 
 var phoneInput;
 app.post('/forgetPassword',function(req,res){
@@ -427,29 +457,10 @@ app.post("/search", function(req,res){
 })
 var listmyfollow=[];
 var be_listmyfollow=[];
-//khi login thi chay middleware va goi den cai nay
-passport.use(new LocalStrategy(
-    function (username, password, done) {
-        User.getUserByUsername(username, function (err, user) {
-            if (err) throw err;
-            if (!user) {
-                return done(null, false, { message: 'Unknown User' });
-            }
-           if(user){
-            User.comparePassword(password, user.password, function (err, isMatch) {
-                if (err) throw err;
-                if (isMatch) {
-                    tenuser = user.username;
-                    listmyfollow = user.follow;
-                    return done(null, user);
-                } else {
-                    return done(null, false, { message: 'Invalid password' });
-                }
-            });
-        };
-        });
-    }));
 
+app.get("/resetPassword",function(req,res){
+    res.render('resetPassword',{errors: false})
+})
 
 
 // ham duoc goi khi xac thực thành công để lưu thông tin user vào session
@@ -469,12 +480,7 @@ app.get('/login',function(req,res){
     });
 
 app.post('/login',
-    passport.authenticate('local', { successRedirect: '/', failureRedirect: '/login',successFlash:"Success", failureFlash: 'Invalid username or password.'}),function(req,res){
-        console.log("Success");
-req.flash('success', 'OK');
-res.redirect('/');
-    });
-
+    passport.authenticate('local', { successRedirect: '/', failureRedirect: '/login',successFlash:"Success", failureFlash: 'Invalid username or password.'}));
     //list product
 app.get("/listproduct/:id", function(req, res){
 var title = req.params.id;
@@ -662,7 +668,7 @@ var errors = req.validationErrors();
                     dbo.collection("users").updateOne(newPass, newpass, function(err, result) {
                     if (err) throw err;
                     console.log("Cập nhật mật khẩu thành công");
-                    res.render('login');
+                    res.redirect("/");
                     foundUser.close();
                 });
            });      
@@ -674,17 +680,62 @@ var errors = req.validationErrors();
     })
 }
      });
+
+io.on("connection",function(socket){
+    socket.on("ngat",function(){
+        console.log("Ngắt kết nối")
+    })
+socket.on("connect",function(){
+    console.log(" Có kết nối bị ngắt")
+})
 // log out
-app.get('/logout', function (req, res) {
+app.get('/logout/:id', function (req, res) {
     req.logout();
+
+for(var i=0;i<List_user_connected.length;i++)
+if(List_user_connected[i].indexOf(req.params.id)!=-1)
+
+{
+    io.sockets.emit("delete-user",List_user_connected[i]);
+    List_user_connected.splice(i,1);
+
+}
+
     req.flash('success_msg', 'You are logged out');
     res.redirect('/');
 });
 
-io.on("connection",function(socket){
-    socket.on("disconnect",function(){
-        console.log("nguoi dung ngat ket noi!");
-    })
+
+//khi login thi chay middleware va goi den cai nay
+passport.use(new LocalStrategy(
+    function (username, password, done) {
+        User.getUserByUsername(username, function (err, user) {
+            if (err) throw err;
+            if (!user) {
+                console.log('Unknown User')
+                return done(null, false, { message: 'Unknown User' });
+            }
+           if(user){
+            console.log('ok')
+            User.comparePassword(password, user.password, function (err, isMatch) {
+                if (err) throw err;
+                if (isMatch) {
+                    console.log('ok')
+                    List_user_connected.push(user.username);
+                    tenuser=user.username;
+                    io.sockets.emit("add-user",user.username);
+                    return done(null, user);
+                } else {
+                    console.log("Sai mật khẩu")
+                    return done(null, false, { message: 'Invalid password' });
+                }
+            });
+        };
+        });
+    }));
+
+
+
 socket.on("gui-comment",function(data){
     var  info = data.split("ooo");
     var MongoClient = require('mongodb').MongoClient;
@@ -694,7 +745,9 @@ socket.on("gui-comment",function(data){
       if (err) throw err;
       var dbo = db.db("mydb");
       var myquery = { _id : info[1] };
-      var newvalues = { $set: {comment: info[4]+":\n"+info[3]+"\n"} };
+
+      var newvalues = { $set: {comment: info[2]+info[4]+":\n"+info[3]+"\n"} };
+
       dbo.collection("TempSP").updateOne(myquery, newvalues, function(err, res) {
         if (err) throw err;
       });
@@ -906,7 +959,13 @@ db.close();
     })
     })
 
-
+    socket.on("Client-send-messages",function(data){
+        socket.emit("Server-send-your-message",data)
+        socket.broadcast.emit("Client-ask",data)
+    })
+    socket.on("Admin-send-messages",function(data){
+        socket.emit("Server-send-admin-message",data)
+    })
 });
 
 
@@ -916,15 +975,7 @@ server.listen(8084,function(){
 
 //pop-up-chat
 //chua check log in
-io.on("connection",function(socket){
-    socket.on("Client-send-messages",function(data){
-        socket.emit("Server-send-your-message",data)
-        socket.broadcast.emit("Client-ask",data)
-    })
-    socket.on("Admin-send-messages",function(data){
-        socket.emit("Server-send-admin-message",data)
-    })
-})
+
 // Mongo URI
 var  test=0;
 // Create storage engine
@@ -1081,7 +1132,21 @@ app.get('/deleteandupdate/:id',function(req,res){
       });
     });
 })
+app.get("/dell",function(req,res){
+    var MongoClient = require('mongodb').MongoClient;
+    var url = "mongodb://localhost:27017/";
+    MongoClient.connect(url, function(err, db) {
+      if (err) throw err;
+      var dbo = db.db("mydb");
+      dbo.collection("Máy tính").find().toArray(function(err, result) {
+        if (err) throw err;
+        console.log(result)
+        res.render('deleteandupdate',{});
+        db.close();
+      });
+    });
 
+})
 //Xóa và chỉnh sửa sản phẩm
 app.delete("/delete",function(req,res){
     gfs.remove({ filename: req.body.delete, root: 'uploads' }, (err, gridStore) => {
@@ -1287,14 +1352,11 @@ app.get("/list_product/:id", function(req, res){
 
 })
 
-
 app.get("/",function(req,res){
     var user = {username: ""}
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/";
-var data;
 var res2,res3,res4;
- 
 var MongoClient1 = require('mongodb').MongoClient;
 MongoClient1.connect(url, function(err, db) {
 var db1 = db.db("mydb");
@@ -1315,6 +1377,15 @@ MongoClient.connect(url, function(err, db) {
       if (err) throw err;
       dbo.collection("Chuột").find().toArray(function(err, res1){
         if (err) throw err;
+        var datastateuser=[];
+        for(var i=0;i<list_user.length;i++){
+            if(List_user_connected.indexOf(list_user[i])!=-1){
+                datastateuser.push({user: list_user[i], state: "on"})
+            }else{
+                datastateuser.push({user: list_user[i], state: "off"})
+            }
+        }
+
                     db.close();
                     res.render('homepage',{
                         MayTinh: result.reverse(),
@@ -1322,6 +1393,7 @@ MongoClient.connect(url, function(err, db) {
                         Banphim:res2.reverse(),
                         Tainghe:res3.reverse(),
                         Ocung:res4.reverse(),
+                        UserOnline: datastateuser
                     })                  
       })
     });

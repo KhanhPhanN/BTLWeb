@@ -25,7 +25,7 @@
                    <%if(ketqua.length == 0) { %>
                     <h2>Không tìm thấy username</h2>
                    <%} else { ketqua.forEach((data)=>{%>
-                    <li style="font-size:1.5em;"><a href="/listproduct <%-data.username%>"><%= data.username %></a></li>
+                    <li style="font-size:1.5em;"><a href="/listproduct/<%-data.username%>"><%= data.username %></a></li>
                     <%})}%>
                 </tr>
         </table>

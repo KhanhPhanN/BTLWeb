@@ -6,6 +6,14 @@ var socket = io("http://localhost:8084");
  socket.on("add-product",function(){
      alert("Có sản phẩm mới được tải lên !! Vui lòng load lại trang để xem sản phẩm mới nhất");
  })
+ socket.on("add-user",function(data){
+    $("#"+data).html("on")
+    $("#"+data).css("color","blue")
+})
+socket.on("delete-user",function(data){
+    $("#"+data).html("off")
+    $("#"+data).css("color","black")
+})
 
  // report san pham
 socket.on("report",function(){
@@ -106,3 +114,43 @@ function  mota(){
     $("#mota").show();
     $("#binhluan").hide();
 }
+function checkPhoneNumber() {
+    var flag = false;
+    var phone = $('#input').val().trim(); // ID của trường Số điện thoại
+    phone = phone.replace('(+84)', '0');
+    phone = phone.replace('+84', '0');
+    phone = phone.replace('84', '0');
+    phone = phone.replace('0084', '0');
+    phone = phone.replace(/ /g, '');
+    if (phone != '') {
+        var firstNumber = phone.substring(0, 2);
+        if ((firstNumber == '09' || firstNumber == '08'|| firstNumber == '03') && phone.length == 10) {
+            if (phone.match(/^\d{10}/)) {
+                return true;
+            }
+        } else if (firstNumber == '01' && phone.length == 11) {
+            if (phone.match(/^\d{11}/)) {
+                return true;
+            }
+        }
+    }
+    alert("Loi")
+    return flag;
+}
+function checkPassword(){
+    var password=$('#UserPassword').val().trim();
+    var w = /[a-zA-Z0-9]+/ 
+    if(password!=""){
+        if(password.length<6){
+            alert("Mật khẩu phải lớn hơn 6 kí tự")
+         return false
+        }else{
+            if(!password.match(w)){
+                alert("Mật khẩu chỉ chứa chữ hoặc số")
+                return false
+            }
+        }
+    }
+    return true;
+}
+

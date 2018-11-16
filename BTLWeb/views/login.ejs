@@ -1,19 +1,37 @@
-<% var message = '' %>
+
 <% include template/body1 %>
-<div class="form-format">
-<h2 class="page-header">Account Login</h2>
-<%- message %>
-<form method="POST" action="/login">
-  <div class="form-group">
-    <label>Username</label>
-    <input type="text" class="form-control" name="username" placeholder="Username">
-  </div>
-  <div class="form-group">
-    <label>Password</label>
-    <input type="password" class="form-control" name="password" placeholder="Password">
-  </div>
-  <a class="forgotPS" href="/forgetPassword">Quên mật khẩu</a>
-  <input type="submit" class="form-button" value="Submit">
-</form>
-</div>
+<% include template/header %>
+<div class="checkout_info_price">
+  <div class="headings">
+    <h5>Đăng nhập </h5>
+  </div><hr>
+  <div class="content">
+    <form action="/login" encoding="" class="form-horizontal form-validate" id="UserRegisterForm" method="post" onsubmit="return checkPhoneNumber()"><div style="display:none;"><input type="hidden" name="_method" value="POST"/></div>						<div class="form-group">
+    </div>
+    <div class="form-group">
+      <div class="col-sm-6">
+        <div class="input number required"><label class="col-sm-3 control-label">Số điện thoại:</label><input id="input" name="username" class="form-control" placeholder="Xin vui lòng nhập số điện thoại" autofocus="autofocus" value="" data-rule-required="true" data-msg-required="Vui lòng nhập số điện thoại của bạn" data-rule-number="true" data-msg-number="Xin vui lòng nhập số" data-rule-minlength="10" data-msg-minlength="Số điện thoại từ 10 - 11 ký tự" data-rule-maxlength="11" data-msg-maxlength="Số điện thoại từ 10 - 11 ký tự" type="text"  required="required" aria-required="true" aria-invalid="true"></div>	
+      								</div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-6">
+            <div class="input password required">  <label class="col-sm-3 control-label">Mật khẩu:</label><input name="password" class="form-control" maxlength="30" placeholder="Xin vui lòng nhập mật khẩu" data-rule-required="true" data-msg-required="Vui lòng nhập mật khẩu" data-rule-lettersonly="true" data-msg-lettersonly="Vui lòng chỉ nhập chữ và số" data-rule-minlength="6" data-msg-minlength="Mật khẩu tối thiểu 6 ký tự" data-rule-maxlength="30" data-msg-maxlength="Mật khẩu tối đa 30 ký tự" type="password" id="password" required="required"/></div>										</div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-6 col-sm-offset-3">
+              <div class="">
+                <div class="g-recaptcha" data-theme="light" data-sitekey="6LdOcCkTAAAAAIs5kfNrv0bmM7CxHEnHeoI_X1PH" style="transform:scale(0.77);-webkit-transform:scale(0.77);transform-origin:0 0;-webkit-transform-origin:0 0;"></div>
+              </div>
+            </div>
+          </div>
+          <a class="forgotPS" href="/forgetPassword">Quên mật khẩu</a>
+          <div class="form-group hidden-xs">
+            <div  class="col-sm-6 col-sm-offset-3">
+              <button id ="btdk" class="btn btn-default text-right" type="submit">Đăng nhập</button>										</div>
+          </div>
+          <div class="hidden-md hidden-lg hidden-sm select-address">
+          	</form>									</div>
+        </div>
+      </div>
+<% include template/footer %>
 <% include template/body2 %>

@@ -5,8 +5,8 @@ body{
 #container{
    font-size:0.9em;
 }
-#container_inner{
-   
+#container_inner_header{
+  
 }
 #container_inner_nav{
     float:left;
@@ -14,6 +14,7 @@ body{
 }
 #container_inner_nav-inner{
     width:100%;
+    
 }
 #container_inner_content{
     margin-left:400px;

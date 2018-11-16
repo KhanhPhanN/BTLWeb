@@ -344,14 +344,44 @@ app.post('/resetPassword',function(req,res){
 });
 var tenuser=0;
 
+
+function change_alias(alias) {
+    var str = alias;
+    str = str.toLowerCase();
+    str = str.replace(/ầ|ấ|ậ|ẩ|ẫ/g,"â");
+    str = str.replace(/ằ|ắ|ặ|ẳ|ẵ/g,"ă");
+    str = str.replace(/à|á|ạ|ả|ã|â|ă/g,"a"); 
+    str = str.replace(/ề|ế|ệ|ể|ễ/g,"ê")
+    str = str.replace(/è|é|ẹ|ẻ|ẽ|ê/g,"e"); 
+    str = str.replace(/ì|í|ị|ỉ|ĩ/g,"i"); 
+    str = str.replace(/ờ|ớ|ợ|ở|ỡ/g,"ơ");
+    str = str.replace(/ồ|ố|ộ|ổ|ỗ/g,"ô");
+    str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ơ/g,"o"); 
+    str = str.replace(/ừ|ứ|ự|ử|ữ/g,"ư");
+    str = str.replace(/ù|ú|ụ|ủ|ũ|ư/g,"u"); 
+    str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g,"y"); 
+    str = str.replace(/đ/g,"d");
+    str = str.replace(/!|@|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,|\.|\:|\;|\'|\"|\&|\#|\[|\]|~|\$|_|`|-|{|}|\||\\/g," ");
+    str = str.replace(/ + /g," ");
+    str = str.trim(); 
+    return str;
+}
 // Hàm tìm kiếm
 function search_name(X,Y){
-    var X1 = X.toUpperCase();
-    var Y1 = Y.toUpperCase();
-var chuoi1 = X1.split(" ");
-var chuoi2 = Y1.split(" ");
+    var X1 = X.toLowerCase();
+    var Y1 = Y.toLowerCase();
+    var X2 = change_alias(X1);
+   var Y2 =  change_alias(Y1);
+var chuoi1 = X2.split(" ");
+var chuoi2 = Y2.split(" ");
     var lenX = chuoi1.length;
     var lenY = chuoi2.length;
+    // for(var i=0;i<lenX ;i++){
+    //     change_alias(X1[i]);
+    // }
+    // for(var i=0;i<lenY ;i++){
+    //     change_alias(Y1[i]);
+    // }
     var a = new Array(lenX+1);
     for(var i =0 ;i<lenX+1;i++){
         a[i] = new Array(lenY+1)
@@ -401,9 +431,9 @@ app.post("/search", function(req,res){
       dbo.collection("TempSP").find().toArray( function(err, result) {
         if (err) throw err;
         for(var i = 0;i<result.length;i++){
-        if(search_name(result[i].name, key)>0){
+        if(search_name(result[i].name + result[i].describle, key)>0){
             data.push(result[i]);
-            data_num.push(search_name(result[i].name, key));
+            data_num.push(search_name(result[i].name + result[i].describle, key));
         }
     }
          if(data.length!=0){
@@ -417,7 +447,6 @@ app.post("/search", function(req,res){
                 max = j;
                 k2=data[i];data[i]=data[j];data[j]=k2;
             }
-           // k2=data[i];data[i]=data[max];data[max]=k2;
         }
     }
         res.render("searchpage",{kq: data})
@@ -493,8 +522,6 @@ var title = req.params.id;
         db.close();
       });
     });
-
-
 })
 
 // Danh sách theo dõi
@@ -534,20 +561,13 @@ app.get("/befollowList/:id", function(req, res){
         db.close();
       });
     });
-
-
-
 })
-
-
-
 
 // Thông tin tài khoản người dùng 
 app.get("/userinformation/:id", function(req, res){
 var title = req.params.id;
     var MongoClient = require('mongodb').MongoClient;
-    var url = "mongodb://localhost:27017/";
-    
+    var url = "mongodb://localhost:27017/";     
     MongoClient.connect(url, function(err, db) {
       if (err) throw err;
       var dbo = db.db("loginapp");
@@ -671,6 +691,7 @@ socket.on("connect",function(){
 // log out
 app.get('/logout/:id', function (req, res) {
     req.logout();
+
 for(var i=0;i<List_user_connected.length;i++)
 if(List_user_connected[i].indexOf(req.params.id)!=-1)
 
@@ -679,9 +700,11 @@ if(List_user_connected[i].indexOf(req.params.id)!=-1)
     List_user_connected.splice(i,1);
 
 }
+
     req.flash('success_msg', 'You are logged out');
     res.redirect('/');
 });
+
 
 //khi login thi chay middleware va goi den cai nay
 passport.use(new LocalStrategy(
@@ -712,6 +735,7 @@ passport.use(new LocalStrategy(
     }));
 
 
+
 socket.on("gui-comment",function(data){
     var  info = data.split("ooo");
     var MongoClient = require('mongodb').MongoClient;
@@ -721,7 +745,9 @@ socket.on("gui-comment",function(data){
       if (err) throw err;
       var dbo = db.db("mydb");
       var myquery = { _id : info[1] };
+
       var newvalues = { $set: {comment: info[2]+info[4]+":\n"+info[3]+"\n"} };
+
       dbo.collection("TempSP").updateOne(myquery, newvalues, function(err, res) {
         if (err) throw err;
       });
@@ -1085,10 +1111,7 @@ if(list_be_follow.indexOf(title[1])!=-1)
 })
 db.close();
         });
-      
- 
 });
-
 });
 
 app.get('/deleteandupdate/:id',function(req,res){

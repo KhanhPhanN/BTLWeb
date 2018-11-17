@@ -259,6 +259,10 @@
 </ul>
 </nav>
 </div>
+<br><br>
+<div id ="bia" >
+<img src="imagei/DELL7.jpg" width="270px" height="500px">
+</div>
 <h4>Sản phẩm mới nhất</h4>
 <table id="info-left">
 <%for(var i=0;i<5;i++){%>
@@ -266,7 +270,9 @@
         <th class="info-1">
     <span class="card card-body mb-3">
         <%if(user){%>
+
           <a href="/sp/sp/<%-SP[i]._id%>*<%-user.username%>">  <img src="/image/<%= SP[i].image %>" alt="" width="100px" height="100px"></a>
+
 <%}else{%>
 <a href="/sp/sp/<%-SP[i]._id%>*">  <img src="/image/<%= SP[i].image %>" alt="" width="100px" height="100px"></a>
 
@@ -280,6 +286,13 @@
 </tr>
  
 <%}%>
-</table>
+</table><br><br>
+<div class="wrapper-nav1">
+    <nav class="nav-main1">
+<div id ="bia" >
+    <img class="imagebia" src="imagei/moki.jpg" width="270px" height="500px">
+    </div>
+</nav>
+</div>
 </div>
 <!-- NAV ENDS HERE -->

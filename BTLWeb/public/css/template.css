@@ -122,7 +122,8 @@ body{
 	/*=====NAVIGATION======*/
 	
 	#nav{
-		padding-left: 10%
+		padding-left: 10%;
+		padding-right:10px;
 	}
 	#nav_title{
 			text-align:center;
@@ -159,7 +160,27 @@ body{
 			width: 980px;
 			margin: 0 auto;
 		}
-		
+		.wrapper-nav1{
+			background: #f1f1f1;
+		}
+			
+		.wrapper-nav1.fixed1{
+			width: 270px;
+			position: fixed;
+			top: 68px;
+			left: 30px;
+			z-index: 7000;
+			box-shadow: 0 0 5px 2px #ccc;
+		}
+		.imagebia{
+			width:270px;
+			height:500px;
+			padding-right:0px;
+		}
+		.wrapper-nav1.fixed1 .nav-main1 {
+			width: 270px;
+			margin: 0 auto;
+		}
 		.nav-main {
 			height: 36px;
 		}
@@ -411,7 +432,54 @@ width: 250px
 	}
 	.info-2{
 		
-
+		padding-bottom: 50px;
+		text-align: left;
+		border-bottom: 1px dashed gray;
+	
+	}
+	.info-1{
+		padding-top: 10px;
+		padding-bottom: 50px;
+		text-align: right;
+		border-bottom: 1px solid #f16e8e;
+	}
+	/* display product on homepage */
+	.container-inner-frame{
+		margin-top:20px;
+		width:100%;
+		height:700px;
+		
+	}
+	.container-inner-frame::after{
+		clear:both;
+	}
+	.container-inner-frame-inner{
+		width:100%;
+		height: 100%;
+		
+	}
+	.image1{
+		width:860px;
+		height:151px;
+	}
+	.image1:hover{
+		padding: 0 10px;
+	}
+	.container-inner-image:hover{
+		border:1px dashed #f16e8e;
+	}
+	#bia :hover{
+		border:1px dashed #f16e8e;
+	}
+	.container-inner-list{
+		width:100%;
+		
+	}
+	.container-inner-title{
+		width:20%;
+		float:left;
+		
+		
 		
 	}
 	.container-inner-frame{
@@ -455,12 +523,14 @@ height:100%;
 	.container-inner-listimage{
 		width:80%;
 		float:right;
-		
+		overflow:hidden;
 		height:540px;
 	}
 	.wrapper-image{
 		margin:10px 25px;
 		text-align: center;
+		width: 180px;
+		height: 250px;
 	}
 	.wrapper-image img:hover{
 		border:1px dashed #f16e8e;
@@ -477,16 +547,4 @@ height:100%;
 		flex-wrap:wrap;
 		padding:10px;
 		overflow:hidden;
-	}
-
-	/* image in them san pham */
-	.wrapper-image1{
-		margin-left:200px;
-	}
-	.info-1{
-		padding-top: 10px;
-		padding-bottom: 50px;
-		text-align: right;
-		border-bottom: 1px solid gray;
-
 	}

@@ -414,6 +414,24 @@ width: 250px
 
 		
 	}
+	.container-inner-frame{
+		
+	}
+.container-inner-frame-inner{
+width:100%;
+height:100%;
+}
+.container-inner-image{
+
+}
+	.image1{
+		width:860px;
+		height:171px;
+	}
+	.image1:hover{
+		border:1px dashed #f16e8e;
+		padding:0px 5px;
+	}
 	.container-inner-title1{
 		width:100%;
 		height:100%;

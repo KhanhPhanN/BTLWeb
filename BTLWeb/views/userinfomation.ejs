@@ -60,11 +60,14 @@
                      <h2>Không tìm thấy sản phẩm </h2>
                       
                   <% } else {  kq.forEach((data)=>{%>
-                      <span class ="ten" id = "ten-1"><b>Họ và tên:</b> <i class="maininfo"><%= data.name%></i></span><hr>
+                      <span class ="ten" id = "ten-1"><b>First Name:</b> <i class="maininfo"><%= data.firstname%></i></span><hr>
+                      <span class ="ten" id = "ten-1"><b>Last Name:</b> <i class="maininfo"><%= data.lastname%></i></span><hr>
                         <span class ="ten" id = "ten-1"><b>Tài khoản: </b><i class="maininfo"><%= data.username%></i></span><hr>
                        <span class ="gia" id = "gia-1" style="color:#000;"><b>Email:</b> <i class="maininfo"><%= data.email%></i></span><hr>   
                  
                        <span class ="sdt" id = "sdt-1" style="color:#000;"><b>Số điện thoại:</b> <i class="maininfo1"><%= data.PhoneNumber%></i></span><hr> 
+                       <span class ="ten" id = "ten-1"><b>Địa chỉ:</b> <i class="maininfo"><%= data.address%></i></span><hr>
+                       <span class ="ten" id = "ten-1"><b>Thành phố:</b> <i class="maininfo"><%= data.city%></i></span><hr>
                        
                         <button id="modifier-user"><a href="/user/modifier/<%-data.username%>">Chỉnh sửa thông tin</a> </button>
                         <% })} %>

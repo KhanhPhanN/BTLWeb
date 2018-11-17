@@ -68,7 +68,7 @@
                                             <a href="/likeList/<%-user.username%>" >Đã thích  |  </a>
                                         </li>
                                       <li>
-                                          <a href="/logout">Đăng xuất  |  </a>
+                                          <a href="/logout/<%-user.username%>">Đăng xuất  |  </a>
                                       </li>
                                       <li id = "user">
                                        
@@ -164,8 +164,13 @@
                         </td>
                     </tr>
                     <tr>
-                            <th>Tài khoản :</th>
-                            <td> <input type="text" name="name" id="name" class="input-info" value="<%=data.name %>">
+                            <th>First Name :</th>
+                            <td> <input type="text" name="firstname" id="name" class="input-info" value="<%=data.firstname %>">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Last Name :</th>
+                            <td> <input type="text" name="lastname" id="name" class="input-info" value="<%=data.firstname %>">
                             </td>
                         </tr>
                       <tr>
@@ -174,9 +179,16 @@
                                 </td>
                        </tr>
                        <tr>
-                           <th>Số điện thoại :</th>
-                           <td><input type="text" name="phone" id="phone" class="input-info" value="<%=data.PhoneNumber %>"></td>
-                       </tr>
+                        <th>Địa chỉ:</th>
+                        <td> <input type="text" name="address" id="name" class="input-info" value="<%=data.address %>">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>Thành phố:</th>
+                        <td> <input type="text" name="city" id="name" class="input-info" value="<%=data.city %>">
+                        </td>
+                    </tr>
                 </table><hr>
                   <input type="submit" value="Cập nhật" id="update-user">
                 </form>

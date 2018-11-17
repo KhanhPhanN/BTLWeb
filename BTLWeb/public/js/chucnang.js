@@ -73,6 +73,20 @@ $(document).ready(function(){
             })
         }
     
+        if ($('.wrapper-nav1').length > 0) {
+            var _top1 = $('.wrapper-nav1').offset().top - parseFloat($('.wrapper-nav1').css('marginTop').replace(/auto/, 0));
+            $(window).scroll(function(evt) {
+                var _y1= $(this).scrollTop();
+                if (_y1 > _top1) {
+                    $('.wrapper-nav1').addClass('fixed1');
+                    
+                } else {
+                    $('.wrapper-nav1').removeClass('fixed1');
+                 
+                }
+            })
+        }
+    
 
 
 

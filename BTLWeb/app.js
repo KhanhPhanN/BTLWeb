@@ -664,6 +664,7 @@ app.post('/user/modifier/:id',function(req,res){
             var query={$set: {firstname:firstname,email:email,lastname:lastname,city:city,address:address}};
             dbo.collection("users").updateOne(where,query,function(err,res){
                 if(err) throw err;
+                db.close();
             })
             dbo.collection("users").find({username:title}).toArray(function(err,result){
                     if(err) throw err;
@@ -671,7 +672,7 @@ app.post('/user/modifier/:id',function(req,res){
                
                 db.close();
             })
-            db.close();
+            
         })
     }
 })	

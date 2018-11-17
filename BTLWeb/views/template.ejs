@@ -161,10 +161,11 @@
        </div>
        <%if(user){%>
        <div id="binhluan">
-            <label><%-user.name%>: </label>
-            <textarea rows="5" cols="50" name="description" placeholder="Comment" id = "Comment"></textarea>
+           <h4>Viết bình luận</h4>
+           <p id="name-comment"><%-user.username%>: </p>
+            <textarea rows="5" cols="30" name="description" placeholder="Viết bình luận" id = "Comment"></textarea>
             <input type="button" id="send" value="Send">
-            <textarea rows="5" cols="50" name="description" placeholder="Comment" id = "showcomment" disabled><%-data.comment%></textarea>
+            <textarea rows="5" cols="50" name="description" placeholder="Bình luận" id = "showcomment" disabled><%-data.comment%></textarea>
        </div>
        <%}%>
        <%if(!user){%>

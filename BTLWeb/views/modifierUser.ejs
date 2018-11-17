@@ -32,7 +32,7 @@
 
                 <div id = "header-inner1-right">
                         <ul>
-                                <% if(!user){ %>
+                                <% if(user.length==0){ %>
                                     <li>
                                         <a href="#" >Sản phẩm giảm giá  |  </a>
                                     </li>
@@ -50,32 +50,31 @@
                                       <a href="/register" >Đăng kí</a>
                                   </li>
                                   
-                                  <%}%>
-                                  <% if(user) {%>
+                                  <%}else{%>
                                       <li>
                                           <a href="/themsanpham" >Thêm sản phẩm  |  </a> 
                                       </li>
                                       <li>
-                                            <a href="/listproduct/<%-user.username%>" >Sản phẩm đăng  |  </a>
+                                            <a href="/listproduct/<%-user[0].username%>" >Sản phẩm đăng  |  </a>
                                         </li>
                                         <li>
-                                          <a href="/befollowList/<%-user.username%>" >Người theo dõi  |  </a>
+                                          <a href="/befollowList/<%-user[0].username%>" >Người theo dõi  |  </a>
                                       </li>
                                       <li>
-                                         <a href="/followList/<%-user.username%>" >Theo dõi  |  </a>
+                                         <a href="/followList/<%-user[0].username%>" >Theo dõi  |  </a>
                                      </li>
                                       <li>
-                                            <a href="/likeList/<%-user.username%>" >Đã thích  |  </a>
+                                            <a href="/likeList/<%-user[0].username%>" >Đã thích  |  </a>
                                         </li>
                                       <li>
-                                          <a href="/logout/<%-user.username%>">Đăng xuất  |  </a>
+                                          <a href="/logout/<%-user[0].username%>">Đăng xuất  |  </a>
                                       </li>
                                       <li id = "user">
                                        
-                                        <a ><i class="fa fa-user"></i>Hello: <%- user.name%></a>
+                                        <a ><i class="fa fa-user"></i>Hello: <%- user[0].username%></a>
                                         <ul id="user-option1">
                                              <li><a href="/user/changePassword">Thay đổi mật khẩu</a></>
-                                             <li><a href="/userinformation/<%-user.username%>">Thông tin tài khoản</a></li>
+                                             <li><a href="/userinformation/<%-user[0].username%>">Thông tin tài khoản</a></li>
                                        </ul>
                                     </li>
                                       <%}%>
@@ -170,7 +169,7 @@
                         </tr>
                         <tr>
                             <th>Last Name :</th>
-                            <td> <input type="text" name="lastname" id="name" class="input-info" value="<%=data.firstname %>">
+                            <td> <input type="text" name="lastname" id="name" class="input-info" value="<%=data.lastname %>">
                             </td>
                         </tr>
                       <tr>

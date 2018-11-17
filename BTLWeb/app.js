@@ -99,7 +99,7 @@ app.use(expressValidator({
       };
     }
   }));
-
+var dsproduct=[];
 
   var Mongo = require('mongodb').MongoClient;
   Mongo.connect("mongodb://localhost:27017/",function(err,db){
@@ -110,7 +110,13 @@ dbo.collection("users").find().toArray(function(err,res){
 })
 db.close();
   })
-
+  Mongo.connect("mongodb://localhost:27017/",function(err,db){
+      var dbo = db.db("mydb")
+dbo.collection("TempSP").find().toArray(function(err,res){
+dsproduct=res;
+    db.close();
+  })
+})
 
 // register
 app.get('/register',function(req,res){
@@ -190,7 +196,7 @@ app.post('/codeconfirm', function(req,res){
             email: "",
             username: "",
             status: "",
-            fisrtname: "",
+            firstname: "",
             lastname: "",
             avatar: "",
             address: "",
@@ -231,7 +237,7 @@ MongoClient.connect(url,function(err,db){
     var dbo = db.db("loginapp");
     var where ={PhoneNumber : phone};
     var c = false;
-    var query={$set: {email:email,username: username,fisrtname: First,lastname: Last, address: address, city: City}};
+    var query={$set: {email:email,username: username,firstname: First,lastname: Last, address: address, city: City}};
     dbo.collection("users").find().toArray(function(err,res){
         if(err) throw err;
        for(var i=0;i<res.length;i++){
@@ -419,7 +425,7 @@ app.post("/search", function(req,res){
                       data.push(result[i]);
                   }
               }
-              res.render("searchuser",{ketqua:data});  
+              res.render("searchuser",{ketqua:data,SP:dsproduct.reverse()});  
             })
         })
      }else{
@@ -431,9 +437,9 @@ app.post("/search", function(req,res){
       dbo.collection("TempSP").find().toArray( function(err, result) {
         if (err) throw err;
         for(var i = 0;i<result.length;i++){
-        if(search_name(result[i].name + result[i].describle, key)>0){
+        if(search_name(result[i].name +" "+ result[i].describle, key)>0){
             data.push(result[i]);
-            data_num.push(search_name(result[i].name + result[i].describle, key));
+            data_num.push(search_name(result[i].name +" "+ result[i].describle, key));
         }
     }
          if(data.length!=0){
@@ -449,7 +455,7 @@ app.post("/search", function(req,res){
             }
         }
     }
-        res.render("searchpage",{kq: data})
+        res.render("searchpage",{kq: data,SP:dsproduct.reverse()})
         db.close();
       });
     });
@@ -492,12 +498,9 @@ var title = req.params.id;
       var dbo = db.db("mydb");
       dbo.collection("TempSP").find({shop: title}).toArray(function(err, result) {
         if (err) throw err;
-        dbo.collection("TempSP").find({}).toArray(function(err, result1) {
-            if (err) throw err;
-       res.render("listproduct",{kq: result,SP:result1});
+       res.render("listproduct",{kq: result,SP:dsproduct.reverse()});
         db.close();
-        });
-        db.close();
+      
       });
     });
 
@@ -519,7 +522,8 @@ var title = req.params.id;
         if (err) throw err;
         var likelis = [];
         for(var i =0 ;i<result.length;i++){
-            if(result[i].like.indexOf(title)!=-1)
+            var check = result[i].like.split(",");
+            if(check.indexOf(title)!=-1)
             likelis.push(result[i])
         }
        res.render("listlike",{kq: likelis,SP:result});
@@ -607,8 +611,7 @@ app.get('/user/modifier/:id',function(req,res){
             if(err) throw err;
          var bo=db.db("mydb");
          bo.collection("TempSP").find({}).toArray(function(err,result1){
-            res.render("modifierUser",{user:result,SP:result1});
-            db.close();
+            res.render("modifierUser",{user:result,SP:result1.reverse()});
          })
          db.close();
         })
@@ -625,7 +628,7 @@ app.post('/user/modifier/:id',function(req,res){
     var firstname = req.body.firstname;
     var lastname = req.body.lastname;
      req.checkBody('firstname',"firstname bắt buộc!").notEmpty();
-     req.checkBody('látname',"lastname bắt buộc!").notEmpty();
+     req.checkBody('lastname',"lastname bắt buộc!").notEmpty();
     req.checkBody('email',"Email bắt buộc!").notEmpty();
     req.checkBody('address','Địa chỉ bắt buộc!').notEmpty();
     req.checkBody('city','THành phố bắt buộc!').notEmpty();
@@ -637,13 +640,13 @@ app.post('/user/modifier/:id',function(req,res){
             if(err) throw err;
             var where ={username : req.body.username};
             var dbo = db.db("mydb");
-            dbo.collection("TempSP").find({}).toArray(function(err,result){
                 var bo=db.db("loginapp");
                 bo.collection("users").find(where).toArray(function(err,re){
                     if(err) throw err;
+                    dbo.collection("TempSP").find({}).toArray(function(err,result){
                     res.render("modifierUser",{
                         errors:errors,
-                        SP:result,
+                        SP:result.reverse(),
                         user:re
                     })
                     db.close();
@@ -663,12 +666,9 @@ app.post('/user/modifier/:id',function(req,res){
                 if(err) throw err;
             })
             dbo.collection("users").find({username:title}).toArray(function(err,result){
-                var bo = db.db("mydb");
-                bo.collection("TempSP").find({}).toArray(function(err,result1){
                     if(err) throw err;
-                res.render('userinfomation',{kq:result,SP:result1});
-                db.close();
-                })
+                res.render('userinfomation',{kq:result,SP:dsproduct.reverse()});
+               
                 db.close();
             })
             db.close();
@@ -793,7 +793,7 @@ socket.on("gui-comment",function(data){
       var dbo = db.db("mydb");
       var myquery = { _id : info[1] };
 
-      var newvalues = { $set: {comment: info[2]+info[4]+":\n"+info[3]+"\n"} };
+      var newvalues = { $set: {comment: info[2]+info[4]+":"+info[3]+"\n"} };
 
       dbo.collection("TempSP").updateOne(myquery, newvalues, function(err, res) {
         if (err) throw err;
@@ -898,14 +898,14 @@ var data=data.split("\n");
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://127.0.0.1:27017/";
 for(var i=0; i<listuser.length;i++){
-    if(listuser[i].username.indexOf(data[0])!=-1){
+    if(listuser[i].username==data[0]){
     listmyfollow = listuser[i].follow;
     break;
     }
     }
 listmyfollow.push(data[1])
 for(var i=0; i<listuser.length;i++){
-if(listuser[i].username.indexOf(data[1])!=-1){
+if(listuser[i].username==data[1]){
 be_listmyfollow = listuser[i].be_follow;
 break;
 }
@@ -940,7 +940,6 @@ listuser=res;
 db.close();
 })
 })
-    console.log(listuser)
 db.close();
 })
 })
@@ -951,23 +950,23 @@ socket.on("unfollow",function(data){
     var MongoClient = require('mongodb').MongoClient;
     var url = "mongodb://127.0.0.1:27017/";
     for(var i=0; i<listuser.length;i++){
-        if(listuser[i].username.indexOf(data[0])!=-1){
+        if(listuser[i].username==data[0]){
         listmyfollow = listuser[i].follow;
         break;
         }
         }
     for(var i=0;i<listmyfollow.length;i++){
-        if(listmyfollow[i].indexOf(data[1])!=-1)
+        if(listmyfollow[i]==data[1])
           listmyfollow.splice(i,1);
         }
       for(var i=0; i<listuser.length;i++){
-        if(listuser[i].username.indexOf(data[0])!=-1){
+        if(listuser[i].username==data[0]){
         be_listmyfollow = listuser[i].be_follow;
         break;
         }
         }
     for(var i=0;i<be_listmyfollow.length;i++){
-    if(be_listmyfollow[i].indexOf(data[0])!=-1)
+    if(be_listmyfollow[i]==data[0])
         be_listmyfollow.splice(i,1);
     }
     MongoClient.connect(url, function(err, db) {
@@ -1001,7 +1000,6 @@ listuser=res;
 db.close();
 })
 })
-    console.log(listuser)
     db.close();
     })
     })
@@ -1122,23 +1120,26 @@ app.get("/sp/sp/:_id",function(req,res){
         var dbo = db.db("mydb");
         var checkfollow = false;
         dbo.collection("TempSP").findOne(query,function(err, result) {
-            if(err) throw err;
-            dbo.collection("TempSP").find().toArray(function(err, resulttemp) {
-                if(err) throw err;
-            
+            if(err) throw err;  
             var bo = db.db("loginapp")
 bo.collection("users").findOne({username: result.shop},function(er,re){
 if(er) throw er;
 var list_be_follow=re.be_follow;
-if(list_be_follow.indexOf(title[1])!=-1)
-   {
-       checkfollow=true;
-   }
+for(var i=0;i<list_be_follow.length;i++){
+    if(list_be_follow[i]==title[1]){
+        checkfollow=true;
+        break;
+    }
+}
+// if(list_be_follow.indexOf(title[1])!=-1)
+//    {
+//        checkfollow=true;
+//    }
             Likedata = result.like;
             if(result.like==""){
                 res.render('template',{
                     data: result,
-                    SP:resulttemp.reverse(),
+                    SP:dsproduct.reverse(),
                     like: 0,
                     checklike : false,
                     likelist: [],
@@ -1152,7 +1153,7 @@ if(list_be_follow.indexOf(title[1])!=-1)
                 
             res.render('template',{
                 data: result,
-                SP:resulttemp.reverse(),
+                SP:dsproduct.reverse(),
                 like: numLike.length-1,
                 checklike: checklike,
                 likelist: numLike,
@@ -1162,7 +1163,7 @@ if(list_be_follow.indexOf(title[1])!=-1)
         }     
 })
 db.close();
-})
+
         });
 });
 });
@@ -1396,7 +1397,7 @@ app.get("/list_product/:id", function(req, res){
       var dbo = db.db("mydb");
       dbo.collection("TempSP").find({shop: title }).toArray(function(err, result) {
         if (err) throw err;
-       res.render("listproductfollow",{kq: result});
+       res.render("listproductfollow",{kq: result,SP: dsproduct.reverse()});
         db.close();
       });
     });

@@ -353,7 +353,7 @@ body{
 		background-color: #fff;
 	}
 	body {
-		background-color: rgb(255, 255, 255);
+		background-color:#f1f1f1;
 	}
 	.checkout_info_price{
 		background-color: rgb(255, 255, 255);
@@ -547,4 +547,13 @@ height:100%;
 		flex-wrap:wrap;
 		padding:10px;
 		overflow:hidden;
+	}
+
+	/* them san pham */
+	.wrapper-image1{
+		margin-left:200px;
+	}
+	#image-moki{
+		width:100px;
+		height:100px;
 	}

@@ -17,124 +17,238 @@
     <!-- content starts here -->
 <div id = "container_inner_content">
 <div id ="container_inner_content-inner">
-        <div id="main-1">
-                <div class="title-sp">
-                    <label>Danh sách sản phẩm máy tính</label>
-                  </div>
-                  <div class="cuon-1" id =" frame-1">
-                    <table>
-                            <tr>
-                              <% MayTinh.forEach((data)=>{%>
-                                <th>
-                               
-                                      <div class="card card-body mb-3">
-                              <%if(user){%>
-                                          <a href="/sp/sp/<%-data._id%>*<%-user.username%>">  <img src="image/<%= data.image %>" alt="" width="160px" height="160px"></a>
-                               <%}else{%>
-                                <a href="/sp/sp/<%-data._id%>*">  <img src="image/<%= data.image %>" alt="" width="160px" height="160px"></a>
+       <div class="container-inner-frame" id="container-inner-frame1">
+          <div class="container-inner-frame-inner">
+            <div class="container-inner-image" id="container-inner-image1">
+              <img class="image1" src="image/maytinh.jpg">
+            </div>
+            <div class="container-inner-list">
+              <div class="container-inner-title">
+                <div class="container-inner-title1">
+                  <p>Danh mục máy tính</p>
+                  <hr>
+                <ul>
+                  <li><a href="#">Máy tính Dell</a></li>
+                  <li><a href="#">Máy tính Asus</a></li>
+                  <li><a href="#">Máy tính HP</a></li>
+                  <li><a href="#">Máy tính Lenovo</a></li>
+                  <li><a href="#">Máy tính Macbook</a></li>
+                
+                </ul>
+                </div>
+              </div>
+              <div class="container-inner-listimage">
+                <div class="container-inner-listimage1">
+                  <% MayTinh.forEach((data)=>{%>
+                    
+                   
+                          <div class="wrapper-image">
+                  <%if(user){%>
+                              <a href="/sp/sp/<%-data._id%>*<%-user.username%>">  <img src="image/<%= data.image %>" alt="" width="180px" height="180px"></a><br>
+                              <span class ="ten" id = "ten-1"><%= data.name%></span><br>
+                             <span class ="gia" id = "gia-1"><%= data.price%></span><hr>
+                   <%}else{%>
+                    <a href="/sp/sp/<%-data._id%>*">  <img src="image/<%= data.image %>" alt="" width="180px" height="180px"></a><br>
+                   <span class ="ten" id = "ten-1"><%= data.name%></span><br>
+                    <span class ="gia" id = "gia-1"><%= data.price%></span><hr> 
 
-                                <%}%>
-                                      </div>
+                    <%}%>
+                          </div>
+           
                        
-                                <span class ="ten" id = "ten-1"><%= data.name%></span><br>
-                                <span class ="gia" id = "gia-1"><%= data.price%></span><br>    
-                              </th>
-                              <% }) %>
-                            </tr>
-                    </table>
+                  
+                  <% }) %>
+                </div>
+              </div>
+            </div>
+          </div>
+       </div>
+       <div class="container-inner-frame" id="container-inner-frame1">
+        <div class="container-inner-frame-inner">
+          <div class="container-inner-image" id="container-inner-image1">
+            <img class="image1" src="image/chuot.jpg">
+          </div>
+          <div class="container-inner-list">
+            <div class="container-inner-title">
+              <div class="container-inner-title1">
+                <p>Danh mục chuột</p>
+                <hr>
+              <ul>
+                <li><a href="#">Chuột Dell</a></li>
+                <li><a href="#">Chuột Asus</a></li>
+                <li><a href="#">Chuột HP</a></li>
+                <li><a href="#">Chuột Lenovo</a></li>
+                <li><a href="#">Chuột Macbook</a></li>
+              
+              </ul>
+              </div>
+            </div>
+            <div class="container-inner-listimage">
+              <div class="container-inner-listimage1">
+                <% Chuot.forEach((data)=>{%>
+                  
+                 
+                        <div class="wrapper-image">
+                <%if(user){%>
+                            <a href="/sp/sp/<%-data._id%>*<%-user.username%>">  <img src="image/<%= data.image %>" alt="" width="180px" height="180px"></a><br>
+                            <span class ="ten" id = "ten-1"><%= data.name%></span><br>
+                          <span class ="gia" id = "gia-1"><%= data.price%></span><hr>
+                 <%}else{%>
+                  <a href="/sp/sp/<%-data._id%>*">  <img src="image/<%= data.image %>" alt="" width="180px" height="180px"></a><br>
+                <span class ="ten" id = "ten-1"><%= data.name%></span><br>
+                 <span class ="gia" id = "gia-1"><%= data.price%></span><hr> 
+
+                  <%}%>
+                        </div>
+         
+                     
+                
+                <% }) %>
+              </div>
+            </div>
+          </div>
+        </div>
+     </div>
+
+     <div class="container-inner-frame" id="container-inner-frame1">
+      <div class="container-inner-frame-inner">
+        <div class="container-inner-image" id="container-inner-image1">
+          <img class="image1" src="image/banphim.png">
+        </div>
+        <div class="container-inner-list">
+          <div class="container-inner-title">
+            <div class="container-inner-title1">
+              <p>Danh mục Bàn phím</p>
+              <hr>
+            <ul>
+              <li><a href="#">Bàn phím Dell</a></li>
+              <li><a href="#">Bàn phím Asus</a></li>
+              <li><a href="#">Bàn phím HP</a></li>
+              <li><a href="#">Bàn phím Lenovo</a></li>
+              <li><a href="#">Bàn phím Macbook</a></li>
+            
+            </ul>
+            </div>
+          </div>
+          <div class="container-inner-listimage">
+            <div class="container-inner-listimage1">
+              <% Banphim.forEach((data)=>{%>
+                
+               
+                      <div class="wrapper-image">
+              <%if(user){%>
+                          <a href="/sp/sp/<%-data._id%>*<%-user.username%>">  <img src="image/<%= data.image %>" alt="" width="180px" height="180px"></a><br>
+                          <span class ="ten" id = "ten-1"><%= data.name%></span><br>
+                        <span class ="gia" id = "gia-1"><%= data.price%></span><hr>
+               <%}else{%>
+                <a href="/sp/sp/<%-data._id%>*">  <img src="image/<%= data.image %>" alt="" width="180px" height="180px"></a><br>
+              <span class ="ten" id = "ten-1"><%= data.name%></span><br>
+               <span class ="gia" id = "gia-1"><%= data.price%></span><hr> 
+
+                <%}%>
+                      </div>
+       
+                   
+              
+              <% }) %>
+            </div>
+          </div>
+        </div>
+      </div>
+   </div>
+
+   <div class="container-inner-frame" id="container-inner-frame1">
+    <div class="container-inner-frame-inner">
+      <div class="container-inner-image" id="container-inner-image1">
+        <img class="image1" src="image/tainghe.jpg">
+      </div>
+      <div class="container-inner-list">
+        <div class="container-inner-title">
+          <div class="container-inner-title1">
+            <p>Danh mục Tai nghe</p>
+            <hr>
+          <ul>
+            <li><a href="#">Tai nghe Bluetooth</a></li>
+            <li><a href="#">Tai nghe Asus</a></li>
+            <li><a href="#">Tai nghe HP</a></li>
+            <li><a href="#">Tai nghe Lenovo</a></li>
+            <li><a href="#">Tai nghe Macbook</a></li>
+          
+          </ul>
+          </div>
+        </div>
+        <div class="container-inner-listimage">
+          <div class="container-inner-listimage1">
+            <%  Tainghe.forEach((data)=>{%>
+              
+             
+                    <div class="wrapper-image">
+            <%if(user){%>
+                        <a href="/sp/sp/<%-data._id%>*<%-user.username%>">  <img src="image/<%= data.image %>" alt="" width="180px" height="180px"></a><br>
+                        <span class ="ten" id = "ten-1"><%= data.name%></span><br>
+                      <span class ="gia" id = "gia-1"><%= data.price%></span><hr>
+             <%}else{%>
+              <a href="/sp/sp/<%-data._id%>*">  <img src="image/<%= data.image %>" alt="" width="180px" height="180px"></a><br>
+            <span class ="ten" id = "ten-1"><%= data.name%></span><br>
+             <span class ="gia" id = "gia-1"><%= data.price%></span><hr> 
+
+              <%}%>
+                    </div>
+     
+                 
+            
+            <% }) %>
+          </div>
+        </div>
+      </div>
+    </div>
+ </div>
+
+ <div class="container-inner-frame" id="container-inner-frame1">
+  <div class="container-inner-frame-inner">
+    <div class="container-inner-image" id="container-inner-image1">
+      <img class="image1" src="image/ocung.jpg">
+    </div>
+    <div class="container-inner-list">
+      <div class="container-inner-title">
+        <div class="container-inner-title1">
+          <p>Danh mục Ổ cứng</p>
+          <hr>
+        <ul>
+          <li><a href="#">Ổ cứng SSD Dell</a></li>
+          <li><a href="#">Ổ cứng SSD Asus</a></li>
+          <li><a href="#">Ổ cứng HHD HP</a></li>
+          <li><a href="#">Ổ cứng HHD Lenovo</a></li>
+          <li><a href="#">Ổ cứng HHD Macbook</a></li>
+        
+        </ul>
+        </div>
+      </div>
+      <div class="container-inner-listimage">
+        <div class="container-inner-listimage1">
+          <% Ocung.forEach((data)=>{%>
+            
+           
+                  <div class="wrapper-image">
+          <%if(user){%>
+                      <a href="/sp/sp/<%-data._id%>*<%-user.username%>">  <img src="image/<%= data.image %>" alt="" width="180px" height="180px"></a><br>
+                      <span class ="ten" id = "ten-1"><%= data.name%></span><br>
+                    <span class ="gia" id = "gia-1"><%= data.price%></span><hr>
+           <%}else{%>
+            <a href="/sp/sp/<%-data._id%>*">  <img src="image/<%= data.image %>" alt="" width="180px" height="180px"></a><br>
+          <span class ="ten" id = "ten-1"><%= data.name%></span><br>
+           <span class ="gia" id = "gia-1"><%= data.price%></span><hr> 
+
+            <%}%>
                   </div>
-                  <div class="title-sp">
-                      <label>Danh sách sản phẩm chuột</label>
-                    </div>
-                  <div class="cuon-1" id =" frame-2">
-                      <table>
-                              <tr>
-                                <% Chuot.forEach((data)=>{%>
-                                  <th>
-                                        <div class="card card-body mb-3">
-                                            <%if(user){%>
-                                              <a href="/sp/sp/<%-data._id%>*<%-user.username%>">  <img src="image/<%= data.image %>" alt="" width="160px" height="160px"></a>
-                                   <%}else{%>
-                                    <a href="/sp/sp/<%-data._id%>*">  <img src="image/<%= data.image %>" alt="" width="160px" height="160px"></a>
-    
-                                    <%}%>
-                                        </div>
-                                  <span class ="ten" id = "ten-1"><%= data.name%></span><br>
-                                  <span class ="gia" id = "gia-1"><%= data.price%></span><br>    
-                                </th> 
-                                  <% }) %>
-                              </tr>
-                      </table>
-                    </div>
-                    <div class="title-sp">
-                      <label>Danh sách sản phẩm bàn phím</label>
-                    </div>
-                  <div class="cuon-1" id =" frame-3">
-                      <table>
-                              <tr>
-                                <% Banphim.forEach((data)=>{%>
-                                  <th>
-                                        <div class="card card-body mb-3">
-                                            <%if(user){%>
-                                              <a href="/sp/sp/<%-data._id%>*<%-user.username%>">  <img src="image/<%= data.image %>" alt="" width="160px" height="160px"></a>
-                                   <%}else{%>
-                                    <a href="/sp/sp/<%-data._id%>*">  <img src="image/<%= data.image %>" alt="" width="160px" height="160px"></a>
-    
-                                    <%}%>
-                                        </div>
-                                  <span class ="ten" id = "ten-1"><%= data.name%></span><br>
-                                  <span class ="gia" id = "gia-1"><%= data.price%></span><br>    
-                                </th> 
-                                  <% }) %>
-                              </tr>
-                      </table>
-                    </div>
-                    <div class="title-sp">
-                      <label>Danh sách sản phẩm tai nghe</label>
-                    </div>
-                  <div class="cuon-1" id =" frame-4">
-                      <table>
-                              <tr>
-                                <% Tainghe.forEach((data)=>{%>
-                                  <th>
-                                        <div class="card card-body mb-3">
-                                            <%if(user){%>
-                                              <a href="/sp/sp/<%-data._id%>*<%-user.username%>">  <img src="image/<%= data.image %>" alt="" width="160px" height="160px"></a>
-                                   <%}else{%>
-                                    <a href="/sp/sp/<%-data._id%>*">  <img src="image/<%= data.image %>" alt="" width="160px" height="160px"></a>
-    
-                                    <%}%>
-                                        </div>
-                                  <span class ="ten" id = "ten-1"><%= data.name%></span><br>
-                                  <span class ="gia" id = "gia-1"><%= data.price%></span><br>    
-                                </th> 
-                                  <% }) %>
-                              </tr>
-                      </table>
-                    </div>
-                    <div class="title-sp">
-                      <label>Danh sách sản phẩm ổ cứng</label>
-                    </div>
-                  <div class="cuon-1" id =" frame-5">
-                      <table>
-                              <tr>
-                                <% Ocung.forEach((data)=>{%>
-                                  <th>
-                                        <div class="card card-body mb-3">
-                                            <%if(user){%>
-                                              <a href="/sp/sp/<%-data._id%>*<%-user.username%>">  <img src="image/<%= data.image %>" alt="" width="160px" height="160px"></a>
-                                   <%}else{%>
-                                    <a href="/sp/sp/<%-data._id%>*">  <img src="image/<%= data.image %>" alt="" width="160px" height="160px"></a>
-    
-                                    <%}%>
-                                        </div>
-                                  <span class ="ten" id = "ten-1"><%= data.name%></span><br>
-                                  <span class ="gia" id = "gia-1"><%= data.price%></span><br>    
-                                </th> 
-                                  <% }) %>
-                              </tr>
-                      </table>
-                    </div>
+   
+               
+          
+          <% }) %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 </div>
 </div>

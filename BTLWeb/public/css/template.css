@@ -448,9 +448,15 @@ body{
 	}
 	.container-inner-listimage1{
 		width:100%;
-		height:100%;
+		height:500px;
 		display: flex;
 		flex-direction: row;
 		flex-wrap:wrap;
 		padding:10px;
+		overflow:hidden;
+	}
+
+	/* image in them san pham */
+	.wrapper-image1{
+		margin-left:200px;
 	}

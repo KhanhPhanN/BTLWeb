@@ -270,9 +270,11 @@
         <th class="info-1">
     <span class="card card-body mb-3">
         <%if(user){%>
-          <a href="/sp/sp/<%-SP[i]._id%>*<%-user.username%>">  <img src="image/<%= SP[i].image %>" alt="" width="100px" height="100px"></a>
+
+          <a href="/sp/sp/<%-SP[i]._id%>*<%-user.username%>">  <img src="/image/<%= SP[i].image %>" alt="" width="100px" height="100px"></a>
+
 <%}else{%>
-<a href="/sp/sp/<%-SP[i]._id%>*">  <img src="image/<%= SP[i].image %>" alt="" width="100px" height="100px"></a>
+<a href="/sp/sp/<%-SP[i]._id%>*">  <img src="/image/<%= SP[i].image %>" alt="" width="100px" height="100px"></a>
 
 <%}%>
 </span>

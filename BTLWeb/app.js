@@ -431,9 +431,9 @@ app.post("/search", function(req,res){
       dbo.collection("TempSP").find().toArray( function(err, result) {
         if (err) throw err;
         for(var i = 0;i<result.length;i++){
-        if(search_name(result[i].name + result[i].describle, key)>0){
+        if(search_name(result[i].name +" "+ result[i].describle, key)>0){
             data.push(result[i]);
-            data_num.push(search_name(result[i].name + result[i].describle, key));
+            data_num.push(search_name(result[i].name +" "+ result[i].describle, key));
         }
     }
          if(data.length!=0){
@@ -625,7 +625,7 @@ app.post('/user/modifier/:id',function(req,res){
     var firstname = req.body.firstname;
     var lastname = req.body.lastname;
      req.checkBody('firstname',"firstname bắt buộc!").notEmpty();
-     req.checkBody('látname',"lastname bắt buộc!").notEmpty();
+     req.checkBody('lastname',"lastname bắt buộc!").notEmpty();
     req.checkBody('email',"Email bắt buộc!").notEmpty();
     req.checkBody('address','Địa chỉ bắt buộc!').notEmpty();
     req.checkBody('city','THành phố bắt buộc!').notEmpty();
@@ -661,6 +661,7 @@ app.post('/user/modifier/:id',function(req,res){
             var query={$set: {firstname:firstname,email:email,lastname:lastname,city:city,address:address}};
             dbo.collection("users").updateOne(where,query,function(err,res){
                 if(err) throw err;
+                db.close();
             })
             dbo.collection("users").find({username:title}).toArray(function(err,result){
                 var bo = db.db("mydb");
@@ -671,7 +672,7 @@ app.post('/user/modifier/:id',function(req,res){
                 })
                 db.close();
             })
-            db.close();
+            
         })
     }
 })	

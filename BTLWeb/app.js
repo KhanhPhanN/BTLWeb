@@ -1356,7 +1356,7 @@ app.get("/",function(req,res){
     var user = {username: ""}
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/";
-var res2,res3,res4;
+var res2,res3,res4,res5;
 var MongoClient1 = require('mongodb').MongoClient;
 MongoClient1.connect(url, function(err, db) {
 var db1 = db.db("mydb");
@@ -1368,6 +1368,9 @@ db1.collection("Tai nghe").find().toArray(function(err,r){
 })
 db1.collection("Ổ cứng").find().toArray(function(err,r){
     res4=r;
+})
+db1.collection("TempSP").find().toArray(function(err,r){
+    res5=r;
 })
 db.close();
 MongoClient.connect(url, function(err, db) {
@@ -1393,6 +1396,7 @@ MongoClient.connect(url, function(err, db) {
                         Banphim:res2.reverse(),
                         Tainghe:res3.reverse(),
                         Ocung:res4.reverse(),
+                        SP: res5.reverse(),
                         UserOnline: datastateuser
                     })                  
       })

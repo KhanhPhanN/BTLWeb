@@ -6,8 +6,6 @@
 <div id="nav-inner">
 <nav id="AlphaNav">
 <ul >
-
-
 <li>
     <a class="title-text" href="/Mien-Phi-302.html"><h5>Miễn Phí</h5></a>
 </li>
@@ -252,62 +250,8 @@
         </ul>
 </li>
 
-<li>
-    <a href = "#" class="title-text"><h5>Pin máy tính<i class="fa fa-angle-double-down"></i></h5></a>
-<ul class="fix-ul">
-<li>
-<a href="/Danh-cho-Me-206.html">Tất cả</a>
-</li>
-                <li>
-<a href="/Danh-cho-Me-207.html">Mẹ mang thai                                            </a>
-</li>
-                <li>
-<a href="/Danh-cho-Me-216.html">Mẹ sau khi sinh                                            </a>
-</li>
-                <li>
-<a href="/Danh-cho-Me-223.html">Hút sữa và phụ kiện                                            </a>
-</li>
-                <li>
-<a href="/Danh-cho-Me-224.html">Sữa bà bầu                                            </a>
-</li>
-                <li>
-<a href="/Danh-cho-Me-225.html">Dầu gội, Mỹ phẩm                                            </a>
-</li>
-                <li>
-<a href="/Danh-cho-Me-228.html">Sách cho mẹ                                            </a>
-</li>
-                <li>
-<a href="/Danh-cho-Me-229.html">Giày dép cho mẹ                                            </a>
-</li>
-                <li>
-<a href="/Danh-cho-Me-230.html">Thời trang cho mẹ                                            </a>
-</li>
-                <li>
-<a href="/Danh-cho-Me-231.html">Trà, vitamin và thực phẩm chức năng                                            </a>
-</li>
-        </ul>
-</li>
 
-<li>
-    <a href = "#" class="title-text"><h5>Dây xạc máy tính<i class="fa fa-angle-double-down"></i></h5></a>
-<ul class="fix-ul">
-<li>
-<a href="/Do-dung-gia-dinh-248.html">Tất cả</a>
-</li>
-                <li>
-<a href="/Do-dung-gia-dinh-249.html">Phòng bếp                                            </a>
-</li>
-                <li>
-<a href="/Do-dung-gia-dinh-251.html">Phòng tắm, giặt                                            </a>
-</li>
-                <li>
-<a href="/Do-dung-gia-dinh-257.html">Phòng khách                                            </a>
-</li>
-                <li>
-<a href="/Do-dung-gia-dinh-261.html">Phòng ngủ                                            </a>
-</li>
-        </ul>
-</li>
+
 
 <li>
     <a class="title-text" href="/San-pham-khac-297.html"><h5>Phụ kiện khác</h5></a>
@@ -315,5 +259,27 @@
 </ul>
 </nav>
 </div>
+<h4>Sản phẩm mới nhất</h4>
+<table id="info-left">
+<%for(var i=0;i<5;i++){%>
+    <tr>
+        <th class="info-1">
+    <span class="card card-body mb-3">
+        <%if(user){%>
+          <a href="/sp/sp/<%-data._id%>*<%-user.username%>">  <img src="image/<%= SP[i].image %>" alt="" width="100px" height="100px"></a>
+<%}else{%>
+<a href="/sp/sp/<%-SP[i]._id%>*">  <img src="image/<%= SP[i].image %>" alt="" width="100px" height="100px"></a>
+
+<%}%>
+</span>
+</th>
+<th class="info-2">
+<span class ="ten" id = "ten-1"><%= SP[i].name%></span><br>
+<span class ="gia" id = "gia-1"><%= SP[i].price%></span>
+</th>
+</tr>
+ 
+<%}%>
+</table>
 </div>
 <!-- NAV ENDS HERE -->

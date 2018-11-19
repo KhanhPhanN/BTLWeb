@@ -40,16 +40,6 @@ $("#listlike").append("<li>"+data.likelist[i]+"</li>")
         
     })
 $(document).ready(function(){
-    $("#btn-report").click(function(){
-        $(".text-report").slideToggle();
-    });
-    $("#send-report").click(function(){
-        socket.emit("report",$("#textarea").val());
-       })
-    
-});
-
-$(document).ready(function(){
     $('#AlphaNav > ul > li > a').click(function () {
         $(this).closest('li').siblings().find('ul:visible').slideUp(); // ADDED
         $(this).closest('li').siblings().find('ul:visible').parent().find('i').toggleClass('fa-angle-double-up fa-angle-double-down'); // ADDED 2
@@ -57,8 +47,12 @@ $(document).ready(function(){
         $(this).find('i').toggleClass('fa-angle-double-up fa-angle-double-down');
         
     });
-
-    
+    $("#btn-report").click(function(){
+        $(".text-report").slideToggle();
+    });
+    $("#send-report").click(function(){
+        socket.emit("report",$("#textarea").val());
+       })
         if ($('.wrapper-nav').length > 0) {
             var _top = $('.wrapper-nav').offset().top - parseFloat($('.wrapper-nav').css('marginTop').replace(/auto/, 0));
             $(window).scroll(function(evt) {
@@ -71,22 +65,32 @@ $(document).ready(function(){
                     $('.main-1').css("margin-top", "0")
                 }
             })
+           
         }
     
         if ($('.wrapper-nav1').length > 0) {
             var _top1 = $('.wrapper-nav1').offset().top - parseFloat($('.wrapper-nav1').css('marginTop').replace(/auto/, 0));
             $(window).scroll(function(evt) {
                 var _y1= $(this).scrollTop();
+                var c=$("#footer_container").offset().top-500; 
                 if (_y1 > _top1) {
                     $('.wrapper-nav1').addClass('fixed1');
-                    
+                    if($(".fixed1").offset().top>c){
+                     
+                                $('.wrapper-nav1').removeClass('fixed1');
+                        
+                    }
+                    // if($(".fixed1").offset().top<c && $(".fixed1").offset().top<$('.wrapper-nav1').offset().top){
+                    //     $(window).scroll(function(evt) {
+                    //         $('.wrapper-nav1').addClass('fixed1');
+                    // })
+                    // }
                 } else {
                     $('.wrapper-nav1').removeClass('fixed1');
-                 
                 }
-            })
-        }
-    
+               
+        })
+    }
 
 
 

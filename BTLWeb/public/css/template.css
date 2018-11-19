@@ -168,7 +168,7 @@ body{
 			width: 270px;
 			position: fixed;
 			top: 68px;
-			left: 30px;
+			left: 50px;
 			z-index: 7000;
 			box-shadow: 0 0 5px 2px #ccc;
 		}
@@ -190,7 +190,7 @@ body{
 		background-color: #e3e7ed;
 		font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;;
 		margin-top: 0px;
-		height: 500px;
+	
 		font-size: 14px
 		}
 		#AlphaNav{

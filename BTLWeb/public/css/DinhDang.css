@@ -90,9 +90,6 @@ color: blueviolet;
     width: 100%;
     height: 500px;;
 }
- .fa-angle-double-down,.fa-angle-double-up{
-     float:right;
- }
 table {
     margin-top: 2em;
 }

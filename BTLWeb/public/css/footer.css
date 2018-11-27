@@ -1,39 +1,47 @@
 
  /* ============ MAIN LAYOUT ===========*/
  #main_wrapper {
- 
+
  margin-left:auto;
  margin-right:auto;
  text-align:left;
- background-color:#f1f1f1;
+ background-color:#fff;
  }
  #threecolwrap {
  float:left;
  width:100%;
+ background-color:#f1f1f1;
+ font-family:  Verdana, Geneva, Tahoma, sans-serif;
+ background-image: url(https://moki.vn/moki/themes/img/pattern.png);
  }
 #twocolwrap {
  float:left;
  width:100%;
 /* display:inline;*/
  margin-right:-400px;
-
  }
 #footer_header {
 	background-color:#f1f1f1;
-	margin-bottom:2em;
+	margin-bottom:0em;
+	font-family:  Verdana, Geneva, Tahoma, sans-serif;
+	background-image: url(https://moki.vn/moki/themes/img/pattern.png);
  }
 #footer_nav {
 float:left;
  width:400px;
   /*display:inline;  #5c755e;*/
  background-color:#f1f1f1;
-
+ font-family:  Verdana, Geneva, Tahoma, sans-serif;
+ background-image: url(https://moki.vn/moki/themes/img/pattern.png);
  }
 /* ---------------------------------FOOTER_PROMO---------------------------------------*/
 #footer_promo {
-width:400px;
+ width:400px;
+ height: 100%;
  float:left;
  background-color:#f1f1f1;
+ font-family:  Verdana, Geneva, Tahoma, sans-serif;
+ background-image: url(https://moki.vn/moki/themes/img/pattern.png);
  }
  #footer_promo h2{
 	 padding:0.5em;
@@ -86,14 +94,22 @@ width:400px;
 	 margin-left:1em;
 	 margin-bottom:2em;
 	 line-height:1.5em;
-	 
+	 text-align: left
  }
-
+ .rateit .rateit-range {
+    position: relative;
+    display: -moz-inline-box;
+    display: inline-block;
+    background: url(https://moki.vn/moki/themes/img/star.gif);
+    height: 16px;
+    outline: none;
+}
  #footer_content {
  /*width:auto;*/
  margin-left:400px;
  margin-right:400px;
  background-color:#f1f1f1;
+ background-image: url(https://moki.vn/moki/themes/img/pattern.png);
  }
 #footer_content_inner {
  padding:1em 1em;
@@ -122,14 +138,18 @@ width:400px;
  /*--------------------------FOOTER-FOOTER -------------------------- */
  #footer {
  clear:both;
- background-color:#f1f1f1;
  margin-left :3em;
  margin-right:4em;
+
  }
+#footer_wrapper{
+	background-image: url(https://moki.vn/moki/themes/img/pattern.png);
+}
 #footer_inner {
 padding:2em 1em;
  line-height:1.5em;
  width:100%;
+
  }
  #footer_inner h3{
 	 margin: 10px 0px 5px;

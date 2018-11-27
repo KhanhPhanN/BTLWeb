@@ -1,5 +1,50 @@
 <% include template/body1 %>
 <% include template/header %>
+<style>
+input[type="file"] {
+  display: none;
+}
+#lb-avatar{
+    padding: 10px;
+    height: 90px;
+    width: 90px;
+    background: rgb(233, 222, 222); 
+    display: table;
+    color: #fff;
+}
+#lb-avatar img{
+  margin-top: 35px;
+  margin-left: 30px;
+  height: 30px;
+}
+#show-photo{
+    margin-top: -110px;
+    margin-left: 140px;
+    padding: 10px;
+    height: 90px;
+    width: 90px;
+    background: rgb(233, 222, 222); 
+    display: table;
+    color: #fff;
+}
+form li, div > p {
+  background: #eee;
+  display: flex;
+  justify-content: space-between;
+  list-style-type: none;
+}
+
+form img {
+  height: 90px;
+  order: 1;
+}
+
+form p {
+ height: 90px;
+  margin-block-start: 0em;
+  margin-block-end: 0em;
+}
+</style>
 <% if (msg) {%>
   <div class="register-validator"><%-msg%></div> 
     <% } %> 
@@ -8,22 +53,25 @@
           <h5>Đăng ký </h5>
         </div><hr>
         <div class="content">
-          <form action="/update_register" encoding="" class="form-horizontal form-validate" id="UserRegisterForm" method="post" onsubmit="return checkPhoneNumber()"><div style="display:none;"><input type="hidden" name="_method" value="POST"/></div>						<div class="form-group">
-          </div>
+          <form action="/update_register" encoding="" class="form-horizontal form-validate" id="UserRegisterForm" method="post" enctype="multipart/form-data" onsubmit="return checkPhoneNumber()"><div style="display:none;"><input type="hidden" name="_method" value="POST"/></div>	
+               <label>Avatar</label> <label  class="col-sm-3 control-label" id="lb-avatar"><img src="/imagei/photo.png"><br><input name="Avatar" id="avatar" type="file" accept="image/png, image/jpeg,image/gif,image/jpg" ></label>
+                <div id="show-photo" class="preview"><p>Chưa tải ảnh</p></div>
+            
+                
           <div class="form-group">
             <div class="col-sm-6">
-                <input type="text" name="sdt" value="<%-user.PhoneNumber%>" hidden>
-              <div class="input number required"><label class="col-sm-3 control-label">Email:</label><input name="Email" class="form-control" placeholder="Xin vui lòng nhập số điện thoại" autofocus="autofocus" value="" data-rule-required="true" data-msg-required="Vui lòng nhập số điện thoại của bạn" data-rule-number="true" data-msg-number="Xin vui lòng nhập số" data-rule-minlength="10" data-msg-minlength="Số điện thoại từ 10 - 11 ký tự" data-rule-maxlength="11" data-msg-maxlength="Số điện thoại từ 10 - 11 ký tự" type="email"  required="required" aria-required="true" aria-invalid="true"></div>	
+          <input type="text" name="sdt" value="<%-user.PhoneNumber%>" hidden>
+              <div class="input number required"><label class="col-sm-3 control-label">Email:</label><input name="Email" class="form-control" placeholder="Xin vui lòng nhập email" type="email"  required="required" aria-required="true" aria-invalid="true"></div>	
                                             </div>
               </div>
               <div class="form-group">
                 <div class="col-sm-6">
-                  <div class="input password required">  <label class="col-sm-3 control-label">User name:</label><input name="username" class="form-control" maxlength="30" placeholder="Xin vui lòng nhập mật khẩu" data-rule-required="true" data-msg-required="Vui lòng nhập mật khẩu" data-rule-lettersonly="true" data-msg-lettersonly="Vui lòng chỉ nhập chữ và số" data-rule-minlength="6" data-msg-minlength="Mật khẩu tối thiểu 6 ký tự" data-rule-maxlength="30" data-msg-maxlength="Mật khẩu tối đa 30 ký tự" type="text" id="username" required="required"/></div>										</div>
+                  <div class="input password required">  <label class="col-sm-3 control-label">User name:</label><input name="username" class="form-control" maxlength="30" placeholder="Xin vui lòng nhập tên tài khoản" data-rule-required="true" data-msg-required="Vui lòng nhập mật khẩu" data-rule-lettersonly="true" data-msg-lettersonly="Vui lòng chỉ nhập chữ và số" data-rule-minlength="6" data-msg-minlength="Mật khẩu tối thiểu 6 ký tự" data-rule-maxlength="30" data-msg-maxlength="Mật khẩu tối đa 30 ký tự" type="text" id="username" required="required"/></div>										</div>
                 </div>
 
                 <div class="form-group">
                         <div class="col-sm-6">
-                          <div class="input number required"><label class="col-sm-3 control-label">First name:</label><input  name="First" class="form-control" placeholder="Xin vui lòng nhập số điện thoại" autofocus="autofocus" value="" data-rule-required="true" data-msg-required="Vui lòng nhập số điện thoại của bạn" data-rule-number="true" data-msg-number="Xin vui lòng nhập số" data-rule-minlength="10" data-msg-minlength="Số điện thoại từ 10 - 11 ký tự" data-rule-maxlength="11" data-msg-maxlength="Số điện thoại từ 10 - 11 ký tự" type="text"  required="required" aria-required="true" aria-invalid="true"></div>	
+                          <div class="input number required"><label class="col-sm-3 control-label">First name:</label><input  name="First" class="form-control" placeholder="Xin vui lòng nhập first name" autofocus="autofocus" value="" data-rule-required="true" data-msg-required="Vui lòng nhập số điện thoại của bạn" data-rule-number="true" data-msg-number="Xin vui lòng nhập số" data-rule-minlength="10" data-msg-minlength="Số điện thoại từ 10 - 11 ký tự" data-rule-maxlength="11" data-msg-maxlength="Số điện thoại từ 10 - 11 ký tự" type="text"  required="required" aria-required="true" aria-invalid="true"></div>	
                                                         </div>
                           </div>
                           <div class="form-group">
@@ -37,27 +85,53 @@
                                       </div>
                                       <div class="form-group">
                                         <div class="col-sm-6">
-                                          <div class="input password required">  <label class="col-sm-3 control-label">City:</label><input name="City" class="form-control" maxlength="30" placeholder="Xin vui lòng nhập thành phố" data-rule-required="true" data-msg-required="Vui lòng nhập thành phố" data-rule-lettersonly="true" data-msg-lettersonly="Vui lòng chỉ nhập chữ " data-rule-minlength="6" data-msg-minlength=" tối thiểu 6 ký tự" data-rule-maxlength="30" data-msg-maxlength=" tối đa 30 ký tự" type="text" id="city" required="required"/></div>										</div>
+                                          <div class="input password required">  <label class="col-sm-3 control-label">City:</label><input name="City" class="form-control" maxlength="30" placeholder="Xin vui lòng nhập thành phố"   type="text" id="city" required="required"/></div>										</div>
                                         </div>                 
-
-
-
-
-                <div class="form-group">
-                  <div class="col-sm-6 col-sm-offset-3">
-                    <div class="">
-                      <div class="g-recaptcha" data-theme="light" data-sitekey="6LdOcCkTAAAAAIs5kfNrv0bmM7CxHEnHeoI_X1PH" style="transform:scale(0.77);-webkit-transform:scale(0.77);transform-origin:0 0;-webkit-transform-origin:0 0;"></div>
-                    </div>
-                  </div>
-                </div>
-                <div class="form-group hidden-xs">
-                  <div  class="col-sm-6 col-sm-offset-3">
-                    <button id ="btdk" class="btn btn-default text-right" type="submit">Cập nhật thông tin</button>										</div>
-                </div>
-                <div class="hidden-md hidden-lg hidden-sm select-address">
+                
+                    <input id ="btdk" class="btn btn-default text-right" type="submit" value="Cập nhật thông tin	">									
+              
                     </form>									</div>
               </div>
             </div>
+<script>
+var input = document.querySelector('#avatar');
+var preview = document.querySelector('.preview');
+input.style.opacity = 0;
+input.addEventListener('change', updateImageDisplay);
+function updateImageDisplay() {
+  while(preview.firstChild) {
+    preview.removeChild(preview.firstChild);
+  }
+  var curFiles = input.files;
+  if(curFiles.length === 0) {
+    var para = document.createElement('p');
+    para.textContent = 'No files currently selected for upload';
+    preview.appendChild(para);
+  } else {
+    var list = document.createElement('p');
+    preview.appendChild(list);
+    for(var i = 0; i < curFiles.length; i++) {
+        var image = document.createElement('img');
+        image.src = window.URL.createObjectURL(curFiles[i]);
+      list.appendChild(image);
+    }
+  }
+}
+var fileTypes = [
+  'image/jpeg',
+  'image/pjpeg',
+  'image/png'
+]
 
+function validFileType(file) {
+  for(var i = 0; i < fileTypes.length; i++) {
+    if(file.type === fileTypes[i]) {
+      return true;
+    }
+  }
+  return false;
+}
+
+</script>
 <% include template/footer %>
 <% include template/body2 %>

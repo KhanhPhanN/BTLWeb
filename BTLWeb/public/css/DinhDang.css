@@ -24,6 +24,12 @@
     font-size: 16px;
     
 }
+.title-sp label{
+    padding-left: 50px
+}
+.title-sp #tab1{
+   color: aqua
+}
 .option{
     margin-top: 50px;
     background-color: #f16e8e;
@@ -102,13 +108,19 @@ table tr th {
 /* #pre-2{
     margin-left: 90%;
 } */ 
+.ten{
+    line-height: 20px;
+    height: 40px;
+    text-align: center
+}
 .ten:hover{
-    opacity:0.5;
+    color: #f16e8e
 }
 .gia{
-    color: aqua;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 20px
+    font-size: 22px;
+    font-weight: 700;
+    color: #502625;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 #left{
     width: 35%
@@ -130,9 +142,7 @@ table tr th {
     overflow-y: auto;
     
 }
-#thongtin{
-    line-height: 60px;
-}
+
 .maininfo{
 margin-left: 20em
 }
@@ -145,7 +155,6 @@ margin-left: 20em
     
 
 #modifier-user{
-   float:right;
    border-radius:5px;
     padding:5px;
     text-align:center;

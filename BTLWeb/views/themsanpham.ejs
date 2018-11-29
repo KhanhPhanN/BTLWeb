@@ -130,15 +130,7 @@
       <div class="row">
         <div class="column side" id="menuleft">
           <div id="sidebar">
-            <ul>
-                <li><a class="active" href="/">Trang chinh</a></li>
-                <li><a href="#news">Tài khoản</a></li>
-                <li><a href="#about">Sản phẩm</a></li>
-                <li><a href="#contact">Hỗ trợ bán hàng</a></li>
-                <li><a href="#about">Trung tâm hỗ trợ</a></li>
-                <li><a href="#about">Quản lý bán hàng</a></li>
-                <li><a href="#about">Shop</a></li>
-             </ul>
+            
          </div>
         </div>
 
@@ -158,7 +150,6 @@
                         <form action="/upload" method="POST" enctype="multipart/form-data">
                           <div class="custom-file mb-3">
                             <input type="file" name="file" id="file" class="custom-file-input">
-                           
                           </div>
                           <input type="submit" value="Submit" class="btn-primary">
                         </form>
@@ -187,81 +178,117 @@
                
                 <div style="display:inline;">
                 <div style="display:flex;">
-                    <p id="name">Tên sản phẩm</p>
+                    <p id="name" style="font-size:1em;font-weight:bold;">Tên sản phẩm</p>
                     <input type="text" id ="textinput" name ="nameproduct">
-               </div> 
+               </div> <hr>
                <div style="display:flex;">
-                   <p id = "description">Mô tả sản phẩm</p>
+                   <p id = "description" style="font-size:1em;font-weight:bold;">Mô tả sản phẩm</p>
                    <textarea cols="50" rows="50" id="textarea" name="describleproduct"></textarea>
-               </div>
+               </div><hr>
                <div style="display: flex">
-                   <p>Miễn phí</p>
+                   <p style="font-size:1em;font-weight:bold;">Miễn phí</p>
                    <label class="switch" id="switch1">
                         <input type="checkbox" unchecked name="bargainproduct1">
                         <span class="slider round"></span>
                     </label>
-               </div>
+               </div><hr>
+               <div style="display: flex">
+                <p style="font-size:1em;font-weight:bold;">Bán nhanh</p>
+                <label class="switch" id="switch">
+                     <input type="checkbox" unchecked name="bargainproduct2">
+                     <span class="slider round"></span>
+                 </label>
+            </div><hr>
                <div style="display: flex" >
-                    <p>Cho phép mặc cả</p>
+                    <p style="font-size:1em;font-weight:bold;">Cho phép mặc cả</p>
                     <label class="switch" id="switch2">
-                            <input type="checkbox" unchecked name="bargainproduct2">
+                            <input type="checkbox" unchecked name="bargainproduct3">
                             <span class="slider round"></span>
                     </label>
-                </div><br>
-                <div>
-                    <div id="list">Danh mục</div>
-                    <div class="custom-select" >
-                        <select name="attached">
-                                <option value="Máy tính">Laptop</option>
-                                <option value="Chuột">Chuột</option>
-                                <option value="Bàn phím">Bàn phím</option>
-                                <option value="Ổ cứng">Ổ cứng</option>
-                                <option value="Tai nghe">Tai nghe</option>
-                        </select>
-                    </div>
+                </div><hr>
+                <div id="product-detail">
+                    <label style="font-size:1em;font-weight:bold;">Chi tiết sản phẩm </label><br><hr>
+                    <label id="product-category">Danh mục</label>
+                    <input type="text" name="name" id="product-category-name" value="yêu cầu"><br><hr>
+
+                    <label id="product-state">Trạng thái</label>
+                    <input type="text" name="state" id="product-category-state" value="yêu cầu"><br><hr>
+
+                    <label id="product-label">Nhãn hiệu</label>
+                    <input type="text" name="label" id="product-category-label" value="yêu cầu"><br><hr>
+
+                    <label id="product-weight">Khối lượng</label>
+                    <input type="text" name="weight" id="product-category-weight" value="yêu cầu"><br><hr>
+                </div>
+                <div id="product-transport">
+                    <label style="font-size:1em;font-weight:bold;">Vận chuyển</label><br><hr>
+                    <label id="product-place">Nới bán</label>
+                    <textarea name="sell" id="product-place-sell"></textarea>
+                    <br><hr>
+                </div>
+
+                <div id="product-price">
+                    <label style="font-size:1em;font-weight:bold;">Giá</label><br><hr>
+                    <label >Giá bán(VND)</label>
+                    <input type="number" name="price" id="product-price-input" value=""><br><hr>
+                </div>
+
+
+
+                <dialog id="product-dialog">
+                    <p><i class="fa fa-reply"></i>Danh mục</p>
+                    <p id="dialog-detail1">Bé ăn <i class="fa fa-share"></i></p>
+                    <p id="dialog-detail2">Bé mặc <i class="fa fa-share"></i></p>
+                    <p id="dialog-detail3">Bé ngủ <i class="fa fa-share"></i></p>
+                    <p id="dialog-detail4">Bé tắm <i class="fa fa-share"></i></p>
+                    <p id="dialog-detail5">Bé vệ sinh <i class="fa fa-share"></i></p>
+                </dialog>
+
+                <dialog id="label-dialog">
+                    <p><i class="fa fa-reply"></i>Danh mục</p>
+                    <p id="label-detail1" class="state">CMAX <i class="fa fa-share"></i></p>
+                    <p id="label-detail2" class="state">Made in VietNam <i class="fa fa-share"></i></p>
+                    <p id="label-detail3" class="state">Made in Thailand <i class="fa fa-share"></i></p>
+                    <p id="label-detail4" class="state">Nhãn hiệu khác <i class="fa fa-share"></i></p>
+                </dialog>
+
+                <dialog id="weight-dialog">
+                    <p><i class="fa fa-reply"></i>Danh mục</p>
+                    <p id="weight-detail1" class="state">Trên 2kg đến 2.5kg <i class="fa fa-share"></i></p>
+                    <p id="weight-detail2" class="state">Trên 2.5kg đến 3kg<i class="fa fa-share"></i></p>
+                    <p id="weight-detail3" class="state">Trên 3kg đến 3.5kg <i class="fa fa-share"></i></p>
+                    <p id="weight-detail4" class="state">Trên 3.5kg đến 4kg <i class="fa fa-share"></i></p>
+                    <p id="weight-detail5" class="state">Trên 4kg đến 4.5kg<i class="fa fa-share"></i></p>
+                </dialog>
+
+                <dialog id="state-dialog">
+                    <p><i class="fa fa-reply"></i>Danh mục</p>
+                    <div>
+                    <p id="state-detail1" class="state" style="font-size:1em;font-weight:bold;margin-bottom:0px;padding-bottom:0px;">Mới <i class="fa fa-share"></i></p>
+                    <p class="state-detail" style="margin-top:0px;padding-top:0px;">Sản phẩm mới 100% chưa qua sử dụng </p>
                 </div>
                 <div>
-                    <div id="nhanhieu">Nhãn hiệu</div>
-                    <div class="custom-select" >
-                         <select name="label">
-                                 <option value="Asus">Asus</option>
-                                 <option value="Dell">Dell</option>
-                                 <option value="HP">HP</option>
-                                 <option value="Lenovo">Lenovo</option>
-                                 <option value="Acer">Acer</option>
-                         </select>
+                    <p id="state-detail2"  class="state" style="font-size:1em;font-weight:bold;margin-bottom:0px;padding-bottom:0px;">Gần như mới <i class="fa fa-share"></i></p>
+                    <p class="state-detail" style="margin-top:0px;padding-top:0px;">Sản phẩm dùng lướt-chất lượng như mới </p>
                 </div>
                 <div>
-                   <div id="khoiluong">Khối lượng</div>
-                   <div class="custom-select" >
-                         <select name="weight">
-                              <option value="0.5kg đến 1kg">0.5kg đến 1kg</option>
-                              <option value="1kg đến 2kg">1kg đến 2kg</option>
-                              <option value="3kg đến  4kg ">3kg đến  4kg </option>
-                              <option value="4kg đến 5kg ">4kg đến 5kg </option>
-                              <option value="trên 5kg">trên 5kg</option>
-                         </select>
-                   </div>
+                    <p id="state-detail3" class="state" style="font-size:1em;font-weight:bold;margin-bottom:0px;padding-bottom:0px;">Tốt <i class="fa fa-share"></i></p>
+                    <p class="state-detail" style="margin-top:0px;padding-top:0px;">Sản phẩm đã qua sử dụng-chất lượng cao </p>
                 </div>
                 <div>
-                  <div id="trangthai">Trạng thái </div>
-                  <div class="custom-select" >
-                    <select name="state">
-                         <option value="Còn mới">Còn mới</option>
-                         <option value="Đã qua sử dụng">Đã qua sử dụng</option>
-                    </select>
-                  </div>
-                  </div>
-                    <div style="display:flex;">
-                     <p id = "gia">Giá</p>
-                     <input type="number" id="giatext" name="price">
-                    </div>
-                  </div>
+                    <p id="state-detail4"  class="state" style="font-size:1em;font-weight:bold;margin-bottom:0px;padding-bottom:0px;">Khá tốt<i class="fa fa-share"></i></p>
+                    <p class="state-detail" style="margin-top:0px;padding-top:0px;">Sản phẩm đã qua sử dụng-chất lượng đảm bảo </p>
+                </div>
+                <div>
+                    <p id="state-detail5"  class="state" style="font-size:1em;font-weight:bold;margin-bottom:0px;padding-bottom:0px;">Cũ<i class="fa fa-share"></i></p>
+                    <p class="state-detail" style="margin-top:0px;padding-top:0px;">Sản phẩm cũ </p>
+                </div>
+                </dialog>
                   <br>
                   <div style="display:flex">
                     <div>
                         <input type="text" value="<%= user.username%>" name ="nameuser" hidden>
-                        <input  id="add" class="button button3" type="submit" name="Thêm sản phẩm" value="Thêm sản phẩm" >
+                        <input  id="add" class="button button3" type="submit" name="Đăng sản phẩm" value="Đăng sản phẩm" >
                     </div>
                     <div>
                         <input  class="button button3" type="submit" name="Quay lại" value="Quay lại" >
@@ -281,6 +308,147 @@
     
       <script src="/js/themsanpham.js"></script>
       <script src="/js/jqurey.js"></script>
+      <script>
+      $(document).ready(function(){
+          //category
+  $("#product-category").click(function(){  
+    $("#product-dialog").show();
+  })
+  //state
+  $("#product-state").click(function(){  
+    $("#state-dialog").show();
+  })
+  //label
+  $("#product-label").click(function(){  
+    $("#label-dialog").show();
+  })
+  // weight
+  $("#product-weight").click(function(){
+      $("#weight-dialog").show();
+  })
+  // weight detail
+  $("#weight-detail1").click(function(){
+      $("#product-category-weight").val($("#weight-detail1").text());
+      $("#product-category-weight").css("opacity","1");
+      $("#weight-dialog").hide();
+  })
+  $("#weight-detail2").click(function(){
+      $("#product-category-weight").val($("#weight-detail2").text());
+      $("#product-category-weight").css("opacity","1");
+      $("#weight-dialog").hide();
+  })
+  $("#weight-detail3").click(function(){
+      $("#product-category-weight").val($("#weight-detail3").text());
+      $("#product-category-weight").css("opacity","1");
+      $("#weight-dialog").hide();
+  })
+  $("#weight-detail4").click(function(){
+      $("#product-category-weight").val($("#weight-detail4").text());
+      $("#product-category-weight").css("opacity","1");
+      $("#weight-dialog").hide();
+  })
+  $("#weight-detail5").click(function(){
+      $("#product-category-weight").val($("#weight-detail5").text());
+      $("#product-category-weight").css("opacity","1");
+      $("#weight-dialog").hide();
+  })
+  //label detail
+  $("#label-detail1").click(function(){
+      $("#product-category-label").val($("#label-detail1").text());
+      $("#product-category-label").css("opacity","1");
+      $("#label-dialog").hide();
+  })
+  $("#label-detail2").click(function(){
+      $("#product-category-label").val($("#label-detail2").text());
+      $("#product-category-label").css("opacity","1");
+      $("#label-dialog").hide();
+  })
+  $("#label-detail3").click(function(){
+      $("#product-category-label").val($("#label-detail3").text());
+      $("#product-category-label").css("opacity","1");
+      $("#label-dialog").hide();
+  })
+  $("#label-detail4").click(function(){
+      $("#product-category-label").val($("#label-detail4").text());
+      $("#product-category-label").css("opacity","1");
+      $("#label-dialog").hide();
+  })
+  //state detail
+  $("#state-detail1").click(function(){
+      
+      var str=$("#state-detail1").text();
+        $("#product-category-state").val(str);
+        $("#product-category-state").css("opacity","1");
+        $("#state-dialog").hide();
+    })
+    $("#state-detail2").click(function(){
+      
+      var str=$("#state-detail2").text();
+        $("#product-category-state").val(str);
+        $("#product-category-state").css("opacity","1");
+        $("#state-dialog").hide();
+    })
+    $("#state-detail3").click(function(){
+      
+      var str=$("#state-detail3").text();
+        $("#product-category-state").val(str);
+        $("#product-category-state").css("opacity","1");
+        $("#state-dialog").hide();
+    })
+    $("#state-detail4").click(function(){
+      
+      var str=$("#state-detail4").text();
+        $("#product-category-state").val(str);
+        $("#product-category-state").css("opacity","1");
+        $("#state-dialog").hide();
+    })
+    $("#state-detail5").click(function(){
+      
+      var str=$("#state-detail5").text();
+        $("#product-category-state").val(str);
+        $("#product-category-state").css("opacity","1");
+        $("#state-dialog").hide();
+    })
+// category detail
+  $("#dialog-detail1").click(function(){
+      
+    var str=$("#dialog-detail1").text();
+      $("#product-category-name").val(str);
+      $("#product-category-name").css("opacity","1");
+      $("#product-dialog").hide();
+  })
+
+    $("#dialog-detail2").click(function(){
+      
+      var str=$("#dialog-detail2").text();
+        $("#product-category-name").val(str);
+        $("#product-category-name").css("opacity","1");
+        $("#product-dialog").hide();
+    })
+
+      $("#dialog-detail3").click(function(){
+      
+      var str=$("#dialog-detail3").text();
+        $("#product-category-name").val(str);
+        $("#product-category-name").css("opacity","1");
+        $("#product-dialog").hide();
+    })
+    $("#dialog-detail4").click(function(){
+      
+      var str=$("#dialog-detail4").text();
+        $("#product-category-name").val(str);
+        $("#product-category-name").css("opacity","1");
+        $("#product-dialog").hide();
+    })
+    $("#dialog-detail5").click(function(){
+      
+      var str=$("#dialog-detail5").text();
+        $("#product-category-name").val(str);
+        $("#product-category-name").css("opacity","1");
+        $("#product-dialog").hide();
+    })
+})
+      </script>
 </body>
 <script>
 function uploadimage(){

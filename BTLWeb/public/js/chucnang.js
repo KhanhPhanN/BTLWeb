@@ -40,6 +40,11 @@ $("#listlike").append("<li>"+data.likelist[i]+"</li>")
         
     })
 $(document).ready(function(){
+    $("#moki_small").hide();
+    $("#sanpham").hide();
+    $("#theo-doi").hide();
+    $("#duoc-theo-doi").hide();
+    $(".user-out").hide();
     $('#AlphaNav > ul > li > a').click(function () {
         $(this).closest('li').siblings().find('ul:visible').slideUp(); // ADDED
         $(this).closest('li').siblings().find('ul:visible').parent().find('i').toggleClass('fa-angle-double-up fa-angle-double-down'); // ADDED 2
@@ -47,6 +52,94 @@ $(document).ready(function(){
         $(this).find('i').toggleClass('fa-angle-double-up fa-angle-double-down');
         
     });
+    $("#modifier-user-1").hide();
+    $("#modifier-user-2").hide();
+    $("#modifier-user").click(function(){
+        $(".user-out").show();
+        $(".user-in").hide();
+        $("#modifier-user-1").show();
+        $("#modifier-user-2").show();
+        $("#modifier-user").hide();
+    })
+    $("#modifier-user-2").click(function(){
+        $(".user-out").hide();
+        $(".user-in").show();
+        $("#modifier-user-1").hide();
+        $("#modifier-user-2").hide();
+        $("#modifier-user").show();
+    })
+    $(".delete-follow").click(function(){
+        alert("ok")
+    })
+    $("#tab1").click(function(){
+        $("#sanpham").hide();
+        $("#tab2").css("color","black");
+        $("#thongtin").show();
+        $("#theo-doi").hide();
+        $("#duoc-theo-doi").hide();
+        $("#tab1").css("color","aqua");
+        $("#tab3").css("color","black");
+        $("#tab4").css("color","black");
+    })
+    $("#tab2").click(function(){
+        $("#thongtin").hide();
+        $("#sanpham").show();
+        $("#theo-doi").hide();
+        $("#duoc-theo-doi").hide();
+        $("#tab2").css("color","aqua");
+        $("#tab1").css("color","black");
+        $("#tab3").css("color","black");
+        $("#tab4").css("color","black");
+    })
+    $("#tab3").click(function(){
+        $("#thongtin").hide();
+        $("#sanpham").hide();
+        $("#theo-doi").show();
+        $("#duoc-theo-doi").hide();
+        $("#tab2").css("color","black");
+        $("#tab1").css("color","black");
+        $("#tab3").css("color","aqua");
+        $("#tab4").css("color","black");
+    })
+    $("#tab4").click(function(){
+        $("#thongtin").hide();
+        $("#sanpham").hide();
+        $("#theo-doi").hide();
+        $("#duoc-theo-doi").show();
+        $("#tab2").css("color","black");
+        $("#tab1").css("color","black");
+        $("#tab3").css("color","black");
+        $("#tab4").css("color","aqua");
+    })
+var stt=0;
+var starImg= 0;
+var endImg= $(".slide:last").attr("stt");
+$(".slide").each(function(){
+    if($(this).is(':visible'))
+    stt=$(this).attr("stt")
+})
+$("#Next").click(function(){
+    if(stt==endImg){
+        stt=1;
+    }
+    next=++stt;
+    $(".slide").hide();
+    $(".slide").eq(next).show();
+    $(".slide").eq(next-1).show();
+    $(".slide").eq(next-2).show();
+})
+$("#Previous").click(function(){
+    if(stt-2==starImg){
+        stt=endImg;
+        prev=stt++;
+    }
+    prev=--stt;
+    $(".slide").hide();
+    $(".slide").eq(prev-2).show();
+    $(".slide").eq(prev-3).show();
+    $(".slide").eq(prev-4).show();
+})
+setInterval(function(){$("#Next").click()},2000)
     $("#btn-report").click(function(){
         $(".text-report").slideToggle();
     });
@@ -60,9 +153,11 @@ $(document).ready(function(){
                 if (_y > _top) {
                     $('.wrapper-nav').addClass('fixed');
                     $('.main-1').css("margin-top", "30px")
+                    $("#moki_small").show();
                 } else {
                     $('.wrapper-nav').removeClass('fixed');
                     $('.main-1').css("margin-top", "0")
+                    $("#moki_small").hide();
                 }
             })
            
@@ -132,6 +227,7 @@ $(document).ready(function(){
     })
     $("#mota").show();
     $("#binhluan").hide();
+    $("#ht").hide()
     $("#mota").click(function(){
         mota();
     })
@@ -146,10 +242,12 @@ $(document).ready(function(){
 function binhluan(){
 $("#mota").hide();
 $("#binhluan").show();
+$("#ht").show()
 }
 function  mota(){
     $("#mota").show();
     $("#binhluan").hide();
+    $("#ht").hide()
 }
 function checkPhoneNumber() {
     var flag = false;

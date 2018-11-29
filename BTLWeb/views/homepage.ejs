@@ -1,5 +1,4 @@
-<!-- <% var i=0  %>
-<% var j=0  %> -->
+
 <% include template/body1 %>
 <div id = "container">
     <!-- header starts here-->
@@ -17,26 +16,101 @@
     <!-- content starts here -->
 <div id = "container_inner_content">
 <div id ="container_inner_content-inner">
+  <div>
+<div id="first"><table id="first-table"><tr><th>
+<div class="first-inner first2-inner" id="first2-inner"><img src="imagei/first2.jpg" alt="" class="img1"></div></th><th>
+<div class="first-inner first1-inner" id="first1-inner"><img src="imagei/first1.jpg" alt="" class="img1"></div></th>
+</tr>
+</table>
+</div>
+<div class="section-header text-center">
+    <h2>Sản phẩm ưu đãi nổi bật</h2>
+ </div>
+ <div id="list_uudai">
+   <table id="table_uudai">
+    <tr>
+        <i class="fa fa-angle-left" id="Previous" data-toggle="tooltip" data-placement="top"></i>
+    <%for(var i=0;i<SP.length;i++){%>
+          <th class="slide" stt="<%-i%>">
+        <span class="card card-body mb-3">
+            <%if(user){%>
+        <a href="/sp/sp/<%-SP[i]._id%>*<%-user.username%>">  <img src="/image/<%= SP[i].image %>" alt="" width="250px" height="250px"></a>
+    <%}else{%>
+    <a href="/sp/sp/<%-SP[i]._id%>*">  <img src="/image/<%= SP[i].image %>" alt="" width="250px" height="250px"></a>
+    
+    <%}%>
+    </span>
+    <span class ="ten" id = "ten-1"><%= SP[i].name%></span><br>
+    <div class="stars">
+        <form action="">
+          <input class="star star-5" id="star-5" type="radio" name="star" checked/>
+          <label class="star star-5" for="star-5"></label>
+          <input class="star star-4" id="star-4" type="radio" name="star"/>
+          <label class="star star-4" for="star-4"></label>
+          <input class="star star-3" id="star-3" type="radio" name="star"/>
+          <label class="star star-3" for="star-3"></label>
+          <input class="star star-2" id="star-2" type="radio" name="star"/>
+          <label class="star star-2" for="star-2"></label>
+          <input class="star star-1" id="star-1" type="radio" name="star"/>
+          <label class="star star-1" for="star-1"></label>
+        </form>
+      </div><br>
+    <span class ="gia" id = "gia-1"><%= SP[i].price%></span>
+    </th>
+    <%}%>
+    <i class="fa fa-angle-right" id="Next" data-toggle="tooltip" data-placement="top"></i>
+  </tr>
+    </table></div>
+</div></div>
        <div class="container-inner-frame" id="container-inner-frame1">
           <div class="container-inner-frame-inner">
             <div class="container-inner-image" id="container-inner-image1">
-              <img class="image1" src="image/maytinh.jpg">
+              <img class="image1" src="imagei/bean.jpg">
             </div>
             <div class="container-inner-list">
               <div class="container-inner-title">
                 <div class="container-inner-title1">
-                  <p>Danh mục máy tính</p>
-                  <hr>
-                <ul>
-                  <li><a href="#">Máy tính Dell</a></li>
-                  <li><a href="#">Máy tính Asus</a></li>
-                  <li><a href="#">Máy tính HP</a></li>
-                  <li><a href="#">Máy tính Lenovo</a></li>
-                  <li><a href="#">Máy tính Macbook</a></li>
-                
-                </ul>
+                  <div class="group-left">
+                    <div class="pb-link">
+                        <div class="pb-heading">
+                          <a href="https://moki.vn/Be-an-71.html">Bé ăn</a>
+                        </div>
+                       <div class="pb-link">
+                                                                               <li class="shopby-collection-link">
+                                   <a href="https://moki.vn/Ghe-an-bot-cho-be-72.html" class=" current">
+                                      <span>Ghế ăn bột cho bé</span>
+                                   </a>
+                                </li>
+                                                         <li class="shopby-collection-link">
+                                   <a href="https://moki.vn/Binh-sua-va-phu-kien-73.html" class=" current">
+                                      <span>Bình sữa và phụ kiện</span>
+                                   </a>
+                                </li>
+                                                         <li class="shopby-collection-link">
+                                   <a href="https://moki.vn/Sua-bot-cac-loai-74.html" class=" current">
+                                      <span>Sữa bột các loại</span>
+                                   </a>
+                                </li>
+                                                         <li class="shopby-collection-link">
+                                   <a href="https://moki.vn/Bot-Chao-Banh-an-dam-75.html" class=" current">
+                                      <span>Bột, Cháo, Bánh ăn dặm</span>
+                                   </a>
+                                </li>
+                                                         <li class="shopby-collection-link">
+                                   <a href="https://moki.vn/Do-dung-phuc-vu-an-uong-76.html" class=" current">
+                                      <span>Đồ dùng phục vụ ăn uống</span>
+                                   </a>
+                                </li>
+                                                         <li class="shopby-collection-link">
+                                   <a href="https://moki.vn/Thuc-pham-dong-hop-cho-be-77.html" class=" current">
+                                      <span>Thực phẩm đóng hộp cho bé</span>
+                                   </a>
+                                </li>
+                                                                      </div>
+                    </div>
+                  </div>
                 </div><br>
-                <img src="https://cdn.trangcongnghe.com/uploads/posts/2017-09/ghi-chu-vao-lich-don-gian-va-dep-mat-tren-may-tinh-voi-desktop-calendar_1.jpg" width="180px" height="250px">
+                <img src="imagei/bean1.jpg" width="250px" height="350px">
               </div>
               <div class="container-inner-listimage">
                 <div class="container-inner-listimage1">
@@ -47,13 +121,42 @@
                   <%if(user){%>
                               <a href="/sp/sp/<%-data._id%>*<%-user.username%>">  <img src="image/<%= data.image %>" alt="" width="180px" height="180px"></a><br>
                               <span class ="ten" id = "ten-1"><%= data.name%></span><br>
-                             <span class ="gia" id = "gia-1"><%= data.price%></span><hr>
+                              <div class="stars">
+                                <form action="">
+                                  <input class="star star-5" id="star-5" type="radio" name="star" checked/>
+                                  <label class="star star-5" for="star-5"></label>
+                                  <input class="star star-4" id="star-4" type="radio" name="star"/>
+                                  <label class="star star-4" for="star-4"></label>
+                                  <input class="star star-3" id="star-3" type="radio" name="star"/>
+                                  <label class="star star-3" for="star-3"></label>
+                                  <input class="star star-2" id="star-2" type="radio" name="star"/>
+                                  <label class="star star-2" for="star-2"></label>
+                                  <input class="star star-1" id="star-1" type="radio" name="star"/>
+                                  <label class="star star-1" for="star-1"></label>
+                                </form>
+                              </div><br>
+                             <span class ="gia" id = "gia-1"><%= data.price%></span>
                    <%}else{%>
                     <a href="/sp/sp/<%-data._id%>*">  <img src="image/<%= data.image %>" alt="" width="180px" height="180px"></a><br>
                    <span class ="ten" id = "ten-1"><%= data.name%></span><br>
-                    <span class ="gia" id = "gia-1"><%= data.price%></span><hr> 
+                   <div class="stars">
+                    <form action="">
+                      <input class="star star-5" id="star-5" type="radio" name="star" checked/>
+                      <label class="star star-5" for="star-5"></label>
+                      <input class="star star-4" id="star-4" type="radio" name="star"/>
+                      <label class="star star-4" for="star-4"></label>
+                      <input class="star star-3" id="star-3" type="radio" name="star"/>
+                      <label class="star star-3" for="star-3"></label>
+                      <input class="star star-2" id="star-2" type="radio" name="star"/>
+                      <label class="star star-2" for="star-2"></label>
+                      <input class="star star-1" id="star-1" type="radio" name="star"/>
+                      <label class="star star-1" for="star-1"></label>
+                    </form>
+                  </div><br>
+                    <span class ="gia" id = "gia-1"><%= data.price%></span>
 
                     <%}%>
+                    
                           </div>
            
                        
@@ -67,24 +170,48 @@
        <div class="container-inner-frame" id="container-inner-frame1">
         <div class="container-inner-frame-inner">
           <div class="container-inner-image" id="container-inner-image1">
-            <img class="image1" src="image/chuot.jpg">
+            <img class="image1" src="imagei/bemac.jpg">
           </div>
           <div class="container-inner-list">
             <div class="container-inner-title">
               <div class="container-inner-title1">
-                <p>Danh mục chuột</p>
-                <hr>
-              <ul>
-                <li><a href="#">Chuột Dell</a></li>
-                <li><a href="#">Chuột Asus</a></li>
-                <li><a href="#">Chuột HP</a></li>
-                <li><a href="#">Chuột Lenovo</a></li>
-                <li><a href="#">Chuột Macbook</a></li>
-              
-              </ul>
+                <div class="group-left">
+                  <div class="pb-link">
+                      <div class="pb-heading">
+                        <a href="https://moki.vn/Be-mac-39.html">Bé mặc</a>
+                      </div>
+                     <div class="pb-link">
+                                                                             <li class="shopby-collection-link">
+                                 <a href="https://moki.vn/Giay-dep-cho-be-40.html" class=" current">
+                                    <span>Giày dép cho bé</span>
+                                 </a>
+                              </li>
+                                                       <li class="shopby-collection-link">
+                                 <a href="https://moki.vn/Mu-thoi-trang-41.html" class=" current">
+                                    <span>Mũ thời trang</span>
+                                 </a>
+                              </li>
+                                                       <li class="shopby-collection-link">
+                                 <a href="https://moki.vn/Do-so-sinh-42.html" class=" current">
+                                    <span>Đồ sơ sinh</span>
+                                 </a>
+                              </li>
+                                                       <li class="shopby-collection-link">
+                                 <a href="https://moki.vn/Phu-kien-thoi-trang-khac-50.html" class=" current">
+                                    <span>Phụ kiện thời trang khác</span>
+                                 </a>
+                              </li>
+                                                       <li class="shopby-collection-link">
+                                 <a href="https://moki.vn/Thoi-trang-cho-be-51.html" class=" current">
+                                    <span>Thời trang cho bé</span>
+                                 </a>
+                              </li>
+                                                                    </div>
+                  </div>
+                </div>
               </div>
               <br>
-              <img src="https://img.alicdn.com/imgextra/i3/2561980151/TB2.AlMcgRkpuFjy1zeXXc.6FXa_!!2561980151.jpg" width="180px" height="250px">
+              <img src="imagei/bemac1.jpg" width="250px" height="350px">
             </div>
             <div class="container-inner-listimage">
               <div class="container-inner-listimage1">
@@ -94,11 +221,39 @@
                 <%if(user){%>
                             <a href="/sp/sp/<%-data._id%>*<%-user.username%>">  <img src="image/<%= data.image %>" alt="" width="180px" height="180px"></a><br>
                             <span class ="ten" id = "ten-1"><%= data.name%></span><br>
-                          <span class ="gia" id = "gia-1"><%= data.price%></span><hr>
+                            <div class="stars">
+                              <form action="">
+                                <input class="star star-5" id="star-5" type="radio" name="star" checked/>
+                                <label class="star star-5" for="star-5"></label>
+                                <input class="star star-4" id="star-4" type="radio" name="star"/>
+                                <label class="star star-4" for="star-4"></label>
+                                <input class="star star-3" id="star-3" type="radio" name="star"/>
+                                <label class="star star-3" for="star-3"></label>
+                                <input class="star star-2" id="star-2" type="radio" name="star"/>
+                                <label class="star star-2" for="star-2"></label>
+                                <input class="star star-1" id="star-1" type="radio" name="star"/>
+                                <label class="star star-1" for="star-1"></label>
+                              </form>
+                            </div><br>
+                          <span class ="gia" id = "gia-1"><%= data.price%></span>
                  <%}else{%>
                   <a href="/sp/sp/<%-data._id%>*">  <img src="image/<%= data.image %>" alt="" width="180px" height="180px"></a><br>
                 <span class ="ten" id = "ten-1"><%= data.name%></span><br>
-                 <span class ="gia" id = "gia-1"><%= data.price%></span><hr> 
+                <div class="stars">
+                  <form action="">
+                    <input class="star star-5" id="star-5" type="radio" name="star" checked/>
+                    <label class="star star-5" for="star-5"></label>
+                    <input class="star star-4" id="star-4" type="radio" name="star"/>
+                    <label class="star star-4" for="star-4"></label>
+                    <input class="star star-3" id="star-3" type="radio" name="star"/>
+                    <label class="star star-3" for="star-3"></label>
+                    <input class="star star-2" id="star-2" type="radio" name="star"/>
+                    <label class="star star-2" for="star-2"></label>
+                    <input class="star star-1" id="star-1" type="radio" name="star"/>
+                    <label class="star star-1" for="star-1"></label>
+                  </form>
+                </div><br>
+                 <span class ="gia" id = "gia-1"><%= data.price%></span>
 
                   <%}%>
                         </div>
@@ -115,24 +270,73 @@
      <div class="container-inner-frame" id="container-inner-frame1">
       <div class="container-inner-frame-inner">
         <div class="container-inner-image" id="container-inner-image1">
-          <img class="image1" src="image/banphim.png">
+          <img class="image1" src="imagei/bengu.png">
         </div>
         <div class="container-inner-list">
           <div class="container-inner-title">
             <div class="container-inner-title1">
-              <p>Danh mục Bàn phím</p>
-              <hr>
-            <ul>
-              <li><a href="#">Bàn phím Dell</a></li>
-              <li><a href="#">Bàn phím Asus</a></li>
-              <li><a href="#">Bàn phím HP</a></li>
-              <li><a href="#">Bàn phím Lenovo</a></li>
-              <li><a href="#">Bàn phím Macbook</a></li>
-            
-            </ul>
+              <div class="group-left">
+                <div class="pb-link">
+                    <div class="pb-heading">
+                      <a href="https://moki.vn/Be-ngu-268.html">Bé ngủ</a>
+                    </div>
+                   <div class="pb-link">
+                                                                           <li class="shopby-collection-link">
+                               <a href="https://moki.vn/Giuong-ngu-giuong-tang-269.html" class=" current">
+                                  <span>Giường ngủ, giường tầng</span>
+                               </a>
+                            </li>
+                                                     <li class="shopby-collection-link">
+                               <a href="https://moki.vn/Noi-xach-em-be-270.html" class=" current">
+                                  <span>Nôi xách em bé</span>
+                               </a>
+                            </li>
+                                                     <li class="shopby-collection-link">
+                               <a href="https://moki.vn/Chan-dem-chieu-goi-271.html" class=" current">
+                                  <span>Chăn đệm chiếu gối</span>
+                               </a>
+                            </li>
+                                                     <li class="shopby-collection-link">
+                               <a href="https://moki.vn/Bo-quay-cui-276.html" class=" current">
+                                  <span>Bộ quây cũi</span>
+                               </a>
+                            </li>
+                                                     <li class="shopby-collection-link">
+                               <a href="https://moki.vn/Noi-dien-tu-dong-277.html" class=" current">
+                                  <span>Nôi điện tự động</span>
+                               </a>
+                            </li>
+                                                     <li class="shopby-collection-link">
+                               <a href="https://moki.vn/Cui-cho-be-278.html" class=" current">
+                                  <span>Cũi cho bé</span>
+                               </a>
+                            </li>
+                                                     <li class="shopby-collection-link">
+                               <a href="https://moki.vn/Ghe-rung-cho-be-279.html" class=" current">
+                                  <span>Ghế rung cho bé</span>
+                               </a>
+                            </li>
+                                                     <li class="shopby-collection-link">
+                               <a href="https://moki.vn/Chan-giuong-280.html" class=" current">
+                                  <span>Chặn giường</span>
+                               </a>
+                            </li>
+                                                     <li class="shopby-collection-link">
+                               <a href="https://moki.vn/Noi-ngu-chung-giuong-281.html" class=" current">
+                                  <span>Nôi ngủ chung giường</span>
+                               </a>
+                            </li>
+                                                     <li class="shopby-collection-link">
+                               <a href="https://moki.vn/Den-ngu-may-bao-khoc-ru-ngu-282.html" class=" current">
+                                  <span>Đèn ngủ, máy báo khóc, ru ngủ</span>
+                               </a>
+                            </li>
+                                                                  </div>
+                </div>
+              </div>
             </div>
             <br>
-            <img src="https://bizweb.dktcdn.net/thumb/large/100/210/976/products/1-b80c8ac0-92a1-47c1-9119-c98f72a24215.jpg?v=1527144439730" width="180px" height="250px">
+            <img src="imagei/bengu1.jpeg" width="250px" height="300px">
           </div>
           <div class="container-inner-listimage">
             <div class="container-inner-listimage1">
@@ -143,11 +347,39 @@
               <%if(user){%>
                           <a href="/sp/sp/<%-data._id%>*<%-user.username%>">  <img src="image/<%= data.image %>" alt="" width="180px" height="180px"></a><br>
                           <span class ="ten" id = "ten-1"><%= data.name%></span><br>
-                        <span class ="gia" id = "gia-1"><%= data.price%></span><hr>
+                          <div class="stars">
+                            <form action="">
+                              <input class="star star-5" id="star-5" type="radio" name="star" checked/>
+                              <label class="star star-5" for="star-5"></label>
+                              <input class="star star-4" id="star-4" type="radio" name="star"/>
+                              <label class="star star-4" for="star-4"></label>
+                              <input class="star star-3" id="star-3" type="radio" name="star"/>
+                              <label class="star star-3" for="star-3"></label>
+                              <input class="star star-2" id="star-2" type="radio" name="star"/>
+                              <label class="star star-2" for="star-2"></label>
+                              <input class="star star-1" id="star-1" type="radio" name="star"/>
+                              <label class="star star-1" for="star-1"></label>
+                            </form>
+                          </div><br>
+                        <span class ="gia" id = "gia-1"><%= data.price%></span>
                <%}else{%>
                 <a href="/sp/sp/<%-data._id%>*">  <img src="image/<%= data.image %>" alt="" width="180px" height="180px"></a><br>
               <span class ="ten" id = "ten-1"><%= data.name%></span><br>
-               <span class ="gia" id = "gia-1"><%= data.price%></span><hr> 
+              <div class="stars">
+                <form action="">
+                  <input class="star star-5" id="star-5" type="radio" name="star" checked/>
+                  <label class="star star-5" for="star-5"></label>
+                  <input class="star star-4" id="star-4" type="radio" name="star"/>
+                  <label class="star star-4" for="star-4"></label>
+                  <input class="star star-3" id="star-3" type="radio" name="star"/>
+                  <label class="star star-3" for="star-3"></label>
+                  <input class="star star-2" id="star-2" type="radio" name="star"/>
+                  <label class="star star-2" for="star-2"></label>
+                  <input class="star star-1" id="star-1" type="radio" name="star"/>
+                  <label class="star star-1" for="star-1"></label>
+                </form>
+              </div><br>
+               <span class ="gia" id = "gia-1"><%= data.price%></span>
 
                 <%}%>
                       </div>
@@ -164,24 +396,53 @@
    <div class="container-inner-frame" id="container-inner-frame1">
     <div class="container-inner-frame-inner">
       <div class="container-inner-image" id="container-inner-image1">
-        <img class="image1" src="image/tainghe.jpg">
+        <img class="image1" src="imagei/betam.jpeg">
       </div>
       <div class="container-inner-list">
         <div class="container-inner-title">
           <div class="container-inner-title1">
-            <p>Danh mục Tai nghe</p>
-            <hr>
-          <ul>
-            <li><a href="#">Tai nghe Bluetooth</a></li>
-            <li><a href="#">Tai nghe Asus</a></li>
-            <li><a href="#">Tai nghe HP</a></li>
-            <li><a href="#">Tai nghe Lenovo</a></li>
-            <li><a href="#">Tai nghe Macbook</a></li>
-          
-          </ul>
+            <div class="group-left">
+              <div class="pb-link">
+                  <div class="pb-heading">
+                    <a href="https://moki.vn/Be-tam-232.html">Bé tắm</a>
+                  </div>
+                 <div class="pb-link">
+                                                                         <li class="shopby-collection-link">
+                             <a href="https://moki.vn/Chau-tam-va-phu-kien-233.html" class=" current">
+                                <span>Chậu tắm và phụ kiện</span>
+                             </a>
+                          </li>
+                                                   <li class="shopby-collection-link">
+                             <a href="https://moki.vn/Do-nhiet-do-tam-cho-be-234.html" class=" current">
+                                <span>Đo nhiệt độ tắm cho bé</span>
+                             </a>
+                          </li>
+                                                   <li class="shopby-collection-link">
+                             <a href="https://moki.vn/Khan-mat-Khan-tam-cho-be-235.html" class=" current">
+                                <span>Khăn mặt, Khăn tắm cho bé</span>
+                             </a>
+                          </li>
+                                                   <li class="shopby-collection-link">
+                             <a href="https://moki.vn/Do-choi-khi-tam-236.html" class=" current">
+                                <span>Đồ chơi khi tắm</span>
+                             </a>
+                          </li>
+                                                   <li class="shopby-collection-link">
+                             <a href="https://moki.vn/Sua-tam-dau-goi-237.html" class=" current">
+                                <span>Sữa tắm, dầu gội</span>
+                             </a>
+                          </li>
+                                                   <li class="shopby-collection-link">
+                             <a href="https://moki.vn/Mu-chan-nuoc-238.html" class=" current">
+                                <span>Mũ chắn nước</span>
+                             </a>
+                          </li>
+                                                                </div>
+              </div>
+            </div>
           </div>
           <br>
-                <img src="https://vn-live-02.slatic.net/original/962fc5d9cc27e9a100f5254376d59209.jpg" width="180px" height="250px">
+                <img src="imagei/betam1.jpeg" width="250px" height="350px">
         </div>
         <div class="container-inner-listimage">
           <div class="container-inner-listimage1">
@@ -192,11 +453,39 @@
             <%if(user){%>
                         <a href="/sp/sp/<%-data._id%>*<%-user.username%>">  <img src="image/<%= data.image %>" alt="" width="180px" height="180px"></a><br>
                         <span class ="ten" id = "ten-1"><%= data.name%></span><br>
-                      <span class ="gia" id = "gia-1"><%= data.price%></span><hr>
+                        <div class="stars">
+                          <form action="">
+                            <input class="star star-5" id="star-5" type="radio" name="star" checked/>
+                            <label class="star star-5" for="star-5"></label>
+                            <input class="star star-4" id="star-4" type="radio" name="star"/>
+                            <label class="star star-4" for="star-4"></label>
+                            <input class="star star-3" id="star-3" type="radio" name="star"/>
+                            <label class="star star-3" for="star-3"></label>
+                            <input class="star star-2" id="star-2" type="radio" name="star"/>
+                            <label class="star star-2" for="star-2"></label>
+                            <input class="star star-1" id="star-1" type="radio" name="star"/>
+                            <label class="star star-1" for="star-1"></label>
+                          </form>
+                        </div><br>
+                      <span class ="gia" id = "gia-1"><%= data.price%></span>
              <%}else{%>
               <a href="/sp/sp/<%-data._id%>*">  <img src="image/<%= data.image %>" alt="" width="180px" height="180px"></a><br>
             <span class ="ten" id = "ten-1"><%= data.name%></span><br>
-             <span class ="gia" id = "gia-1"><%= data.price%></span><hr> 
+            <div class="stars">
+              <form action="">
+                <input class="star star-5" id="star-5" type="radio" name="star" checked/>
+                <label class="star star-5" for="star-5"></label>
+                <input class="star star-4" id="star-4" type="radio" name="star"/>
+                <label class="star star-4" for="star-4"></label>
+                <input class="star star-3" id="star-3" type="radio" name="star"/>
+                <label class="star star-3" for="star-3"></label>
+                <input class="star star-2" id="star-2" type="radio" name="star"/>
+                <label class="star star-2" for="star-2"></label>
+                <input class="star star-1" id="star-1" type="radio" name="star"/>
+                <label class="star star-1" for="star-1"></label>
+              </form>
+            </div><br>
+             <span class ="gia" id = "gia-1"><%= data.price%></span> 
 
               <%}%>
                     </div>
@@ -213,24 +502,53 @@
  <div class="container-inner-frame" id="container-inner-frame1">
   <div class="container-inner-frame-inner">
     <div class="container-inner-image" id="container-inner-image1">
-      <img class="image1" src="image/ocung.jpg">
+      <img class="image1" src="imagei/bevesinh.jpg">
     </div>
     <div class="container-inner-list">
       <div class="container-inner-title">
         <div class="container-inner-title1">
-          <p>Danh mục Ổ cứng</p>
-          <hr>
-        <ul>
-          <li><a href="#">Ổ cứng SSD Dell</a></li>
-          <li><a href="#">Ổ cứng SSD Asus</a></li>
-          <li><a href="#">Ổ cứng HHD HP</a></li>
-          <li><a href="#">Ổ cứng HHD Lenovo</a></li>
-          <li><a href="#">Ổ cứng HHD Macbook</a></li>
-        
-        </ul>
+          <div class="group-left">
+            <div class="pb-link">
+                <div class="pb-heading">
+                  <a href="https://moki.vn/Be-ve-sinh-54.html">Bé vệ sinh</a>
+                </div>
+               <div class="pb-link">
+                                                                       <li class="shopby-collection-link">
+                           <a href="https://moki.vn/Ve-sinh-toc-tai-tay-chan-rang-mieng-55.html" class=" current">
+                              <span>Vệ sinh tóc, tai, tay, chân, răng, miệng</span>
+                           </a>
+                        </li>
+                                                 <li class="shopby-collection-link">
+                           <a href="https://moki.vn/Kem-ham-duong-da-phan-rom-62.html" class=" current">
+                              <span>Kem hăm, dưỡng da, phấn rôm</span>
+                           </a>
+                        </li>
+                                                 <li class="shopby-collection-link">
+                           <a href="https://moki.vn/Bim-va-ta-giay-cho-be-67.html" class=" current">
+                              <span>Bỉm và tã giấy cho bé</span>
+                           </a>
+                        </li>
+                                                 <li class="shopby-collection-link">
+                           <a href="https://moki.vn/Giay-uot-va-may-u-giay-uot-68.html" class=" current">
+                              <span>Giấy ướt và máy ủ giấy ướt</span>
+                           </a>
+                        </li>
+                                                 <li class="shopby-collection-link">
+                           <a href="https://moki.vn/Bo-ve-sinh-nap-toilet-69.html" class=" current">
+                              <span>Bô vệ sinh, nắp toilet</span>
+                           </a>
+                        </li>
+                                                 <li class="shopby-collection-link">
+                           <a href="https://moki.vn/Tam-lot-chong-tham-70.html" class=" current">
+                              <span>Tấm lót chống thấm</span>
+                           </a>
+                        </li>
+                                                              </div>
+            </div>
+          </div>
         </div>
         <br>
-            <img src="http://bco.vn/images/201104/goods_img/89_P_1303876306934.jpg" width="180px" height="250px">
+            <img src="imagei/bevesinh1.jpeg" width="250px" height="300px">
       </div>
       <div class="container-inner-listimage">
         <div class="container-inner-listimage1">
@@ -240,11 +558,39 @@
           <%if(user){%>
                       <a href="/sp/sp/<%-data._id%>*<%-user.username%>">  <img src="image/<%= data.image %>" alt="" width="180px" height="180px"></a><br>
                       <span class ="ten" id = "ten-1"><%= data.name%></span><br>
-                    <span class ="gia" id = "gia-1"><%= data.price%></span><hr>
+                      <div class="stars">
+                        <form action="">
+                          <input class="star star-5" id="star-5" type="radio" name="star" checked/>
+                          <label class="star star-5" for="star-5"></label>
+                          <input class="star star-4" id="star-4" type="radio" name="star"/>
+                          <label class="star star-4" for="star-4"></label>
+                          <input class="star star-3" id="star-3" type="radio" name="star"/>
+                          <label class="star star-3" for="star-3"></label>
+                          <input class="star star-2" id="star-2" type="radio" name="star"/>
+                          <label class="star star-2" for="star-2"></label>
+                          <input class="star star-1" id="star-1" type="radio" name="star"/>
+                          <label class="star star-1" for="star-1"></label>
+                        </form>
+                      </div><br>
+                    <span class ="gia" id = "gia-1"><%= data.price%></span>
            <%}else{%>
             <a href="/sp/sp/<%-data._id%>*">  <img src="image/<%= data.image %>" alt="" width="180px" height="180px"></a><br>
           <span class ="ten" id = "ten-1"><%= data.name%></span><br>
-           <span class ="gia" id = "gia-1"><%= data.price%></span><hr> 
+          <div class="stars">
+            <form action="">
+              <input class="star star-5" id="star-5" type="radio" name="star" checked/>
+              <label class="star star-5" for="star-5"></label>
+              <input class="star star-4" id="star-4" type="radio" name="star"/>
+              <label class="star star-4" for="star-4"></label>
+              <input class="star star-3" id="star-3" type="radio" name="star"/>
+              <label class="star star-3" for="star-3"></label>
+              <input class="star star-2" id="star-2" type="radio" name="star"/>
+              <label class="star star-2" for="star-2"></label>
+              <input class="star star-1" id="star-1" type="radio" name="star"/>
+              <label class="star star-1" for="star-1"></label>
+            </form>
+          </div><br>
+           <span class ="gia" id = "gia-1"><%= data.price%></span>
 
             <%}%>
                   </div>
@@ -260,8 +606,8 @@
 </div>
 </div>
 <span>
-<% include template/popup %>
-</span>
+  <% include template/popup %>
+  </span>
 <span>
   <% include listuseronline %>
   </span>

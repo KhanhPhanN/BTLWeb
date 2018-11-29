@@ -1,36 +1,40 @@
 #header{
-	height:180px;
 	font-family: Arial, Helvetica, sans-serif;
-	border-radius:5px;
-	border-bottom: 1px solid black;
-	box-shadow: 5px 5px 5px rgb(185, 185, 185);
--moz-box-shadow: 5px 5px 5px rgb(185, 185, 185);
--webkit-box-shadow: 5px 5px 5px rgb(185, 185, 185);
+	border-bottom: 1px solid rgb(168, 168, 168);
+	box-shadow: 2px 2px 2px rgb(214, 213, 213);
+-moz-box-shadow: 2px 2px 2px rgb(214, 213, 213);
+-webkit-box-shadow: 2px 2px 2px rgb(214, 213, 213);
 }
 .fixed{
 	height:180px;
 	font-family: Arial, Helvetica, sans-serif;
 	border-radius:5px;
 	border-bottom: 1px solid black;
-	box-shadow: 5px 5px 5px rgb(185, 185, 185);
--moz-box-shadow: 5px 5px 5px rgb(185, 185, 185);
--webkit-box-shadow: 5px 5px 5px rgb(185, 185, 185);
+	box-shadow: 5px 5px 5px #fff;
+-moz-box-shadow: 5px 5px 5px #fff;
+-webkit-box-shadow: 5px 5px 5px #fff;
 }
 #header-inner{
 	width:100%;
-	border-radius:5px;
 }
 /* ===========header-inner1===========*/
 #header-inner1{
-	height:50px;
-	background:#f16e8e;
-	border-radius:5px;
+	width:100%;
+    height: 38px;
+	background:#ff81a0;
+
+}
+#header-inner1 img{
+	top: 20px;
 }
 #header-inner1-left{
 	width:20%;
 	float:left;
 	
 	
+}
+#bkg_top_header{
+	top: 20px
 }
 #phone_support{
 	width:100%;
@@ -41,10 +45,8 @@
 #header-inner1-right{
 	width:80%;
 	float:left;
-
 	display:flex;
 	justify-content: flex-end;
-	height:100%;
 }
 #header-inner1-right ul{
 	margin:0px;
@@ -58,7 +60,8 @@
 #header-inner1-right li a{
 	text-decoration: none;
 	display: inline;
-	color:black;	
+	font-family: Helvetica, sans-serif;
+	color: #fff	
 }
 #header-inner1-right li a:hover{
 		opacity: 0.5;
@@ -75,78 +78,84 @@ padding-left:62%;
 	
 }
 
- /* #user:hover #user-option{
-	display: flex;
-	justify-content: flex-end;
-}  */
 
 /*=============header-inner2===========*/
 #header-inner2{
 	height:130px;
-	background:#dadada;
+	background:#fff;
 	border-radius:5px;
 }
 #header-inner2-left{
 	width:20%;
 	float:left;
-	background: #dadada;
+	background: #fff;
 	padding:10px;
 
 }
 #header-inner2-left-image{
 	width:100%;
 	height:100%;
-	margin-left:28px;
+	margin-top: 20px;
+	margin-left:100px;
 }
 
 #header-inner2-right{
 	width:78%;
 	float:left;
-	background: #dadada;
+	background: #fff;
 }
 #header-inner2-right-1{
 	height:60%;
-	background: #dadada;
+	background: #fff;
 }
 #header-inner2-right-search{
-	height:100%;
+	height:50px;
 	width:100%;
-	margin-left:100px;
+	margin-left:350px;
 	margin-top:30px;
+}
+.header-inner2-form-input{
+	height: 40px;
 }
 #product_name{
 padding:10px;
 width:600px;
-border-radius:10px;
+border-radius:100px;
+border: 1px solid #f16e8e;
 }
 .header-inner2-form-button{
-	padding:10px;
-	border: none;
-	position:relative;
-
-	left:-220px;
-	background: transparent;
+	padding:5px;
+	position: relative;
+	left:-60px;
+	background: #fff;
+	border: 2px solid #fff;
+	width: 20px;
+	height: 20px;
 }
 #header-inner2-right-2{
 	height:10%;
-	background:#dadada;
+	background:#fff;
 }
 #header-inner2-right-2-inner{
 	width:100%;
 	height:100%;
 	margin-top:13px;
-	margin-left:220px;
-	font-size:1.2em;
+	margin-left:320px;
+	font-size:14px;
 	font-family: Arial, Helvetica, sans-serif
 }
+
 .header-inner2-link a{
 	font-family: Arial, Helvetica, sans-serif;
-	padding:10px;
+	padding:20px;
 	text-decoration: none;
 	font-weight: bold;
-	color:gray;
+	color:rgb(83, 83, 83);
 }
-.header-inner2-link a :hover{
+.header-inner2-link :hover{
+	color: #f16e8e;
+}
+.header-inner2-link-icon :hover{
 	color: #f16e8e;
 }
 .fa{

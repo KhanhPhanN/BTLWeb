@@ -15,6 +15,10 @@
         width: 150px;
         height: 150px;
       }
+      #user img{
+        width: 18px;
+        height: 18px;  
+      }
     </style>
 </head>
 <body>
@@ -71,11 +75,11 @@
                                       </li>
                                       <li id = "user">
                                        
-                                        <a ><i class="fa fa-user"></i>Hello: <%- user.username%></a>
-                                        <ul id="user-option">
+                                        <a  href="/userinformation/<%-user.username%>"><img id="user-avatar" src="/upload/<%-user.avatar%>" height="18px" width="18px">Hello: <%- user.username%></a>
+                                        <!-- <ul id="user-option">
                                              <li><a href="/user/changePassword">Thay đổi mật khẩu</a></>
                                              <li><a href="/userinformation/<%-user.username%>">Thông tin tài khoản</a></li>
-                                       </ul>
+                                       </ul> -->
                                     </li>
                                       <%}%>
                             </ul>
@@ -96,7 +100,7 @@
                         <div id="header-inner2-right-search">
                                 <form action="/search" method="POST" class="header-inner2-form" id="ProductsSearchProductForm" role="search">
                                     <input class="header-inner2-form-input" type="search" placeholder="Tìm kiếm sản phẩm"  value="" name="product_name" id="product_name" required="" >
-                                    <input type="radio" name="searchUser"><label>Tìm kiếm Username &nbsp&nbsp </label>
+                                    <!-- <input type="radio" name="searchUser"><label>Tìm kiếm Username &nbsp&nbsp </label> -->
                                     <button class="header-inner2-form-button" type="submit">
                                         <i class="fa fa-search" aria-hidden="true"></i>
                                         

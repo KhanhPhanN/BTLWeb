@@ -26,8 +26,23 @@
 		margin-left:805px;
 		padding-top:4px;
 		margin-left: 82%;
-	}
-	
+    }
+    #preview{
+	height: 80px;
+    width: 80px;
+    background: rgb(233, 222, 222); 
+	display: table;
+	position: relative;
+    color: #fff;
+	top:-82px;
+	right:-100px;
+    }
+p {
+  height: 80px;
+  width: 80px;
+  margin-block-start: 0em;
+  margin-block-end: 0em;
+}
         </style>
     </head>
     <body>
@@ -36,7 +51,116 @@
 	<!-- HEADER STARTS HERE -->
 
 
-   <% include template/header %>
+	<!-- HEADER STARTS HERE -->
+    <div id="header">
+        <div id="header-inner">
+            <div id="header-inner1">
+    
+                    <div id = "header-inner1-left">
+                            <div id="phone_support" style="color: #ffffff">
+                                    <i class="fa fa-phone" aria-hidden="true" style="color: #ffffff"></i> Hotline: <span>1900</span> <span>636</span> <span>779</span>
+                                 </div>
+                        </div>
+    
+                    <div id = "header-inner1-right">
+                            <ul>
+                                    <% if(!kq[0]){ %>
+                                        <li>
+                                            <a href="#" >Chào mừng bạn đến với MOKI |</a>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-flag-checkered" aria-hidden="true" style="color: #ffffff"></i><a href="#" >Kiểm tra đơn hàng | </a>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-shopping-cart" aria-hidden="true" style="color: #ffffff"></i><a href="#" >Giỏ hàng | </a>
+                                        </li>
+                                  
+                                      <li>
+                                        <a href="/login" >Đăng nhập  /  </a>
+                                    </li>
+                                    <li>
+                                          <a href="/register" >Đăng kí</a>
+                                      </li>
+                                      
+                                      <%}%>
+                                      <% if(kq[0]) {%>
+                                        <li>
+                                                <a href="#" >Chào mừng bạn đến với MOKI |</a>
+                                            </li>
+                                            <li>
+                                                <i class="fa fa-flag-checkered" aria-hidden="true" style="color: #ffffff"></i><a href="#" >Kiểm tra đơn hàng | </a>
+                                            </li>
+                                            <li>
+                                                <i class="fa fa-shopping-cart" aria-hidden="true" style="color: #ffffff"></i><a href="#" >Giỏ hàng | </a>
+                                            </li>
+                                          <li>
+                                              <a href="/themsanpham" >Thêm sản phẩm  |  </a> 
+                                          </li>
+                                          <li>
+                                                <a href="/likeList/<%-kq[0].username%>" >Đã thích  |  </a>
+                                            </li>
+                                          <li>
+                                              <a href="/logout/<%-kq[0].username%>">Đăng xuất  |  </a>
+                                          </li>
+                                          <li id = "user">
+                                           
+                                            <a  href="/userinformation/<%-kq[0].username%>"><img id="user-avatar" src="/upload/<%-kq[0].avatar%>" height="18px" width="18px">Hello: <%- kq[0].username%></a>
+                                            <!-- <ul id="user-option">
+                                                 <li><a href="/user/changePassword">Thay đổi mật khẩu</a></>
+                                                 <li><a href="/userinformation/<%-user.username%>">Thông tin tài khoản</a></li>
+                                           </ul> -->
+                                        </li>
+                                          <%}%>
+                                </ul>
+                    </div>
+                    <img src="/imagei/bkg_top_header.png">
+            </div>
+    
+            <div id="header-inner2">
+                <div id="header-inner2-left">
+                        <div id = "header-inner2-left-image">
+                                <a href="/">  <img src ="https://moki.vn/moki/themes/img/logo_big.png" alt ="Moki.vn - Ứng dụng mua bán trên di động | moki.vn" class = "image" > </a>
+                              </div>
+                </div>
+    
+                
+    
+                <div id="header-inner2-right">
+                    <div id="header-inner2-right-1">
+                            <div id="header-inner2-right-search">
+                                    <form action="/search" method="POST" class="header-inner2-form" id="ProductsSearchProductForm" role="search">
+                                        <input class="header-inner2-form-input" type="search" placeholder="Tìm kiếm sản phẩm"  value="" name="product_name" id="product_name" required="" >
+                                        <!-- <input type="radio" name="searchUser"><label>Tìm kiếm Username &nbsp&nbsp </label> -->
+                                        <button class="header-inner2-form-button" type="submit">
+                                            <i class="fa fa-search" aria-hidden="true" style="color: #f16e8e"></i>
+                                            
+                                        </button>
+                                    </form>
+                                  </div>
+                    </div>
+                    <div id="header-inner2-right-2" class="wrapper-nav">
+                            <nav class="nav-main">
+                
+                       <div id="header-inner2-right-2-inner">
+                        <span class="header-inner2-link"><a href="/"> TRANG CHỦ</a></span>
+                        <span class="header-inner2-link"><a href="#"> GÓC CỦA MẸ</a></span>
+                        <span class="header-inner2-link"><a href="#"> GIỚI THIỆU</a></span>
+                        <span class="header-inner2-link"><a href="#"> SHOP MOKI</a></span>
+                        <span id ="header1-inner2-icon">
+                        <span class="header-inner2-link-icon"><a href="https://www.facebook.com/moki.vn" target="_blank"> <i class = "fa fa-facebook-square"></i></a></span>
+                        <span class="header-inner2-link-icon"><a href="https://www.youtube.com/channel/UCM7dLGfHJ6onxoY3StztfwQ/" target="_blank"> <i class = "fa fa-youtube-square"></i></a></span>
+                        <span class="header-inner2-link-icon"><a href="https://twitter.com/MOKI_VN" target="_blank"> <i class = "fa fa-twitter"></i></a></span>
+                        <span class="header-inner2-link-icon"><a href="https://www.instagram.com/moki.vn/" target="_blank"> <i class = "fa fa-instagram"></i></a></span>
+                                  </s>
+                       </div>
+                       </nav>
+                    </div>
+                </div>
+            </div>
+    
+        </div>
+    </div><br><br><br>
+                   <!-- HEADER ENDS HERE -->
 
                <!-- HEADER ENDS HERE -->
 
@@ -44,38 +168,100 @@
     <!-- nav starts here-->
 <div id="container_inner_nav">
 <div id="container_inner_nav-inner">
-<% include template/nav %>
+
 </div>
 </div>
+
+<% if(errors) {%>
+    <ul>
+        <% errors.forEach(function(err) {%>
+            <li class ="register-validator"><%= err.msg %></li>
+            <%})%>
+    </ul>
+ <% } %>
     <!-- content starts here -->
-<div id = "container_inner_content">
-<div id ="container_inner_content-inner">
-
-
     <div class="title-sp">
-       Thông tin tài khoản của bạn
+       <label id ="tab1">Thông tin tài khoản của bạn</label>
+       <label id ="tab2">Sản phẩm</label>
+       <label id ="tab3">Danh sách theo dõi</label>
+       <label id ="tab4">Danh sách người theo dõi</label>
       </div><hr>
-      <div  id =" thongtin">
+      <div id ="thongtin">
+       
                     <% if(kq.length==0){%>
-                     <h2>Không tìm thấy sản phẩm </h2>
-                      
+                     <h2>Không tìm thấy thông tin </h2>
                   <% } else {  kq.forEach((data)=>{%>
-                      <span class ="ten" id = "ten-1"><b>First Name:</b> <i class="maininfo"><%= data.firstname%></i></span><hr>
-                      <span class ="ten" id = "ten-1"><b>Last Name:</b> <i class="maininfo"><%= data.lastname%></i></span><hr>
-                        <span class ="ten" id = "ten-1"><b>Tài khoản: </b><i class="maininfo"><%= data.username%></i></span><hr>
-                       <span class ="ten" id = "gia-1" style="color:#000;"><b>Email:</b> <i class="maininfo"><%= data.email%></i></span><hr>   
-                 
-                       <span class ="sdt" id = "sdt-1" style="color:#000;"><b>Số điện thoại:</b> <i class="maininfo1"><%= data.PhoneNumber%></i></span><hr> 
-                       <span class ="ten" id = "ten-1"><b>Địa chỉ:</b> <i class="maininfo"><%= data.address%></i></span><hr>
-                       <span class ="ten" id = "ten-1"><b>Thành phố:</b> <i class="maininfo"><%= data.city%></i></span><hr>
-                       
-                        <button id="modifier-user"><a href="/user/modifier/<%-data.username%>">Chỉnh sửa thông tin</a> </button>
+                    <form method="POST" action="/user/modifier/<%-data.username%>" enctype="multipart/form-data" >
+                    <table id="info-user">
+                            <input  type="text" name="phonenumber" value="<%= data.PhoneNumber%>" hidden>
+                    <tr><td colspan="2"><label class="user-in"><img src="/upload/<%= data.avatar%>" width="80px" height="80px"></label><div class="user-out" id="avatar-update-1"><input  name="avatar" id="avatar-update" type="file" accept="image/png, image/jpeg,image/gif,image/jpg"></div><div class="user-out" id="preview">Chưa tải ảnh</div><%= data.username%></td> </tr>
+                    <tr><td><b>First Name:</b></td><td><label class="user-in"><%= data.firstname%></label><input class="user-out" type="text" name="firstname" value="<%= data.firstname%>"></td></tr>
+                    <tr><td><b>Last Name:</b></td><td> <label class="user-in"><%= data.lastname%></label><input class="user-out" type="text" name="lastname" value="<%= data.lastname%>"></td> </tr>
+                    <tr><td><b>Email:</b></td><td><label class="user-in"> <%= data.email%></label><input class="user-out" type="text" name="email" value="<%= data.email%>"></td> </tr>   
+                    <tr><td><b>Số điện thoại:</b></td><td><label class="user-in"><%= data.PhoneNumber%></label><input class="user-out" type="text" name="phonenumbershow" value="<%= data.PhoneNumber%>" disabled></td> </tr>
+                    <tr><td><b>Địa chỉ:</b></td><td><label class="user-in"><%= data.address%></label><input class="user-out" type="text" name="address" value="<%= data.address%>"></td> </tr>
+                    <tr><td><b>Thành Phố:</b></td><td><label class="user-in"><%= data.city%></label><input class="user-out" type="text" name="city" value="<%= data.city%>"></td> </tr>
+                </table>
+                    <input type="button" id="modifier-user" value="Chỉnh sửa thông tin">
                         <% })} %>
+                        <input type="submit" id="modifier-user-1" value="Cập nhật">
+                        <input type="button" id="modifier-user-2" value="Quay về">
+                    </form>
       </div>
+      <div id="sanpham">
+            <div class="container-inner-listimage-user">
+               <% if(sp.length==0){%>
+                <h2>Bạn chưa đăng sản phẩm nào </h2>
+
+              <%}else{ sp.forEach((data)=>{%>
+                      <div class="wrapper-image1">
+                          <a href="/sp/sp/<%-data._id%>*<%-kq[0].username%>">  <img src="/image/<%= data.image %>" alt="" width="180px" height="180px"></a><br>
+                          <span class ="ten" id = "ten-1"><%= data.name%></span><br>
+                          <div class="stars">
+                            <form action="">
+                              <input class="star star-5" id="star-5" type="radio" name="star" checked/>
+                              <label class="star star-5" for="star-5"></label>
+                              <input class="star star-4" id="star-4" type="radio" name="star"/>
+                              <label class="star star-4" for="star-4"></label>
+                              <input class="star star-3" id="star-3" type="radio" name="star"/>
+                              <label class="star star-3" for="star-3"></label>
+                              <input class="star star-2" id="star-2" type="radio" name="star"/>
+                              <label class="star star-2" for="star-2"></label>
+                              <input class="star star-1" id="star-1" type="radio" name="star"/>
+                              <label class="star star-1" for="star-1"></label>
+                            </form>
+                          </div><br>
+                         <span class ="gia" id = "gia-1"><%= data.price%></span>
+                      </div>
+              <% }) %>
+           <%}%>
+          </div>
+
+      </div>
+<div id="theo-doi">
+<table class="theo-doi">
+    <%if(follow.length==0){%>
+        <h2>Bạn chưa theo dõi ai </h2>
+  <%}else{follow.forEach(function(data){%>
+     <tr><td><label style="width: 50px;height: 50px;border-radius: 30px solid black"><img class="user-avatar" src="/upload/<%-data.avatar%>" width="50px" height="50px" ></label></td><td><a href="/user/other/<%-data.username%>&&<%-kq[0].username%>"><%-data.username%></a></td><td><img class="delete-follow" src="/imagei/x.png" width="20px" height="20px"></td></tr>
+    <%})%>
+<%}%>
+</table>
 
 
 </div>
-</div>
+<div id="duoc-theo-doi">
+    <table class="duoc-theo-doi">
+        <%if(followed.length==0){%>
+            <h2>Bạn được ai chưa theo dõi </h2>
+      <%}else{followed.forEach(function(data){%>
+         <tr><td><label style="width: 50px;height: 50px;border-radius: 30px solid black"><img class="user-avatar" src="/upload/<%-data.avatar%>" width="50px" height="50px" ></label></td><td><a href="/user/other/<%-data.username%>&&<%-kq[0].username%>"><%-data.username%></a></td><td><img class="delete-follow" src="/imagei/x.png" width="20px" height="20px"></td></tr>
+        <%})%>
+    <%}%>
+    </table>
+    
+    
+    </div>
 </div>
     <!-- footer starts here-->
 <div id = "container_inner_footer">
@@ -83,4 +269,45 @@
 </div>
 </div>
 <% include template/body2 %>
+<script>
+var input = document.querySelector('#avatar-update');
+var preview = document.querySelector('#preview');
+input.style.opacity = 0;
+input.addEventListener('change', updateImageDisplay);
+function updateImageDisplay() {
+  while(preview.firstChild) {
+    preview.removeChild(preview.firstChild);
+  }
+  var curFiles = input.files;
+  if(curFiles.length === 0) {
+    var para = document.createElement('p');
+    para.textContent = 'No files currently selected for upload';
+    preview.appendChild(para);
+  } else {
+    var list = document.createElement('p');
+    preview.appendChild(list);
+    for(var i = 0; i < curFiles.length; i++) {
+        var image = document.createElement('img');
+        image.src = window.URL.createObjectURL(curFiles[i]);
+        image.style.height="80px";
+        image.style.width="80px";
+      list.appendChild(image);
+    }
+  }
+}
+var fileTypes = [
+  'image/jpeg',
+  'image/pjpeg',
+  'image/png'
+]
 
+function validFileType(file) {
+  for(var i = 0; i < fileTypes.length; i++) {
+    if(file.type === fileTypes[i]) {
+      return true;
+    }
+  }
+  return false;
+}
+
+</script>

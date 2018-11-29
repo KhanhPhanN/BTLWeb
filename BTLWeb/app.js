@@ -1344,7 +1344,7 @@ app.delete("/delete",function(req,res){
           });
           dbo.collection("TempSP").find({shop: title}).toArray(function(err, result) {
             if (err) throw err;
-           res.render("listproduct",{kq: result});
+           res.render("listproduct",{kq: result,SP:result});
             db.close();
           });
        });
@@ -1353,31 +1353,51 @@ app.delete("/delete",function(req,res){
 
 app.post("/updatesp",function(req,res){
     
+    
+    
     var name = req.body.nameproduct;
     var describle = req.body.describleproduct;
     var bargain1 = req.body.bargainproduct1;
     var bargain2 = req.body.bargainproduct2;
+    var bargain3 = req.body.bargainproduct3;
     var title = req.body.nameuser;
     var bargain;
     if(bargain1=='on')
     bargain = "Miễn phí";
-    else
+    if(bargain2=='on')
     bargain = "Cho phép mặc cả";
+    if(bargain3=='on')
+    bargain = "Bán nhanh";
+    
     var attached = req.body.attached;
-    var label    = req.body.label;
-    var weight   = req.body.weight;
-    var state    = req.body.state;
-    var price    = req.body.price;
+    
+    var state = req.body.state;
+    var label = req.body.label;
+    var weight = req.body.weight;
+   
+    var placesell = req.body.sell;
+    var price = req.body.price;
+    console.log(name);
+    console.log(attached);
+    console.log(describle);
+    console.log(bargain);
+    console.log(label);
+    console.log(state);
+    console.log(weight);
+    console.log(placesell);
+    console.log(price);
+    console.log(req.body.filename);
+    var filename = test;
     var errors=0;
 if(!name || !price || !describle)
       errors = [{msg: "Bạn nhập thiếu dữ liệu"}];
    if(errors){
-    res.render('deleteandupdate',{err: errors,data: {image: test,_id: req.body.filename, name: name,describle: describle,bargain: bargain,attached: attached,label: label,weight: weight,state: state,price: price + "VNĐ"}});
+    res.render('deleteandupdate',{err: errors,data: {image: test,_id: req.body.filename, name: name,describle: describle,bargain: bargain,attached: attached,label: label,weight: weight,state: state,price: price,placeSell:placesell}});
    }else{
     var MongoClient = require('mongodb').MongoClient;
     var url = "mongodb://localhost:27017/";
     var where = {_id: req.body.filename }
-var query = {$set: {name: name,price: price,label: label, weight: weight, state: state,bargain:bargain,describle:describle}};
+var query = {$set: {name: name,price: price,label: label, weight: weight, state: state,bargain:bargain,describle:describle,placeSell:placesell}};
 MongoClient.connect(url, function(err, db) {
   if (err) throw err;
   var dbo = db.db("mydb");
@@ -1391,7 +1411,7 @@ MongoClient.connect(url, function(err, db) {
   dbo.collection("TempSP").find({shop: title}).toArray(function(err, result) {
 
     if (err) throw err;
-   res.render("listproduct",{kq: result});
+   res.render("listproduct",{kq: result,SP:result});
    db.close();
   }); 
   db.close();
@@ -1461,18 +1481,36 @@ app.post("/themsanpham",function(req,res){
     var describle = req.body.describleproduct;
     var bargain1 = req.body.bargainproduct1;
     var bargain2 = req.body.bargainproduct2;
-    var title = req.body.nameuser
+    var bargain3 = req.body.bargainproduct3;
+    var title = req.body.nameuser;
     var bargain;
     if(bargain1=='on')
     bargain = "Miễn phí";
-    else
+    if(bargain2=='on')
     bargain = "Cho phép mặc cả";
-    var attached = req.body.attached;
+    if(bargain3=='on')
+    bargain = "Bán nhanh";
+    
+    var attached = req.body.name;
+    var state = req.body.state;
     var label = req.body.label;
     var weight = req.body.weight;
-    var state = req.body.state;
+   
+    var placesell = req.body.sell;
     var price = req.body.price;
     var filename = test;
+    console.log(name);
+    console.log(attached);
+    console.log(describle);
+    console.log(bargain);
+    console.log(label);
+    console.log(state);
+    console.log(weight);
+    console.log(placesell);
+    console.log(price);
+    console.log(filename);
+
+
     var errors=0;
 if(!name || !price || !describle)
       errors = [{msg: "Error Unknown"}];
@@ -1482,7 +1520,7 @@ if(!name || !price || !describle)
     var MongoClient = require('mongodb').MongoClient;
     var url = "mongodb://localhost:27017/";
     
-   var query = {_id: filename.toString().substring(0,filename.length-4),image: filename,name: name,price: price+" VNĐ",shop: title,label: label, weight: weight, state: state,attached:attached,bargain:bargain,describle:describle,comment:"",like:""};
+   var query = {_id: filename.toString().substring(0,filename.length-4),image: filename,name: name,price: price+" VNĐ",shop: title,label: label, weight: weight, state: state,placeSell:placesell,attached:attached,bargain:bargain,describle:describle,comment:"",like:""};
 MongoClient.connect(url, function(err, db) {
   if (err) throw err;
   var dbo = db.db("mydb");
@@ -1531,15 +1569,18 @@ var res2,res3,res4,res5;
 var MongoClient1 = require('mongodb').MongoClient;
 MongoClient1.connect(url, function(err, db) {
 var db1 = db.db("mydb");
-db1.collection("Bàn phím").find().toArray(function(err,r){
-    res2=r;
-})  
-db1.collection("Tai nghe").find().toArray(function(err,r){
+
+db1.collection("Bé ngủ").find().toArray(function(err,r){
     res3=r;
+    
 })
-db1.collection("Ổ cứng").find().toArray(function(err,r){
+db1.collection("Bé tắm").find().toArray(function(err,r){
     res4=r;
 })
+db1.collection("Bé ăn").find().toArray(function(err,r){
+    res2=r;
+    console.log(res2);
+})  
 db1.collection("TempSP").find().toArray(function(err,r){
     res5=r;
 })
@@ -1547,9 +1588,9 @@ db.close();
 MongoClient.connect(url, function(err, db) {
     if (err) throw err;
     var dbo = db.db("mydb");
-    dbo.collection("Máy tính").find({}).toArray(function(err, result) {
+    dbo.collection("Bé vệ sinh").find({}).toArray(function(err, result) {
       if (err) throw err;
-      dbo.collection("Chuột").find().toArray(function(err, res1){
+      dbo.collection("Bé mặc").find().toArray(function(err, res1){
         if (err) throw err;
         var datastateuser=[];
         for(var i=0;i<list_user.length;i++){

@@ -165,9 +165,10 @@ PhoneNumber1 = PhoneNumber;
     req.checkBody('password', 'Password is required').notEmpty();
     var errors = req.validationErrors();
     if (errors) {
-        res.render('register', {
-            errors: errors
-        });
+        res.send({code: "1",message:"Accept",data: errors})
+        // res.render('register', {
+        //     errors: errors
+        // });
     }else {
         //checking for email and username are already taken
             User.findOne({PhoneNumber: {
@@ -183,7 +184,8 @@ PhoneNumber1 = PhoneNumber;
                     var text = parseInt(Math.random()*(9999-1000)+1000);
                     code = text;
                     console.log(text);
-                    res.render("Confirm",{dt: text});
+                    res.send({code: "1",message:"Accept",data: text});
+                    //res.render("Confirm",{dt: text});
                     // nexmo.message.sendSms(
                     //   '841664925036', number, text, { type: 'unicode' },
                     //   (err, responseData) => {
@@ -305,21 +307,21 @@ app.post('/forgetPassword',function(req,res){
                 if(user.length > 0){
                     var text = parseInt(Math.random()*(9999-1000)+1000);
                     code1 = text;
-                    nexmo.message.sendSms(
-                      '841664925036', phoneInput, text, { type: 'unicode' },
-                      (err, responseData) => {
-                        if(err) {
-                          console.log(err);
-                        } else {
-                          const { messages } = responseData;
-                          const { ['message-id']: id, ['to']: number, ['error-text']: error  } = messages[0];
-                          console.dir(responseData);
-                          const data = {id,number,error };
+                    // nexmo.message.sendSms(
+                    //   '841664925036', phoneInput, text, { type: 'unicode' },
+                    //   (err, responseData) => {
+                    //     if(err) {
+                    //       console.log(err);
+                    //     } else {
+                    //       const { messages } = responseData;
+                    //       const { ['message-id']: id, ['to']: number, ['error-text']: error  } = messages[0];
+                    //       console.dir(responseData);
+                    //       const data = {id,number,error };
                   
                           // Emit to the client
-                          
+                          console.log(code1);
                           res.render("resetPassword",{dt: text});
-                        }});
+                        //}});
                 }else{
                     res.redirect('forgetPassword');
                 }

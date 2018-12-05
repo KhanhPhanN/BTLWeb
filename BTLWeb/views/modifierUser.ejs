@@ -47,12 +47,12 @@
                                     <a href="/login" >Đăng nhập  |  </a>
                                 </li>
                                 <li>
-                                      <a href="/register" >Đăng kí</a>
+                                      <a href="/signup" >Đăng kí</a>
                                   </li>
                                   
                                   <%}else{%>
                                       <li>
-                                          <a href="/themsanpham" >Thêm sản phẩm  |  </a> 
+                                          <a href="/add_product" >Thêm sản phẩm  |  </a> 
                                       </li>
                                       <li>
                                             <a href="/listproduct/<%-user[0].username%>" >Sản phẩm đăng  |  </a>
@@ -71,11 +71,11 @@
                                       </li>
                                       <li id = "user">
                                        
-                                        <a ><i class="fa fa-user"></i>Hello: <%- user[0].username%></a>
-                                        <ul id="user-option1">
+                                        <a  href="/userinformation/<%-user[0].username%>"><img id="user-avatar" src="/upload/<%-user[0].avatar%>" height="18px" width="18px">Hello: <%- user[0].username%></a>
+                                        <!-- <ul id="user-option1">
                                              <li><a href="/user/changePassword">Thay đổi mật khẩu</a></>
                                              <li><a href="/userinformation/<%-user[0].username%>">Thông tin tài khoản</a></li>
-                                       </ul>
+                                       </ul> -->
                                     </li>
                                       <%}%>
                             </ul>
@@ -94,7 +94,7 @@
                     <div id="header-inner2-right-search">
                             <form action="/search" method="POST" class="header-inner2-form" id="ProductsSearchProductForm" role="search">
                                 <input class="header-inner2-form-input" type="search" placeholder="Tìm kiếm sản phẩm"  value="" name="product_name" id="product_name" required="">
-                                <input type="radio" name="searchUser"><label>Tìm kiếm Username &nbsp&nbsp </label>
+                                <!-- <input type="radio" name="searchUser"><label>Tìm kiếm Username &nbsp&nbsp </label> -->
                                 <button class="header-inner2-form-button" type="submit">
                                     <i class="fa fa-search" aria-hidden="true"></i>
                                     <span class="icon__fallback-text"></span>

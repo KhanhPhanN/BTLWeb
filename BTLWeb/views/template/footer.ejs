@@ -1,9 +1,65 @@
 <!-- FOOTER STARTS HERE -->
-<div id = "footer_container">
+<span>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <!-- <script src="js/jquery.js"></script> -->
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="/js/popup.js"></script>
+        <link rel="stylesheet" href="/css/popup.css">
+        <title>Document</title>
+    </head>
+    <body>
+        <label id="chat"><button id="xxx"><img src="/imagei/fa-envelope.png" style="margin-right: 10px;">Chat với chúng tôi (Hotline: 1900 636 799)</button></label><img id="anhmoki" src="/imagei/chatbox-nv.png" >
+        <div class="pop-up-box"style="height:435px">
+            <div class="pop-up-head" style="height:40px; ">
+                <div class="pop-up-left" style="margin-top: 10px;"><img src="/imagei/fa-envelope.png" style="margin-right: 10px;">Chat với chúng tôi (Hotline: 1900 636 799)</div>
+              
+            </div>
+            <div class="after-mes">
+            <div class="pop-up-mess" style="height:350px">
+                <ul class="ChatLog">
+                        <li class="ChatLog__entry">
+                            <!-- <div class="ChatLog__avatar">A</div> -->
+                                <p class="ChatLog__message">Chào mừng bạn đến với MOKI.VN</p>
+                        </li>
+                    </ul>
+                    <div class="info-phone">
+                        <form>
+                            <input type="number" placeholder="Nhập số điện thoại" name="phone" id="input-phone"><br>
+                            <input type="button" value="Bắt đầu chat" id="start-chat">
+                        </form>
+                    </div>
+            </div>
+
+            <div class="pop-up-footer" >
+                <input name="message" id="mess" placeholder="Nhập tin nhắn...">
+                <button id="btnSend">SEND</button>
+            </div>
+        </div>
+        <script>
+            $("#start-chat").click(function(){
+                $.post("/chat",{phone: $("#input-phone").val()},function(data,status) {
+                    alert(data.code);
+                    $(".pop-up-footer").show();
+                    $(".ChatLog").show();
+                    $(".info-phone").hide();
+                })
+            })
+            
+            </script>
+    </div>
+    </body>
+    </html>
+    </span>
+<div id = "footer_container" >
     <!-- MAIN_WRAPPER STARTS HERE -->
 <div id="footer_wrapper">
     <!-- HEADER STARTS HERE -->
-<div id="footer_header">
+<div id="footer_header" >
  <div id="footer_header_inner">
      <ul class="menu-footer">
                         <li><a href="/trang/cau-hoi-thuong-gap.html">Hỏi và đáp</a></li>
@@ -24,31 +80,20 @@
 <div id="footer_nav">
 <div id="footer_nav_inner">
    <div id="footer_nav_inner_image">
-     <img src ="https://moki.vn/moki/themes/img/logo_big.png" alt ="Moki.vn - Ứng dụng mua bán trên di động | moki.vn" class = "image" >
+     <img src ="https://moki.vn/moki/themes/img/logo_big.png" alt ="Moki.vn - Ứng dụng mua bán trên di động | moki.vn" class = "image" height="60px" width="100px" >
    </div>
    <div id = "footer_nav_inner_content">
-        <span>CÔNG TY CỔ PHẦN MOKI</span>
-        <span>Giấy CNĐKDN: 0107370701 - Ngày cấp: 24/03/2016.</span>
-        <span>Cơ quan cấp: Phòng Đăng ký kinh doanh Sở Kế hoạch và Đầu tư Thành phố Hà Nội.</span>
+        <div>CÔNG TY CỔ PHẦN MOKI</div>
+        <div>Giấy CNĐKDN: 0107370701 - Ngày cấp: 24/03/2016.</div>
+        <div>Cơ quan cấp: Phòng Đăng ký kinh doanh Sở Kế hoạch và Đầu tư Thành phố Hà Nội.</div>
    </div>
-<!--
-<div class="footer_register">
-<h3><b>Đăng ký nhận thông tin ưu đãi và khuyến mãi khủng từ MOKI</b></h3>
-<div class="footer_form-register">
-<form id="sentEmail" novalidate="" class="ng-pristine ng-valid">
-    <input type="hidden" name="_method" value="POST">
-    <input type="email" class="form-control" name="email" id="email" placeholder="Nhập email của bạn" required="">
-    <button type="submit" class="form-control btn-register" id="register">Đăng ký</button>
-</form>
-</div>
-</div> -->
 </div>
 </div>
     <!-- NAV ENDS HERE -->
     <!-- CONTENT STARTS HERE -->
 <div id="footer_content">
  <div id="footer_content_inner">
-    <h2 id="footer_content_inner_contact">Liên Hệ</h2>
+    <label id="footer_content_inner_contact">Liên Hệ</label>
     
         <div class="footer_contact">
             <span class="address"> <b><i class="fa fa-institution" aria-hidden="true"></i>TRỤ SỞ CHÍNH: </b> </span> 
@@ -82,6 +127,7 @@
         <div class="footer_contact">
         <span><b><i class="fa fa-globe" aria-hidden="true"></i> Website: </b> </span>
             <span><a href="https://moki.vn">www.moki.vn</a></span>
+            <div id="rateit-range-2" class="rateit-range" tabindex="0" role="slider" aria-label="rating" aria-owns="rateit-reset-2" aria-valuemin="0" aria-valuemax="5" aria-valuenow="4" aria-readonly="true" style="width: 80px; height: 16px;"><div class="rateit-selected" style="display: block; height: 16px; width: 64px;"></div><div class="rateit-hover" style="display: none; width: 64px; height: 16px;"></div></div>
         </div>
         
         <div class="rate">

@@ -1,0 +1,122 @@
+<% include template/body1 %>
+<div id="container_inner_header">
+        <% include template/header %>
+    </div>
+    <div id="user-header">
+<img src="/imagei/biauser.jpg" id="img-bia">
+<%if(kq[0].avatar==""){%>
+<img src="/imagei/usernull.png" id="ava" height="170px" width="170px">
+<%}else{%>
+    <img src="/upload/<%-kq[0].avatar%>" id="ava" height="170px" width="170px">
+    <%}%>
+<div id="name-user"><%-kq[0].username%></div>
+<div id="tenuser" hidden><%-user.username%></div>
+<label id="sp"><img src="/imagei/bag.png" width="15px" height="15px" style="margin-right: 10px;"><label class="tab2">Sản phẩm: <label style="color: #f16e8e"> <%-sp.length%></label></label> </label>
+<label id="sp1"><img src="/imagei/bag.png" width="15px" height="15px" style="margin-right: 10px;"><label class="tab3">Theo dõi: <label style="color: #f16e8e" class="numfollow"> <%-follow.length%></label></label> </label>
+<label id="sp2"><img src="/imagei/bag.png" width="15px" height="15px" style="margin-right: 10px;"><label class="tab4">Người theo dõi: <label style="color: #f16e8e" class="numfollowed"> <%-followed.length%></label></label> </label>
+<label id="sp3"><img src="/imagei/fb.png" width="20px" height="20px" style="margin-right: 10px;"></label>
+<label id="sp4"><img src="/imagei/gg.png" width="20px" height="20px" style="margin-right: 10px;"></label>
+<label id="sp5"><img src="/imagei/tw.png" width="20px" height="20px" style="margin-right: 10px;"></label>
+    </div>
+    <div id="user-left" style="background-image: url(/imagei/bkg.jpg)">
+    <label>Giới thiệu</label><%if(!checkfollow){%>
+        
+        <img id = "follow" src ="/imagei/unfollow.png" width="40px" height="40px">
+        <label id ="theodoi" style="color: rgb(177, 174, 171); margin-left: 0px">Theo dõi</label><br>
+    
+        <%}else{%>
+        
+            <img id = "follow" src ="/imagei/follow.png" width="40px" height="40px">
+            <label id ="theodoi" style="color:blue; margin-left: 0px"> Đã theo dõi</label><br>
+     
+        <%}%><hr>
+    <label class="tab1"><img src="/imagei/acc.png" width="15px" height="15px" style="margin: 0 10px;">Thông tin tài khoản </label><hr>
+    <label class="tab2"><img src="/imagei/bag.png" width="15px" height="15px" style="margin: 0 10px;">Số sản phẩm: <label style="color: #f16e8e"><%-sp.length%></label> </label><hr>
+    <label class="tab3"><img src="/imagei/gr.png" width="15px" height="15px" style="margin: 0 10px;">Theo dõi: <label style="color: #f16e8e" class="numfollow"><%-follow.length%></label> </label><hr>
+    <label class="tab4"><img src="/imagei/gr.png" width="15px" height="15px" style="margin: 0 10px;"> Người theo dõi: <label style="color: #f16e8e" class="numfollowed"><%-followed.length%></label> </label><hr>
+    <label><img src="/imagei/place.png" width="15px" height="15px" style="margin: 0 10px;">Khu vực: <label style="color: #f16e8e"><%-kq[0].address%></label></label>
+    </div>
+    <div id="user-right">
+        <div id="showsp">
+            <label style=" position: relative;left: 40%">Sản phẩm của shop</label><hr>
+                    <% if(sp.length==0){%>
+                     <h2><%-kq[0].username%> chưa đăng sản phẩm nào </h2>
+                   <%}else{ sp.forEach((data)=>{%>
+                           <div class="wrapper-image1" style="text-align: center">
+                             <a href="/sp/sp/<%= data._id%>*<%=user.username%>">  <img src="/image/<%= data.image %>" alt="" width="270px" height="270px" style="display:block;text-align:center"></a><br>
+                               <span class ="ten" id = "ten-1"><%= data.name%></span><br>
+                               <div class="stars">
+                                 <form action="">
+                                   <input class="star star-5" id="star-5" type="radio" name="star" checked/>
+                                   <label class="star star-5" for="star-5"></label>
+                                   <input class="star star-4" id="star-4" type="radio" name="star"/>
+                                   <label class="star star-4" for="star-4"></label>
+                                   <input class="star star-3" id="star-3" type="radio" name="star"/>
+                                   <label class="star star-3" for="star-3"></label>
+                                   <input class="star star-2" id="star-2" type="radio" name="star"/>
+                                   <label class="star star-2" for="star-2"></label>
+                                   <input class="star star-1" id="star-1" type="radio" name="star"/>
+                                   <label class="star star-1" for="star-1"></label>
+                                 </form>
+                               </div><br>
+                              <span class ="gia" id = "gia-1"><%= data.price%></span>
+                           </div>
+                   <% }) %>
+                <%}%>
+            
+        </div>
+            <div id ="thongtin">
+       
+                    <% if(kq.length==0){%>
+                     <h2>Không tìm thấy thông tin </h2>
+                  <% } else {  kq.forEach((data)=>{%>
+                    <form >
+                    <table id="info-user">
+                            <input  type="text" name="phonenumber" value="<%= data.PhoneNumber%>" hidden>
+                    <tr><td colspan="2"><label class="user-in"><img src="/upload/<%= data.avatar%>" width="80px" height="80px"></label><%= data.username%></td> </tr>
+                    <tr><td><b>First Name:</b></td><td><label class="user-in"><%= data.firstname%></label></td></tr>
+                    <tr><td><b>Last Name:</b></td><td> <label class="user-in"><%= data.lastname%></label></td> </tr>
+                    <tr><td><b>Email:</b></td><td><label class="user-in"> <%= data.email%></label></td> </tr>   
+                    <tr><td><b>Số điện thoại:</b></td><td><label class="user-in"><%= data.PhoneNumber%></label></td> </tr>
+                    <tr><td><b>Địa chỉ:</b></td><td><label class="user-in"><%= data.address%></label></td> </tr>
+                    <tr><td><b>Thành Phố:</b></td><td><label class="user-in"><%= data.city%></label></td> </tr>
+                </table>
+                    
+                        <% })} %>
+                      
+                    </form>
+      </div>
+      <div id="theo_doi">
+            <table class="theo_doi">
+                <%if(follow.length==0){%>
+                    <h2><%-kq[0].username%> chưa theo dõi ai </h2>
+              <%}else{follow.forEach(function(data){%>
+                <%if(data.avatar==""){%>
+                    <tr><td style="width: auto"><label style="width: 50px;height: 50px;border-radius: 30px solid black"><img class="user-avatar" src="/imagei/usernull.png" width="50px" height="50px" ></label></td><td><a href="/user/other/<%-data.username%>&&<%-user.username%>"><%-data.username%></a></td><td style="width: auto"><img class="delete-follow" src="/imagei/x.png" width="20px" height="20px"></td></tr>
+                <%}else{%>
+                    <tr><td style="width: auto"><label style="width: 50px;height: 50px;border-radius: 30px solid black"><img class="user-avatar" src="/upload/<%-data.avatar%>" width="50px" height="50px" ></label></td><td><a href="/user/other/<%-data.username%>&&<%-user.username%>"><%-data.username%></a></td><td style="width: auto"><img class="delete-follow" src="/imagei/x.png" width="20px" height="20px"></td></tr>
+                    <%}%>
+                    <%})%>
+            <%}%>
+            </table>
+            </div>
+            <div id="duoctheodoi">
+                    <table class="duoctheodoi">
+                        <%if(followed.length==0){%>
+                            <h2><%-kq[0].username%> chưa được ai theo dõi  </h2>
+                      <%}else{followed.forEach(function(data){%>
+                        <%if(data.avatar==""){%>
+                            <tr><td style="width: auto"><label style="width: 50px;height: 50px;border-radius: 30px solid black"><img class="user-avatar" src="/imagei/usernull.png" width="50px" height="50px" ></label></td><td><a href="/user/other/<%-data.username%>&&<%-user.username%>"><%-data.username%></a></td><td style="width: auto"><img class="delete-follow" src="/imagei/x.png" width="20px" height="20px"></td></tr>
+                        <%}else{%>
+                            <tr><td style="width: auto"><label style="width: 50px;height: 50px;border-radius: 30px solid black"><img class="user-avatar" src="/upload/<%-data.avatar%>" width="50px" height="50px" ></label></td><td><a href="/user/other/<%-data.username%>&&<%-user.username%>"><%-data.username%></a></td><td style="width: auto"><img class="delete-follow" src="/imagei/x.png" width="20px" height="20px"></td></tr>
+                            <%}%>
+                            <%})%>
+                    <%}%>
+                    </table>
+                    </div>
+    </div>
+    <div id = "container_inner_footer">
+            <% include template/footer %>
+            </div>
+      
+            <% include template/body2 %>

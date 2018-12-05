@@ -26,6 +26,12 @@
                 color: rgb(22, 17, 17);
                 height: 40px;
                 width: 150px;
+                border: none;
+               box-shadow: 0 2px gray;
+                border-radius:5px;
+                margin-bottom:5px;
+                background-color: #f16e8e;
+color: aliceblue;
             }
             .text-report{
                 width:200px;
@@ -117,6 +123,12 @@
                 margin: 0;
                 padding-top: 2px;
             }
+            #right #name{
+
+color: #000;
+font-size: 24px;
+
+            }
         </style>
     </head>
     <body>
@@ -150,6 +162,9 @@
                                 </script>
                                   </div>
                                  
+                            
+                                  <img id="image"src="/image/<%= data.image %>" alt="" width="300px" height="300px">
+                           
                               </div><br>
                               <div id="report">
                               <button id="btn-report">Report sản phẩm</button>
@@ -193,11 +208,47 @@
                     <label>Trạng thái: </label>
                     <span id="state"><%- data.state %> </span><br>
                     <label>Thuộc danh mục: </label>
+                  <th id="right">
+                      <div class="col-sm-6">
+                    <span id="name"><%- data.name %></span><br>
+                    <div class="stars-sp">
+                        <form action="">
+                          <input class="star-sp star-sp-5" id="star-sp-5" type="radio" name="star-sp"/>
+                          <label class="star-sp star-sp-5" for="star-sp-5"></label>
+                          <input class="star-sp star-sp-4" id="star-sp-4" type="radio" name="star-sp" checked/>
+                          <label class="star-sp star-sp-4" for="star-sp-4"></label>
+                          <input class="star-sp star-sp-3" id="star-sp-3" type="radio" name="star-sp"/>
+                          <label class="star-sp star-sp-3" for="star-sp-3"></label>
+                          <input class="star-sp star-sp-2" id="star-sp-2" type="radio" name="star-sp"/>
+                          <label class="star-sp star-sp-2" for="star-sp-2"></label>
+                          <input class="star-sp star-sp-1" id="star-sp-1" type="radio" name="star-sp"/>
+                          <label class="star-sp star-sp-1" for="star-sp-1"></label>
+                        </form>
+                      </div><br>
+                    <span id="price"  style="border-bottom: 1px solid gray"><%- data.price %></span><br>
+                    <label> Sản phẩm bán từ shop: </label>
+                    <%if(user){%>
+                    <span id="shop"> <a href="/user/other/<%-data.shop%>&&<%-user.username%>"><%- data.shop %></a></span><br>
+                    <%}else{%>
+                        <span id="shop"><%- data.shop %></span><br>
+                        <%}%>
+                        <label> Thương lượng: </label>
+                        <span id="bargain"><%- data.bargain %></span><br>
+                    <label>Số sản phẩm: </label>
+
+                    <span id="code"><%- data._id %></span><hr>
+
+                    <label><img src="/imagei/nhan.png" width="15px" height="15px"style="padding-right: 5px">Nhãn hiệu: </label>
+                    <span id="label"><%- data.label %> </span><br>
+                    <label><img src="/imagei/trangthai.png" width="15px" height="15px"style="padding-right: 5px">Trạng thái: </label>
+                    <span id="state"><%- data.state %> </span><br>
+                    <label><img src="/imagei/dm.png" width="15px" height="15px"style="padding-right: 5px">Danh mục: </label>
                     <span id="attached"><%- data.attached %></span><br>
-                    <label>Khối lượng: </label>
+                    <label><img src="/imagei/can.png" width="15px" height="15px"style="padding-right: 5px">Khối lượng: </label>
                     <span id="weight"><%- data.weight %></span><br>
-                    <label> Thương lượng: </label>
-                    <span id="bargain"><%- data.bargain %></span><br>
+                    <label><img src="/imagei/tag.png" width="15px" height="15px"style="padding-right: 5px">Tag: </label>
+                    <span id="weight"><%- data.name %>, <%- data.shop%>,<%-data.attached%></span><br>
+                  
                     <%if(user){%>
                     <img src="/imagei/shopping.png" width="30px" height="30px">
                     <input id = "tenuser" type="text" value="<%-user.username%>" hidden >
@@ -216,9 +267,8 @@
                                 <%})%>
                             </div>
                         <%}%>
-
-
-                    <%}%>
+                    <%}%><br>
+                    <button style="background-color: #f16e8e; width: 150px; height: 50px; color: floralwhite; text-align: center; box-shadow: 5px 5px 5px #666; border: none">MUA NGAY</button>
                   </div>
                 </th>
                 </tr>
@@ -231,6 +281,12 @@
             </ul>
         </div>
         <textarea id="mota" cols="110" rows="30" style="border: none;"><%-data.describle %></textarea>
+            <ul>
+                <li id="mota-title" onclick="mota()">Mô tả</li>
+                <li id="binhluan-title" onclick="binhluan()">Đánh giá/Bình luận</li>
+            </ul>
+        </div>
+        <textarea id="mota" cols="120" rows="20" style="border: none; background-color: white" disabled><%-data.describle %></textarea>
        </div>
        <%if(user){%>
        <div id="binhluan">
@@ -242,8 +298,83 @@
        </div>
        <%}%>
        <%if(!user){%>
-           <div>Bạn hãy đăng nhập để bình luận về sản phẩm</div>
+           <div id="ht">Bạn hãy đăng nhập để bình luận về sản phẩm</div>
         <%}%>
+        <div id="withshop">
+        <div class="option-shop">Sản phẩm từ shop:     <li><%if(user){%>
+            <span id="shop"> <a href="/user/other/<%-data.shop%>&&<%-user.username%>"><%- data.shop %></a></span> <label class="pn"> <button><i class="fa fa-angle-left" id="Previous-shop" data-toggle="tooltip" data-placement="top"></button></i><button> <i class="fa fa-angle-right" id="Next-shop" data-toggle="tooltip" data-placement="top"></i></button></label><br>
+            <%}else{%>
+                <span id="shop"><%- data.shop %></span><label class="pn"><button><i class="fa fa-angle-left" id="Previous-shop" data-toggle="tooltip" data-placement="top"></i></button><button> <i class="fa fa-angle-right" id="Next-shop" data-toggle="tooltip" data-placement="top"></i></button></label><br>
+                <%}%></li></div>
+            </div> 
+                <div>
+                <table id="table_shop">
+                        <tr>
+                          
+         <%for(var i=0;i<withshop.length;i++){%>
+             <%if(i<4){%>
+            <th class="slide-shop" stt-shop="<%-i%>">
+                <span class="card card-body mb-3">
+                    <%if(user){%>
+                <a href="/sp/sp/<%-SP[i]._id%>*<%-user.username%>">  <img src="/image/<%= withshop[i].image %>" alt="" width="160px" height="180px"></a><br>
+            <%}else{%>
+            <a href="/sp/sp/<%-SP[i]._id%>*">  <img src="/image/<%= withshop[i].image %>" alt="" width="160px" height="180px"></a><br>
+            
+            <%}%>
+            </span>
+            <span class ="ten" id = "ten-1"><%= withshop[i].name%></span><br>
+            <div class="stars">
+                <form action="">
+                  <input class="star star-5" id="star-5" type="radio" name="star" checked/>
+                  <label class="star star-5" for="star-5"></label>
+                  <input class="star star-4" id="star-4" type="radio" name="star"/>
+                  <label class="star star-4" for="star-4"></label>
+                  <input class="star star-3" id="star-3" type="radio" name="star"/>
+                  <label class="star star-3" for="star-3"></label>
+                  <input class="star star-2" id="star-2" type="radio" name="star"/>
+                  <label class="star star-2" for="star-2"></label>
+                  <input class="star star-1" id="star-1" type="radio" name="star"/>
+                  <label class="star star-1" for="star-1"></label>
+                </form>
+              </div><br>
+            <span class ="gia" id = "gia-1"><%= withshop[i].price%></span>
+            </th>
+            <%}else{%>
+
+                <th class="slide-shop" stt-shop="<%-i%>" hidden>
+                        <span class="card card-body mb-3">
+                            <%if(user){%>
+                        <a href="/sp/sp/<%-SP[i]._id%>*<%-user.username%>">  <img src="/image/<%= withshop[i].image %>" alt="" width="160px" height="180px"></a>
+                    <%}else{%>
+                    <a href="/sp/sp/<%-SP[i]._id%>*">  <img src="/image/<%= withshop[i].image %>" alt="" width="160px" height="180px"></a>
+                    
+                    <%}%>
+                    </span>
+                    <span class ="ten" id = "ten-1"><%= withshop[i].name%></span><br>
+                    <div class="stars">
+                        <form action="">
+                          <input class="star star-5" id="star-5" type="radio" name="star" checked/>
+                          <label class="star star-5" for="star-5"></label>
+                          <input class="star star-4" id="star-4" type="radio" name="star"/>
+                          <label class="star star-4" for="star-4"></label>
+                          <input class="star star-3" id="star-3" type="radio" name="star"/>
+                          <label class="star star-3" for="star-3"></label>
+                          <input class="star star-2" id="star-2" type="radio" name="star"/>
+                          <label class="star star-2" for="star-2"></label>
+                          <input class="star star-1" id="star-1" type="radio" name="star"/>
+                          <label class="star star-1" for="star-1"></label>
+                        </form>
+                      </div><br>
+                    <span class ="gia" id = "gia-1"><%= withshop[i].price%></span>
+                    </th>
+
+                <%}%>
+            <%}%>
+           
+        </tr>
+    </table>
+</div>
+
 </div>
 
 </div>
@@ -253,3 +384,7 @@
 </div>
 </div>
 <% include template/body2 %>
+<script>
+$(".wrapper-nav1").hide();
+$("#bia").hide();
+</script>

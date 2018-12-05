@@ -1,29 +1,30 @@
 
 var socket = io("http://localhost:8084");
 
-socket.on("Server-send-your-message",function(data){
+socket.on("server-send",function(data){
     $(".ChatLog").append("<li class='ChatLog__entry ChatLog__entry_mine'><p class='ChatLog__message'>"+data+"</p></li>");
-});
-socket.on("Server-send-your-message",function(data){
     $(".ChatLog").append("<li class='ChatLog__entry'><div class='ChatLog__avatar'>A</div><p class='ChatLog__message'>"+data+"</p></li>");
-})
+});
+
 $(document).ready(function(){
 
-    $("#chat").show();
+    $("#xxx").show();
     $(".pop-up-box").hide();
     $("#mess").focus();
-    $("#chat").click(function(){
+    $("#xxx").click(function(){
         $(".pop-up-box").show();
-        $("#chat").hide();
+        $("#xxx").hide();
+        $("#anhmoki").hide();
     })
     $("#close").click(function(){
         $(".pop-up-box").hide();
-        $("#chat").show();
+        $("#xxx").show();
     })
 
     $(".pop-up-head").click(function(){
         $(".pop-up-box").hide();
-        $("#chat").show();
+        $("#xxx").show();
+        $("#anhmoki").show();
     })
     $("#btnSend").click(function(){
         if(($("#mess").val()!=null) && ($("#mess").val()!="")){

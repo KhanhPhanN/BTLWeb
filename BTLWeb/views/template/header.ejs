@@ -4,8 +4,8 @@
         <div id="header-inner1">
 
                 <div id = "header-inner1-left">
-                        <div id="phone_support">
-                                <i class="fa fa-phone" aria-hidden="true"></i> Hotline: <span>1900</span> <span>636</span> <span>779</span>
+                        <div id="phone_support" style="color: #ffffff">
+                                <i class="fa fa-phone" aria-hidden="true" style="color: #ffffff"></i> Hotline: <span>1900</span> <span>636</span> <span>779</span>
                              </div>
                     </div>
 
@@ -13,36 +13,36 @@
                         <ul>
                                 <% if(!user){ %>
                                     <li>
-                                        <a href="#" >Sản phẩm giảm giá  |  </a>
+                                        <a href="#" >Chào mừng bạn đến với MOKI |</a>
                                     </li>
                                     <li>
-                                        <a href="#" >Sản phẩm mới  |  </a>
+                                        <i class="fa fa-flag-checkered" aria-hidden="true" style="color: #ffffff"></i><a href="#" >Kiểm tra đơn hàng | </a>
                                     </li>
                                     <li>
-                                        <a href="#" >Sản phẩm khuyến mại  |  </a>
+                                        <i class="fa fa-shopping-cart" aria-hidden="true" style="color: #ffffff"></i><a href="#" >Giỏ hàng | </a>
                                     </li>
                               
                                   <li>
-                                    <a href="/login" >Đăng nhập  |  </a>
+                                    <a href="/login" >Đăng nhập  /  </a>
                                 </li>
                                 <li>
-                                      <a href="/register" >Đăng kí</a>
+                                      <a href="/signup" >Đăng kí</a>
                                   </li>
                                   
                                   <%}%>
                                   <% if(user) {%>
-                                      <li>
-                                          <a href="/themsanpham" >Thêm sản phẩm  |  </a> 
-                                      </li>
-                                      <li>
-                                            <a href="/listproduct/<%-user.username%>" >Sản phẩm đăng  |  </a>
+                                    <li>
+                                            <a href="#" >Chào mừng bạn đến với MOKI |</a>
                                         </li>
                                         <li>
-                                          <a href="/befollowList/<%-user.username%>" >Người theo dõi  |  </a>
-                                      </li>
+                                            <i class="fa fa-flag-checkered" aria-hidden="true" style="color: #ffffff"></i><a href="#" >Kiểm tra đơn hàng | </a>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-shopping-cart" aria-hidden="true" style="color: #ffffff"></i><a href="#" >Giỏ hàng | </a>
+                                        </li>
                                       <li>
-                                         <a href="/followList/<%-user.username%>" >Theo dõi  |  </a>
-                                     </li>
+                                          <a href="/add_product" >Thêm sản phẩm  |  </a> 
+                                      </li>
                                       <li>
                                             <a href="/likeList/<%-user.username%>" >Đã thích  |  </a>
                                         </li>
@@ -51,15 +51,16 @@
                                       </li>
                                       <li id = "user">
                                        
-                                        <a ><i class="fa fa-user"></i>Hello: <%- user.username%></a>
-                                        <ul id="user-option">
+                                        <a  href="/userinformation/<%-user.username%>"><img id="user-avatar" src="/upload/<%-user.avatar%>" height="18px" width="18px">Hello: <%- user.username%></a>
+                                        <!-- <ul id="user-option">
                                              <li><a href="/user/changePassword">Thay đổi mật khẩu</a></>
                                              <li><a href="/userinformation/<%-user.username%>">Thông tin tài khoản</a></li>
-                                       </ul>
+                                       </ul> -->
                                     </li>
                                       <%}%>
                             </ul>
                 </div>
+                <img src="/imagei/bkg_top_header.png">
         </div>
 
         <div id="header-inner2">
@@ -76,9 +77,9 @@
                         <div id="header-inner2-right-search">
                                 <form action="/search" method="POST" class="header-inner2-form" id="ProductsSearchProductForm" role="search">
                                     <input class="header-inner2-form-input" type="search" placeholder="Tìm kiếm sản phẩm"  value="" name="product_name" id="product_name" required="" >
-                                    <input type="radio" name="searchUser"><label>Tìm kiếm Username &nbsp&nbsp </label>
+                                    <!-- <input type="radio" name="searchUser"><label>Tìm kiếm Username &nbsp&nbsp </label> -->
                                     <button class="header-inner2-form-button" type="submit">
-                                        <i class="fa fa-search" aria-hidden="true"></i>
+                                        <i class="fa fa-search" aria-hidden="true" style="color: #f16e8e"></i>
                                         
                                     </button>
                                 </form>
@@ -86,18 +87,18 @@
                 </div>
                 <div id="header-inner2-right-2" class="wrapper-nav">
                         <nav class="nav-main">
+            
                    <div id="header-inner2-right-2-inner">
-                        <span class="header-inner2-link"><a href="/"> TRANG CHỦ</a></span>
-                    <span class="header-inner2-link"><a href="#"> LỊCH SỬ</a></span>
-                    <span class="header-inner2-link"><a href="#"> VOUCHER GIẢM GIÁ</a></span>
-                        <span id ="header1-inner2-icon">
-                                <a href="https://www.facebook.com/moki.vn" target="_blank"> <i class = "fa fa-facebook-square"></i></a>
-                                <a href="https://www.youtube.com/channel/UCM7dLGfHJ6onxoY3StztfwQ/" target="_blank"> <i class = "fa fa-youtube-square"></i></a>
-                                <a href="https://twitter.com/MOKI_VN" target="_blank"> <i class = "fa fa-twitter"></i></a>
-                                <a href="https://www.instagram.com/moki.vn/" target="_blank"> <i class = "fa fa-instagram"></i></a>
-                                <a href="https://www.instagram.com/moki.vn/" target="_blank"> <i class = "fa fa-skype"></i></a>
-                                <a href="https://www.instagram.com/moki.vn/" target="_blank"> <i class = "fa fa-globe"></i></a>
-                              </s>
+                    <span class="header-inner2-link"><a href="/"> TRANG CHỦ</a></span>
+                    <span class="header-inner2-link"><a href="#"> GÓC CỦA MẸ</a></span>
+                    <span class="header-inner2-link"><a href="#"> GIỚI THIỆU</a></span>
+                    <span class="header-inner2-link"><a href="#"> SHOP MOKI</a></span>
+                    <span id ="header1-inner2-icon">
+                    <span class="header-inner2-link-icon"><a href="https://www.facebook.com/moki.vn" target="_blank"> <i class = "fa fa-facebook-square"></i></a></span>
+                    <span class="header-inner2-link-icon"><a href="https://www.youtube.com/channel/UCM7dLGfHJ6onxoY3StztfwQ/" target="_blank"> <i class = "fa fa-youtube-square"></i></a></span>
+                    <span class="header-inner2-link-icon"><a href="https://twitter.com/MOKI_VN" target="_blank"> <i class = "fa fa-twitter"></i></a></span>
+                    <span class="header-inner2-link-icon"><a href="https://www.instagram.com/moki.vn/" target="_blank"> <i class = "fa fa-instagram"></i></a></span>
+                    </span>
                    </div>
                    </nav>
                 </div>

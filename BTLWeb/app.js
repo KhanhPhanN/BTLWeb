@@ -28,6 +28,16 @@ const Grid = require('gridfs-stream');
 const methodOverride = require('method-override');
 const crypto = require('crypto');
 app.use(methodOverride('_method'));
+var storage1=multer.diskStorage({
+    destination: function(req,file,cb){
+        cb(null,'./public/upload')
+    },
+    filename: function(req,file,cb){
+        cb(null,"k.png")
+    }
+
+})
+var upload1 = multer({storage: storage1})
 
 var loi;
 
@@ -117,17 +127,18 @@ dsproduct=res;
     db.close();
   })
 })
+var phone_chat;
 
 // register
-app.get('/register',function(req,res){
+app.get('/signup',function(req,res){
     res.render('register');
     });
 
 //Nexmo
 
 const nexmo = new Nexmo({
-    apiKey: '97520364',
-    apiSecret: 'Slep6sF2IJlaaz2X'
+    apiKey: '4e8d7f7e',
+    apiSecret: 'OT5rGAHzKaFqtztV'
   }, { debug: true });
 
 // Catch form submit
@@ -137,7 +148,7 @@ var username1;
 var email1;
 var password1;
 var PhoneNumber1;
-app.post('/register', (req, res) => {
+app.post('/signup', (req, res) => {
     var PhoneNumber = req.body.PhoneNumber;
     var password = req.body.password;
 password1 = password;
@@ -147,9 +158,10 @@ PhoneNumber1 = PhoneNumber;
     req.checkBody('password', 'Password is required').notEmpty();
     var errors = req.validationErrors();
     if (errors) {
-        res.render('register', {
-            errors: errors
-        });
+        res.send({code: "1",message:"Accept",data: errors})
+        // res.render('register', {
+        //     errors: errors
+        // });
     }else {
         //checking for email and username are already taken
             User.findOne({PhoneNumber: {
@@ -161,26 +173,29 @@ PhoneNumber1 = PhoneNumber;
                     });
                 }
                 else {
-                    var number = req.body.PhoneNumber;
+                    // var number = req.body.PhoneNumber;
                     var text = parseInt(Math.random()*(9999-1000)+1000);
                     code = text;
-                    nexmo.message.sendSms(
-                      '841664925036', number, text, { type: 'unicode' },
-                      (err, responseData) => {
-                        if(err) {
-                          console.log(err);
-                        } else {
-                          const { messages } = responseData;
-                          const { ['message-id']: id, ['to']: number, ['error-text']: error  } = messages[0];
-                          console.dir(responseData);
-                          const data = {id,number,error };
+                    console.log(text);
+                    res.json({code: "1",message:"Accept",data: text});
+                    //res.render("Confirm",{dt: text});
+                    // nexmo.message.sendSms(
+                    //   '841664925036', number, text, { type: 'unicode' },
+                    //   (err, responseData) => {
+                    //     if(err) {
+                    //       console.log(err);
+                    //     } else {
+                    //       const { messages } = responseData;
+                    //       const { ['message-id']: id, ['to']: number, ['error-text']: error  } = messages[0];
+                    //       console.dir(responseData);
+                    //       const data = {id,number,error };
                   
-                          // Emit to the client
-                          io.emit('smsStatus', {data: data, code: text});
-                          res.render("Confirm",{dt: text});
-                        }
-                      }
-                    );
+                    //       // Emit to the client
+                    //       io.emit('smsStatus', {data: data, code: text});
+                    //       res.render("Confirm",{dt: text});
+                    //     }
+                    //   }
+                    // );
                 }
             })
       
@@ -189,7 +204,6 @@ PhoneNumber1 = PhoneNumber;
 
 
 app.post('/codeconfirm', function(req,res){
-
      var code1 = req.body.code;
     if(code == code1){
         var newUser = new User({
@@ -221,9 +235,17 @@ app.post('/codeconfirm', function(req,res){
 app.get('/forgetPassword',function(req,res){
     res.render("forgetPassword")
 })
-
-app.post("/update_register",function(req,res1){
-var phone= req.body.sdt;
+var storage2=multer.diskStorage({
+    destination: function(req,file,cb){
+        cb(null,'./public/upload')
+    },
+    filename: function(req,file,cb){
+        cb(null,PhoneNumber1+".png")
+    }
+})
+var upload2 = multer({storage: storage2});
+app.post("/update_register",upload2.single("Avatar"),function(req,res1){
+    var phone= req.body.sdt;
 var username = req.body.username;
 var email = req.body.Email;
 var First = req.body.First;
@@ -237,7 +259,9 @@ MongoClient.connect(url,function(err,db){
     var dbo = db.db("loginapp");
     var where ={PhoneNumber : phone};
     var c = false;
-    var query={$set: {email:email,username: username,firstname: First,lastname: Last, address: address, city: City}};
+    var query={$set: {avatar:phone+".png", email:email,username: username,firstname: First,lastname: Last, address: address, city: City}};
+   console.log(query)
+
     dbo.collection("users").find().toArray(function(err,res){
         if(err) throw err;
        for(var i=0;i<res.length;i++){
@@ -247,11 +271,10 @@ MongoClient.connect(url,function(err,db){
             break;
         }
        }
-       console.log(c);
        if(!c){
            dbo.collection("users").updateOne(where,query,function(err,res){
                if(err) throw err;
-               res1.redirect("/")
+               res1.render("login")
            })
           }
        db.close();
@@ -277,21 +300,21 @@ app.post('/forgetPassword',function(req,res){
                 if(user.length > 0){
                     var text = parseInt(Math.random()*(9999-1000)+1000);
                     code1 = text;
-                    nexmo.message.sendSms(
-                      '841664925036', phoneInput, text, { type: 'unicode' },
-                      (err, responseData) => {
-                        if(err) {
-                          console.log(err);
-                        } else {
-                          const { messages } = responseData;
-                          const { ['message-id']: id, ['to']: number, ['error-text']: error  } = messages[0];
-                          console.dir(responseData);
-                          const data = {id,number,error };
+                    // nexmo.message.sendSms(
+                    //   '841664925036', phoneInput, text, { type: 'unicode' },
+                    //   (err, responseData) => {
+                    //     if(err) {
+                    //       console.log(err);
+                    //     } else {
+                    //       const { messages } = responseData;
+                    //       const { ['message-id']: id, ['to']: number, ['error-text']: error  } = messages[0];
+                    //       console.dir(responseData);
+                    //       const data = {id,number,error };
                   
                           // Emit to the client
-                          
+                          console.log(code1);
                           res.render("resetPassword",{dt: text});
-                        }});
+                        //}});
                 }else{
                     res.redirect('forgetPassword');
                 }
@@ -407,6 +430,108 @@ var chuoi2 = Y2.split(" ");
     }
     return a[0][0]
 }
+app.get("/moki.vn/:id",function(req,res){
+    var MongoClient = require('mongodb').MongoClient;
+    var url = "mongodb://localhost:27017/";
+var key = req.params.id;
+var data = new Array();
+var data_num = new Array();
+if(key=="Be-an"){
+    MongoClient.connect(url, function(err, db) {
+        if (err) throw err;
+        var dbo = db.db("mydb");
+        var re = {name: key};
+        dbo.collection("Bé ăn").find().toArray( function(err, result) {
+          if (err) throw err;
+          res.render("searchpage",{kq: result,SP:dsproduct.reverse(),title: "Bé ăn"})
+          db.close();
+        });
+      });
+       }
+else if(key=="Be-mac"){
+        MongoClient.connect(url, function(err, db) {
+            if (err) throw err;
+            var dbo = db.db("mydb");
+            var re = {name: key};
+            dbo.collection("Bé mặc").find().toArray( function(err, result) {
+              if (err) throw err;
+              res.render("searchpage",{kq: result,SP:dsproduct.reverse(),title: "Bé mặc"})
+              db.close();
+            });
+          });
+           }
+else if(key=="Be-ngu"){
+            MongoClient.connect(url, function(err, db) {
+                if (err) throw err;
+                var dbo = db.db("mydb");
+                var re = {name: key};
+                dbo.collection("Bé ngủ").find().toArray( function(err, result) {
+                  if (err) throw err;
+                  res.render("searchpage",{kq: result,SP:dsproduct.reverse(),title: "Bé ngủ"})
+                  db.close();
+                });
+              });
+               }
+else if(key=="Be-tam"){
+                MongoClient.connect(url, function(err, db) {
+                    if (err) throw err;
+                    var dbo = db.db("mydb");
+                    var re = {name: key};
+                    dbo.collection("Bé tắm").find().toArray( function(err, result) {
+                      if (err) throw err;
+                      res.render("searchpage",{kq: result,SP:dsproduct.reverse(),title: "Bé tắm"})
+                      db.close();
+                    });
+                  });
+                   }
+else if(key=="Be-ve-sinh"){
+                    MongoClient.connect(url, function(err, db) {
+                        if (err) throw err;
+                        var dbo = db.db("mydb");
+                        var re = {name: key};
+                        dbo.collection("Bé vệ sinh").find().toArray( function(err, result) {
+                          if (err) throw err;
+                          res.render("searchpage",{kq: result,SP:dsproduct.reverse(),title: "Bé vệ sinh"})
+                          db.close();
+                        });
+                      });
+                       }
+else{
+
+    MongoClient.connect(url, function(err, db) {
+        if (err) throw err;
+        var dbo = db.db("mydb");
+        var re = {name: key};
+        dbo.collection("TempSP").find().toArray( function(err, result) {
+          if (err) throw err;
+          for(var i = 0;i<result.length;i++){
+          if(search_name(result[i].name +" "+ result[i].describle, key)>0){
+              data.push(result[i]);
+              data_num.push(search_name(result[i].name +" "+ result[i].describle, key));
+          }
+      }
+           if(data.length!=0){
+              for(var i = 0; i<data.length-1;i++){
+                 var k2;
+                 var max;
+              for(var j=i+1;j<data.length;j++)
+              if(data_num[i]<data_num[j]){
+                  var k1;
+                  k1=data_num[i];data_num[i]=data_num[j];data_num[j]=k1;
+                  max = j;
+                  k2=data[i];data[i]=data[j];data[j]=k2;
+              }
+          }
+      }
+          res.render("searchpage",{kq: data,SP:dsproduct.reverse(),title: key})
+          db.close();
+        });
+      });
+
+
+}
+
+})
 app.post("/search", function(req,res){
     var key = req.body.product_name;
     var MongoClient = require('mongodb').MongoClient;
@@ -425,7 +550,7 @@ app.post("/search", function(req,res){
                       data.push(result[i]);
                   }
               }
-              res.render("searchuser",{ketqua:data,SP:dsproduct.reverse()});  
+              res.render("searchuser",{ketqua:data,SP:dsproduct.reverse(),title:"Kết quả tìm kiếm"});  
             })
         })
      }else{
@@ -455,7 +580,7 @@ app.post("/search", function(req,res){
             }
         }
     }
-        res.render("searchpage",{kq: data,SP:dsproduct.reverse()})
+        res.render("searchpage",{kq: data,SP:dsproduct.reverse(),title:"Kết quả tìm kiếm"})
         db.close();
       });
     });
@@ -487,26 +612,7 @@ app.get('/login',function(req,res){
 
 app.post('/login',
     passport.authenticate('local', { successRedirect: '/', failureRedirect: '/login',successFlash:"Success", failureFlash: 'Invalid username or password.'}));
-    //list product
-app.get("/listproduct/:id", function(req, res){
-var title = req.params.id;
-    var MongoClient = require('mongodb').MongoClient;
-    var url = "mongodb://localhost:27017/";
-    
-    MongoClient.connect(url, function(err, db) {
-      if (err) throw err;
-      var dbo = db.db("mydb");
-      dbo.collection("TempSP").find({shop: title}).toArray(function(err, result) {
-        if (err) throw err;
-       res.render("listproduct",{kq: result,SP:dsproduct.reverse()});
-        db.close();
-      
-      });
-    });
-
-
-})
-
+ 
 
 //List like
 
@@ -578,7 +684,7 @@ app.get("/befollowList/:id", function(req, res){
       });
     });
 })
-
+var f1,f2,f3,user1;
 // Thông tin tài khoản người dùng 
 app.get("/userinformation/:id", function(req, res){
 var title = req.params.id;
@@ -590,15 +696,47 @@ var title = req.params.id;
       dbo.collection("users").find({username: title}).toArray(function(err, result) {
         if (err) throw err;
      var bo = db.db("mydb");
-     bo.collection("TempSP").find({}).toArray(function(err,result1){
-        res.render("userinfomation",{kq: result,SP:result1});
+     user1 = result;
+     var lfollow=result[0].follow;
+     var lfollowed=result[0].be_follow;
+     var data=[];
+     var data_be=[];
+     for(var i=0;i<lfollow.length;i++){
+        dbo.collection("users").findOne({username: lfollow[i]},function(err, lresult) {
+            if (err) throw err;
+            if(lresult)
+            data.push(lresult)
+        })
+     }
+     for(var i=0;i<lfollowed.length;i++){
+        dbo.collection("users").findOne({username: lfollowed[i]},function(err, lresulted) {
+            if (err) throw err;
+            if(lresulted)
+            data_be.push(lresulted)
+        })
+     }
+     bo.collection("TempSP").find({shop: title}).toArray(function(err,result1){
+         f1=data;
+         f2=data_be;
+         f3=result1;
+        res.render("user",{kq: result,sp:result1,follow: data,followed: data_be});
         db.close();
      })
      db.close();
       });
     });
 })
-
+var changeImage="";
+var storage3=multer.diskStorage({
+    destination: function(req,file,cb){
+        cb(null,'./public/upload')
+    },
+    filename: function(req,file,cb){
+        cb(null,file.originalname)
+        changeImage=file.originalname;
+    }
+})
+var upload3 = multer({storage: storage3});
 // chỉnh sửa thông tin người dùng
 app.get('/user/modifier/:id',function(req,res){
     var title = req.params.id;
@@ -617,9 +755,61 @@ app.get('/user/modifier/:id',function(req,res){
         })
     })
 })
+// Thông tin của 1 người dùng khác
+app.get("/user/other/:id",function (req,res) {
+    var dataname=req.params.id.split("&&");
+    var title = dataname[0];
+    var checksame=false;
+    if(dataname[0]==dataname[1])
+    checksame=true;
+    var MongoClient = require('mongodb').MongoClient;
+    var url = "mongodb://localhost:27017/";
+    MongoClient.connect(url,function(err,db){
+        if (err) throw err;
+        var dbo = db.db("loginapp");
+        dbo.collection("users").find({username: title}).toArray(function(err, result) {
+            if (err) throw err;
+            var checkfollow=false;
+            var list_be_follow=result[0].be_follow;
+for(var i=0;i<list_be_follow.length;i++){
+    if(list_be_follow[i]==dataname[1]){
+        checkfollow=true;
+        break;
+    }
+}
+         var bo = db.db("mydb");
+         var lfollow=result[0].follow;
+         var lfollowed=result[0].be_follow;
+         var data=[];
+         var data_be=[];
+         for(var i=0;i<lfollow.length;i++){
+            dbo.collection("users").findOne({username: lfollow[i]},function(err, lresult) {
+                if (err) throw err;
+                if(lresult)
+                data.push(lresult)
+            })
+         }
+         for(var i=0;i<lfollowed.length;i++){
+            dbo.collection("users").findOne({username: lfollowed[i]},function(err, lresulted) {
+                if (err) throw err;
+                if(lresulted)
+                data_be.push(lresulted)
+            })
+         }
+         bo.collection("TempSP").find({shop: title}).toArray(function(err,result1){
+            if(checksame){
+                res.render("user",{kq: result,sp:result1,follow: data,followed: data_be});
+            }else{
+            res.render("otheruserinfomation",{kq: result,sp:result1,follow: data,followed: data_be,checkfollow: checkfollow});
+            } 
+        })
+         db.close();
+          });
+    })
+})
 
 // chỉnh sửa thông tin người dùng
-app.post('/user/modifier/:id',function(req,res){
+app.post('/user/modifier/:id',upload3.single("avatar"),function(req,res){
     var title = req.params.id;
     //check validator
     var city = req.body.city;
@@ -627,27 +817,31 @@ app.post('/user/modifier/:id',function(req,res){
     var address = req.body.address;
     var firstname = req.body.firstname;
     var lastname = req.body.lastname;
-     req.checkBody('firstname',"firstname bắt buộc!").notEmpty();
-     req.checkBody('lastname',"lastname bắt buộc!").notEmpty();
+    var x= req.body.phonenumber;
+    console.log(x)
+    req.checkBody('firstname',"firstname bắt buộc!").notEmpty();
+    req.checkBody('lastname',"lastname bắt buộc!").notEmpty();
     req.checkBody('email',"Email bắt buộc!").notEmpty();
     req.checkBody('address','Địa chỉ bắt buộc!').notEmpty();
-    req.checkBody('city','THành phố bắt buộc!').notEmpty();
+    req.checkBody('city','Thành phố bắt buộc!').notEmpty();
      var errors = req.validationErrors();
     if(errors){
         var MongoClient = require("mongodb").MongoClient;
         var url = "mongodb://localhost:27017/";
         MongoClient.connect(url,function(err,db){
             if(err) throw err;
-            var where ={username : req.body.username};
+            var where ={username:title};
             var dbo = db.db("mydb");
                 var bo=db.db("loginapp");
                 bo.collection("users").find(where).toArray(function(err,re){
                     if(err) throw err;
                     dbo.collection("TempSP").find({}).toArray(function(err,result){
-                    res.render("modifierUser",{
+                    res.render("user",{
                         errors:errors,
-                        SP:result.reverse(),
-                        user:re
+                        sp:f3,
+                        kq:re,
+                        follow: f1,
+                        followed:f2
                     })
                     db.close();
                 })
@@ -660,16 +854,15 @@ app.post('/user/modifier/:id',function(req,res){
         MongoClient.connect(url,function(err,db){
             if(err) throw err;
             var dbo = db.db("loginapp");
-            var where ={username : req.body.username};
-            var query={$set: {firstname:firstname,email:email,lastname:lastname,city:city,address:address}};
+            var where ={PhoneNumber : x};
+            var query={$set: {avatar: changeImage,firstname:firstname,email:email,lastname:lastname,city:city,address:address}};
             dbo.collection("users").updateOne(where,query,function(err,res){
                 if(err) throw err;
-                db.close();
             })
             dbo.collection("users").find({username:title}).toArray(function(err,result){
                     if(err) throw err;
-                res.render('userinfomation',{kq:result,SP:dsproduct.reverse()});
-               
+                res.render('user',{kq:result,sp:f3,errors: false,    follow: f1,
+                    followed:f2});
                 db.close();
             })
             
@@ -730,16 +923,20 @@ var errors = req.validationErrors();
      });
 
 io.on("connection",function(socket){
+    console.log(socket.id);
     socket.on("ngat",function(){
         console.log("Ngắt kết nối")
     })
 socket.on("connect",function(){
     console.log(" Có kết nối bị ngắt")
 })
+
+// chat với ai
+
 // log out
 app.get('/logout/:id', function (req, res) {
     req.logout();
-
+var data={code: "1000", message:"OK"};
 for(var i=0;i<List_user_connected.length;i++)
 if(List_user_connected[i].indexOf(req.params.id)!=-1)
 
@@ -753,7 +950,7 @@ if(List_user_connected[i].indexOf(req.params.id)!=-1)
     res.redirect('/');
 });
 
-
+socket.userphone="";
 //khi login thi chay middleware va goi den cai nay
 passport.use(new LocalStrategy(
     function (username, password, done) {
@@ -761,7 +958,7 @@ passport.use(new LocalStrategy(
             if (err) throw err;
             if (!user) {
                 console.log('Unknown User')
-                return done(null, false, { message: 'Unknown User' });
+                return done(null, false, {code: "1000", message: 'Unknown User' });
             }
            if(user){
             console.log('ok')
@@ -771,6 +968,7 @@ passport.use(new LocalStrategy(
                     console.log('ok')
                     List_user_connected.push(user.username);
                     tenuser=user.username;
+                    socket.phonechat=user.PhoneNumber;
                     io.sockets.emit("add-user",user.username);
                     return done(null, user);
                 } else {
@@ -783,7 +981,7 @@ passport.use(new LocalStrategy(
     }));
 
 
-
+console.log(socket.phonechat);
 socket.on("gui-comment",function(data){
     var  info = data.split("ooo");
     var MongoClient = require('mongodb').MongoClient;
@@ -897,6 +1095,7 @@ db.close();
 socket.on("follow",function(data){
 var data=data.split("\n");
 var MongoClient = require('mongodb').MongoClient;
+console.log(data)
 var url = "mongodb://127.0.0.1:27017/";
 for(var i=0; i<listuser.length;i++){
     if(listuser[i].username==data[0]){
@@ -924,10 +1123,11 @@ dbo.collection("users").updateOne({username: data[1]},{$set: {be_follow: be_list
 dbo.collection("users").findOne({username:data[0]},function(err,res){
 if(err) throw err
 listmyfollow = res.follow;
-io.sockets.emit("follow",res.follow.length)
+io.sockets.emit("follow",be_listmyfollow.length)
 })
 dbo.collection("users").findOne({username:data[1]},function(err,res){
-    if(err) throw err
+    if(err) throw err;
+    
     be_listmyfollow = res.be_follow;
     })
     var MongoClient2 = require('mongodb').MongoClient;
@@ -983,7 +1183,7 @@ socket.on("unfollow",function(data){
     dbo.collection("users").findOne({username:data[0]},function(err,res){
     if(err) throw err
     listmyfollow = res.follow;
-    io.sockets.emit("unfollow",res.follow.length)
+    io.sockets.emit("unfollow",be_listmyfollow.length)
     })
     dbo.collection("users").findOne({username: data[1]},function(err,res){
         if(err) throw err  
@@ -1004,10 +1204,15 @@ db.close();
     db.close();
     })
     })
-
+    app.post("/chat",function(req,res){
+    phone_chat=req.body.phone;
+    console.log(phone_chat);
+    res.json({code: "1000", message: "OK", data: ""})
+    })
+    socket.phonechat=phone_chat;
     socket.on("Client-send-messages",function(data){
-        socket.emit("Server-send-your-message",data)
-        socket.broadcast.emit("Client-ask",data)
+        socket.emit("server-send",data)
+        socket.to("socket.phonechat").emit("server-send",data);
     })
     socket.on("Admin-send-messages",function(data){
         socket.emit("Server-send-admin-message",data)
@@ -1048,7 +1253,7 @@ const upload = multer({ storage });
 var imageFile;
 // @route GET /
 // @desc Loads form
-app.get('/themsanpham', (req, res) => {
+app.get('/add_product', (req, res) => {
   gfs.files.find({filename: test}).toArray((err, files) => {
     // Check if files
     if (!files || files.length === 0) {
@@ -1074,7 +1279,7 @@ app.get('/themsanpham', (req, res) => {
 // @desc  Uploads file to DB
 app.post('/upload', upload.single('file'), (req, res) => {
   // res.json({ file: req.file });
-  res.redirect('/themsanpham');
+  res.redirect('/add_product');
 });
 
 // @route GET /files
@@ -1116,14 +1321,18 @@ app.get("/sp/sp/:_id",function(req,res){
    var url = "mongodb://localhost:27017/";
     var _id = req.params._id;
     var query = {_id: title[0]};
+    var withshop=[];
     mongoClient.connect(url, function(err, db) {
         if (err) throw err;
         var dbo = db.db("mydb");
         var checkfollow = false;
         dbo.collection("TempSP").findOne(query,function(err, result) {
             if(err) throw err;  
-            var bo = db.db("loginapp")
-bo.collection("users").findOne({username: result.shop},function(er,re){
+            dbo.collection("TempSP").find({shop: result.shop}).toArray(function(erro,resu){
+               withshop=resu;
+            }) 
+            var bo = db.db("loginapp");
+        bo.collection("users").findOne({username: result.shop},function(er,re){
 if(er) throw er;
 
         checkfollow=true;
@@ -1141,6 +1350,7 @@ if(er) throw er;
                     checklike : false,
                     likelist: [],
                     checkfollow: checkfollow,
+                    withshop: withshop
                 })
             }else{
                 var checklike = false;
@@ -1154,10 +1364,13 @@ if(er) throw er;
                 like: numLike.length-1,
                 checklike: checklike,
                 likelist: numLike,
-                checkfollow: checkfollow
+                checkfollow: checkfollow,
+                withshop: withshop
             })
             db.close();
-        }     
+        }   
+    
+        
 })
 db.close();
 
@@ -1224,7 +1437,8 @@ app.delete("/delete",function(req,res){
           });
           dbo.collection("TempSP").find({shop: title}).toArray(function(err, result) {
             if (err) throw err;
-           res.render("listproduct",{kq: result});
+            res.render('user',{kq:user1,sp:result,errors: false,    follow: f1,
+                followed:f2});
             db.close();
           });
        });
@@ -1233,31 +1447,41 @@ app.delete("/delete",function(req,res){
 
 app.post("/updatesp",function(req,res){
     
+    
+    
     var name = req.body.nameproduct;
     var describle = req.body.describleproduct;
     var bargain1 = req.body.bargainproduct1;
     var bargain2 = req.body.bargainproduct2;
+    var bargain3 = req.body.bargainproduct3;
     var title = req.body.nameuser;
     var bargain;
     if(bargain1=='on')
     bargain = "Miễn phí";
-    else
+    if(bargain2=='on')
     bargain = "Cho phép mặc cả";
+    if(bargain3=='on')
+    bargain = "Bán nhanh";
+    
     var attached = req.body.attached;
-    var label    = req.body.label;
-    var weight   = req.body.weight;
-    var state    = req.body.state;
-    var price    = req.body.price;
+    
+    var state = req.body.state;
+    var label = req.body.label;
+    var weight = req.body.weight;
+   
+    var placesell = req.body.sell;
+    var price = req.body.price;
+    var filename = req.body.image;
     var errors=0;
 if(!name || !price || !describle)
       errors = [{msg: "Bạn nhập thiếu dữ liệu"}];
    if(errors){
-    res.render('deleteandupdate',{err: errors,data: {image: test,_id: req.body.filename, name: name,describle: describle,bargain: bargain,attached: attached,label: label,weight: weight,state: state,price: price + "VNĐ"}});
+    res.render('deleteandupdate',{err: errors,data: {image: test,_id: req.body.filename, name: name,describle: describle,bargain: bargain,attached: attached,label: label,weight: weight,state: state,price: price,placeSell:placesell}});
    }else{
     var MongoClient = require('mongodb').MongoClient;
     var url = "mongodb://localhost:27017/";
     var where = {_id: req.body.filename }
-var query = {$set: {name: name,price: price,label: label, weight: weight, state: state,bargain:bargain,describle:describle}};
+var query = {$set: {name: name,price: price,label: label, weight: weight, state: state,bargain:bargain,describle:describle,placeSell:placesell}};
 MongoClient.connect(url, function(err, db) {
   if (err) throw err;
   var dbo = db.db("mydb");
@@ -1271,7 +1495,7 @@ MongoClient.connect(url, function(err, db) {
   dbo.collection("TempSP").find({shop: title}).toArray(function(err, result) {
 
     if (err) throw err;
-   res.render("listproduct",{kq: result});
+    res.render('deleteandupdate',{err: [{msg: "OK"}],data: {image: filename,_id: req.body.filename, name: name,describle: describle,bargain: bargain,attached: attached,label: label,weight: weight,state: state,price: price,placeSell:placesell}});
    db.close();
   }); 
   db.close();
@@ -1333,36 +1557,54 @@ app.delete('/deleteimage/:id', (req, res) => {
 
 
 // Thêm sản phẩm
-app.post("/themsanpham",function(req,res){
+app.post("/add_product",function(req,res){
     if(!test){
-        res.render('themsanpham',{files: imageFile,err: [{msg:"Bạn chưa tải ảnh"}]});
+        res.render('themsanpham',{files: imageFile,err: [{msg:"Error Unknown"}]});
     }else{
     var name = req.body.nameproduct;
     var describle = req.body.describleproduct;
     var bargain1 = req.body.bargainproduct1;
     var bargain2 = req.body.bargainproduct2;
-    var title = req.body.nameuser
+    var bargain3 = req.body.bargainproduct3;
+    var title = req.body.nameuser;
     var bargain;
     if(bargain1=='on')
     bargain = "Miễn phí";
-    else
+    if(bargain2=='on')
     bargain = "Cho phép mặc cả";
-    var attached = req.body.attached;
+    if(bargain3=='on')
+    bargain = "Bán nhanh";
+    
+    var attached = req.body.name;
+    var state = req.body.state;
     var label = req.body.label;
     var weight = req.body.weight;
-    var state = req.body.state;
+   
+    var placesell = req.body.sell;
     var price = req.body.price;
     var filename = test;
+    console.log(name);
+    console.log(attached);
+    console.log(describle);
+    console.log(bargain);
+    console.log(label);
+    console.log(state);
+    console.log(weight);
+    console.log(placesell);
+    console.log(price);
+    console.log(filename);
+
+
     var errors=0;
 if(!name || !price || !describle)
-      errors = [{msg: "Bạn nhập thiếu dữ liệu"}];
+      errors = [{msg: "Error Unknown"}];
    if(errors){
     res.render('themsanpham',{files: imageFile,err: errors});
    }else{
     var MongoClient = require('mongodb').MongoClient;
     var url = "mongodb://localhost:27017/";
     
-   var query = {_id: filename.toString().substring(0,filename.length-4),image: filename,name: name,price: price+" VNĐ",shop: title,label: label, weight: weight, state: state,attached:attached,bargain:bargain,describle:describle,comment:"",like:""};
+   var query = {_id: filename.toString().substring(0,filename.length-4),image: filename,name: name,price: price+" VNĐ",shop: title,label: label, weight: weight, state: state,placeSell:placesell,attached:attached,bargain:bargain,describle:describle,comment:"",like:""};
 MongoClient.connect(url, function(err, db) {
   if (err) throw err;
   var dbo = db.db("mydb");
@@ -1375,7 +1617,7 @@ MongoClient.connect(url, function(err, db) {
   db.close();
   test=0;
   imageFile = 0;
-  res.render('themsanpham',{files: imageFile, err: [{msg: "Thêm sản phẩm thành công"}]})
+  res.render('themsanpham',{files: imageFile, err: [{msg: "Ok"}]})
  io.sockets.emit("add-product");
 });
    }
@@ -1407,19 +1649,22 @@ app.get("/",function(req,res){
     var user = {username: ""}
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/";
+var u="mongodb://KhanhPhan:khanh2748@ds123664.mlab.com:23664/databaseofmoki"
 var res2,res3,res4,res5;
 var MongoClient1 = require('mongodb').MongoClient;
 MongoClient1.connect(url, function(err, db) {
 var db1 = db.db("mydb");
-db1.collection("Bàn phím").find().toArray(function(err,r){
-    res2=r;
-})  
-db1.collection("Tai nghe").find().toArray(function(err,r){
+
+db1.collection("Bé ngủ").find().toArray(function(err,r){
     res3=r;
+    
 })
-db1.collection("Ổ cứng").find().toArray(function(err,r){
+db1.collection("Bé tắm").find().toArray(function(err,r){
     res4=r;
 })
+db1.collection("Bé ăn").find().toArray(function(err,r){
+    res2=r;
+})  
 db1.collection("TempSP").find().toArray(function(err,r){
     res5=r;
 })
@@ -1427,9 +1672,9 @@ db.close();
 MongoClient.connect(url, function(err, db) {
     if (err) throw err;
     var dbo = db.db("mydb");
-    dbo.collection("Máy tính").find({}).toArray(function(err, result) {
+    dbo.collection("Bé vệ sinh").find({}).toArray(function(err, result) {
       if (err) throw err;
-      dbo.collection("Chuột").find().toArray(function(err, res1){
+      dbo.collection("Bé mặc").find().toArray(function(err, res1){
         if (err) throw err;
         var datastateuser=[];
         for(var i=0;i<list_user.length;i++){
@@ -1442,11 +1687,11 @@ MongoClient.connect(url, function(err, db) {
 
                     db.close();
                     res.render('homepage',{
-                        MayTinh: result.reverse(),
-                        Chuot: res1.reverse(),
-                        Banphim:res2.reverse(),
-                        Tainghe:res3.reverse(),
-                        Ocung:res4.reverse(),
+                        bevesinh: result.reverse(),
+                        bemac: res1.reverse(),
+                        bean:res2.reverse(),
+                        bengu:res3.reverse(),
+                        betam:res4.reverse(),
                         SP: res5.reverse(),
                         UserOnline: datastateuser
                     })                  

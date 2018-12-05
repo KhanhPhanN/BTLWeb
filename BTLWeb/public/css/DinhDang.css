@@ -7,7 +7,7 @@
     overflow: auto;
 }
 .col-sm-6 span{
-    color: blueviolet;
+    color: #f16e8e;
 }
 .title-sp input{
     float: right;
@@ -24,23 +24,51 @@
     font-size: 16px;
     
 }
+.title-sp label{
+    padding-left: 50px
+}
+.title-sp #tab1{
+   color: aqua
+}
 .option{
     margin-top: 50px;
-    background-color: #f16e8e;
+    background-color: #f1f1f1;
     margin-left: 0px;
     width: 90%;
     display: block;
     text-align: left;
     border-radius: 5px;
+    font-family: Arial, Helvetica, sans-serif
 }
 .option li{
     list-style-type: none;
     display: inline-block;
     width: 200px;
-    line-height: 40px;
+    line-height: 50px;
+    font-size: 16px;
 }
 .option li:hover{
-color: blueviolet;
+color: #f16e8e;
+}
+.option-shop{
+    margin-top: 50px;
+    background-color: #f1f1f1;
+    margin-left: 0px;
+    width: 90%;
+    display: block;
+    text-align: left;
+    border-radius: 5px;
+    font-family: Arial, Helvetica, sans-serif
+}
+.option-shop li{
+    list-style-type: none;
+    display: inline-block;
+    width: 720px;
+    line-height: 50px;
+    font-size: 16px;
+}
+.option-shop li:hover{
+color: #f16e8e;
 }
 #Comment{
     width: 500px;
@@ -102,13 +130,19 @@ table tr th {
 /* #pre-2{
     margin-left: 90%;
 } */ 
+.ten{
+    line-height: 20px;
+    height: 40px;
+    text-align: center
+}
 .ten:hover{
-    opacity:0.5;
+    color: #f16e8e
 }
 .gia{
-    color: aqua;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 20px
+    font-size: 22px;
+    font-weight: 700;
+    color: #502625;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 #left{
     width: 35%
@@ -122,7 +156,7 @@ table tr th {
    line-height: 30px;
 }
 #theodoi{
-    bottom: 20px
+    bottom: -10px
 }
 .cuon-1{
     width: 100%;
@@ -130,9 +164,7 @@ table tr th {
     overflow-y: auto;
     
 }
-#thongtin{
-    line-height: 60px;
-}
+
 .maininfo{
 margin-left: 20em
 }
@@ -144,8 +176,7 @@ margin-left: 20em
         }
     
 
-#modifier-user{
-   float:right;
+/* #modifier-user{
    border-radius:5px;
     padding:5px;
     text-align:center;
@@ -153,7 +184,7 @@ margin-left: 20em
 #modifier-user a{
     text-decoration:none;
     color:#000;
-}
+} */
 #update-user{
     padding:5px;
     border-radius: 5px;

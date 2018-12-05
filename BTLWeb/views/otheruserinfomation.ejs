@@ -1,104 +1,79 @@
-
-<!doctype html>
-
-<html>
-    <head>
-        <title>
-            app read books
-        </title>
-        <script src="/socket.io/socket.io.js"></script>
-        <script src="/js/jqurey.js"></script>
-        <script src="/js/chucnang.js"></script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="/css/footer.css" type="text/css" >   
-        <link rel="stylesheet" href="/css/template.css" type="text/css" >  
-        <link rel="stylesheet" href="/css/body.css" type="text/css" >  
-        <link rel="stylesheet" href="/css/DinhDang.css" type="text/css" >  
-        <link rel="stylesheet" href="/css/bootstrap.css" type="text/css" > 
-        <link rel="stylesheet" href="/css/header.css" type="text/css" > 
-        <style>
-   #user1:hover #user1-option {
-		display: block;
-	}
-	
-	#user1-option {
-        display: none;
-		margin-left:805px;
-		padding-top:4px;
-		margin-left: 82%;
-    }
-    #preview{
-	height: 80px;
-    width: 80px;
-    background: rgb(233, 222, 222); 
-	display: table;
-	position: relative;
-    color: #fff;
-	top:-82px;
-	right:-100px;
-    }
-p {
-  height: 80px;
-  width: 80px;
-  margin-block-start: 0em;
-  margin-block-end: 0em;
-}
-        </style>
-    </head>
-    <body>
-<div id = "container">
-    <!-- header starts here-->
-	<!-- HEADER STARTS HERE -->
-
-
-	<!-- HEADER STARTS HERE -->
- <%include template/header%>
-                   <!-- HEADER ENDS HERE -->
-
-               <!-- HEADER ENDS HERE -->
-
-<div id ="container_inner">
-    <!-- nav starts here-->
-<div id="container_inner_nav">
-<div id="container_inner_nav-inner">
-
-</div>
-</div>
-
-<% if(errors) {%>
-    <ul>
-        <% errors.forEach(function(err) {%>
-            <li class ="register-validator"><%= err.msg %></li>
-            <%})%>
-    </ul>
- <% } %>
-    <!-- content starts here -->
-    <div class="title-sp">
-       <label id ="tab1">Thông tin tài khoản của bạn</label>
-       <label id ="tab2">Sản phẩm</label>
-       <label id ="tab3">Danh sách theo dõi</label>
-       <label id ="tab4">Danh sách người theo dõi</label>
-      </div><hr>
-      <div id ="thongtin">
+<% include template/body1 %>
+<div id="container_inner_header">
+        <% include template/header %>
+    </div>
+    <div id="user-header">
+<img src="/imagei/biauser.jpg" id="img-bia">
+<%if(kq[0].avatar==""){%>
+<img src="/imagei/usernull.png" id="ava" height="170px" width="170px">
+<%}else{%>
+    <img src="/upload/<%-kq[0].avatar%>" id="ava" height="170px" width="170px">
+    <%}%>
+<div id="name-user"><%-kq[0].username%></div>
+<div id="tenuser" hidden><%-user.username%></div>
+<label id="sp"><img src="/imagei/bag.png" width="15px" height="15px" style="margin-right: 10px;"><label class="tab2">Sản phẩm: <label style="color: #f16e8e"> <%-sp.length%></label></label> </label>
+<label id="sp1"><img src="/imagei/bag.png" width="15px" height="15px" style="margin-right: 10px;"><label class="tab3">Theo dõi: <label style="color: #f16e8e" class="numfollow"> <%-follow.length%></label></label> </label>
+<label id="sp2"><img src="/imagei/bag.png" width="15px" height="15px" style="margin-right: 10px;"><label class="tab4">Người theo dõi: <label style="color: #f16e8e" class="numfollowed"> <%-followed.length%></label></label> </label>
+<label id="sp3"><img src="/imagei/fb.png" width="20px" height="20px" style="margin-right: 10px;"></label>
+<label id="sp4"><img src="/imagei/gg.png" width="20px" height="20px" style="margin-right: 10px;"></label>
+<label id="sp5"><img src="/imagei/tw.png" width="20px" height="20px" style="margin-right: 10px;"></label>
+    </div>
+    <div id="user-left" style="background-image: url(/imagei/bkg.jpg)">
+    <label>Giới thiệu</label><%if(!checkfollow){%>
+        
+        <img id = "follow" src ="/imagei/unfollow.png" width="40px" height="40px">
+        <label id ="theodoi" style="color: rgb(177, 174, 171); margin-left: 0px">Theo dõi</label><br>
+    
+        <%}else{%>
+        
+            <img id = "follow" src ="/imagei/follow.png" width="40px" height="40px">
+            <label id ="theodoi" style="color:blue; margin-left: 0px"> Đã theo dõi</label><br>
+     
+        <%}%><hr>
+    <label class="tab1"><img src="/imagei/acc.png" width="15px" height="15px" style="margin: 0 10px;">Thông tin tài khoản </label><hr>
+    <label class="tab2"><img src="/imagei/bag.png" width="15px" height="15px" style="margin: 0 10px;">Số sản phẩm: <label style="color: #f16e8e"><%-sp.length%></label> </label><hr>
+    <label class="tab3"><img src="/imagei/gr.png" width="15px" height="15px" style="margin: 0 10px;">Theo dõi: <label style="color: #f16e8e" class="numfollow"><%-follow.length%></label> </label><hr>
+    <label class="tab4"><img src="/imagei/gr.png" width="15px" height="15px" style="margin: 0 10px;"> Người theo dõi: <label style="color: #f16e8e" class="numfollowed"><%-followed.length%></label> </label><hr>
+    <label><img src="/imagei/place.png" width="15px" height="15px" style="margin: 0 10px;">Khu vực: <label style="color: #f16e8e"><%-kq[0].address%></label></label>
+    </div>
+    <div id="user-right">
+        <div id="showsp">
+            <label style=" position: relative;left: 40%">Sản phẩm của shop</label><hr>
+                    <% if(sp.length==0){%>
+                     <h2><%-kq[0].username%> chưa đăng sản phẩm nào </h2>
+                   <%}else{ sp.forEach((data)=>{%>
+                           <div class="wrapper-image1" style="text-align: center">
+                             <a href="/sp/sp/<%= data._id%>*<%=user.username%>">  <img src="/image/<%= data.image %>" alt="" width="270px" height="270px" style="display:block;text-align:center"></a><br>
+                               <span class ="ten" id = "ten-1"><%= data.name%></span><br>
+                               <div class="stars">
+                                 <form action="">
+                                   <input class="star star-5" id="star-5" type="radio" name="star" checked/>
+                                   <label class="star star-5" for="star-5"></label>
+                                   <input class="star star-4" id="star-4" type="radio" name="star"/>
+                                   <label class="star star-4" for="star-4"></label>
+                                   <input class="star star-3" id="star-3" type="radio" name="star"/>
+                                   <label class="star star-3" for="star-3"></label>
+                                   <input class="star star-2" id="star-2" type="radio" name="star"/>
+                                   <label class="star star-2" for="star-2"></label>
+                                   <input class="star star-1" id="star-1" type="radio" name="star"/>
+                                   <label class="star star-1" for="star-1"></label>
+                                 </form>
+                               </div><br>
+                              <span class ="gia" id = "gia-1"><%= data.price%></span>
+                           </div>
+                   <% }) %>
+                <%}%>
+            
+        </div>
+            <div id ="thongtin">
        
                     <% if(kq.length==0){%>
                      <h2>Không tìm thấy thông tin </h2>
                   <% } else {  kq.forEach((data)=>{%>
-                    <input id = "tenuser" type="text" value="<%-user.username%>" hidden >
-                   
-                    <form method="POST" action="/user/modifier/<%-data.username%>" enctype="multipart/form-data" >
+                    <form >
                     <table id="info-user">
-                    <tr><td ><label class="user-in"><img src="/upload/<%= data.avatar%>" width="80px" height="80px"></label><span id="shop"><%= data.username%></span></td><td> <%if(!checkfollow){%>
-                        <img id = "follow" src ="/imagei/unfollow.png" width="40px" height="40px">
-                        <span id ="theodoi" style="color: rgb(177, 174, 171)"> Theo dõi</span><br>
-                        <%}else{%>
-    
-                            <img id = "follow" src ="/imagei/follow.png" width="40px" height="40px">
-                            <span id ="theodoi" style="color:blue"> Đã theo dõi</span><br>
-    
-                        <%}%>
-                
-                    </td> </tr>
+                            <input  type="text" name="phonenumber" value="<%= data.PhoneNumber%>" hidden>
+                    <tr><td colspan="2"><label class="user-in"><img src="/upload/<%= data.avatar%>" width="80px" height="80px"></label><%= data.username%></td> </tr>
                     <tr><td><b>First Name:</b></td><td><label class="user-in"><%= data.firstname%></label></td></tr>
                     <tr><td><b>Last Name:</b></td><td> <label class="user-in"><%= data.lastname%></label></td> </tr>
                     <tr><td><b>Email:</b></td><td><label class="user-in"> <%= data.email%></label></td> </tr>   
@@ -106,67 +81,42 @@ p {
                     <tr><td><b>Địa chỉ:</b></td><td><label class="user-in"><%= data.address%></label></td> </tr>
                     <tr><td><b>Thành Phố:</b></td><td><label class="user-in"><%= data.city%></label></td> </tr>
                 </table>
+                    
                         <% })} %>
+                      
                     </form>
       </div>
-      <div id="sanpham">
-            <div class="container-inner-listimage-user">
-               <% if(sp.length==0){%>
-                <h2><%-kq[0].username%> chưa đăng sản phẩm nào </h2>
-
-              <%}else{ sp.forEach((data)=>{%>
-                      <div class="wrapper-image1">
-                          <a href="/sp/sp/<%-data._id%>*<%-kq[0].username%>">  <img src="/image/<%= data.image %>" alt="" width="180px" height="180px"></a><br>
-                          <span class ="ten" id = "ten-1"><%= data.name%></span><br>
-                          <div class="stars">
-                            <form action="">
-                              <input class="star star-5" id="star-5" type="radio" name="star" checked/>
-                              <label class="star star-5" for="star-5"></label>
-                              <input class="star star-4" id="star-4" type="radio" name="star"/>
-                              <label class="star star-4" for="star-4"></label>
-                              <input class="star star-3" id="star-3" type="radio" name="star"/>
-                              <label class="star star-3" for="star-3"></label>
-                              <input class="star star-2" id="star-2" type="radio" name="star"/>
-                              <label class="star star-2" for="star-2"></label>
-                              <input class="star star-1" id="star-1" type="radio" name="star"/>
-                              <label class="star star-1" for="star-1"></label>
-                            </form>
-                          </div><br>
-                         <span class ="gia" id = "gia-1"><%= data.price%></span>
-                      </div>
-              <% }) %>
-           <%}%>
-          </div>
-
-      </div>
-<div id="theo-doi">
-<table class="theo-doi">
-    <%if(follow.length==0){%>
-        <h2><%-kq[0].username%> chưa theo dõi ai </h2>
-  <%}else{follow.forEach(function(data){%>
-     <tr><td><label style="width: 50px;height: 50px;border-radius: 30px solid black"><img class="user-avatar" src="/upload/<%-data.avatar%>" width="50px" height="50px" ></label></td><td><a href="/user/other/<%-data.username%>&&<%-user.username%>"><%-data.username%></a></td></tr>
-    <%})%>
-<%}%>
-</table>
-
-
-</div>
-<div id="duoc-theo-doi">
-    <table class="duoc-theo-doi">
-        <%if(followed.length==0){%>
-            <h2><%-kq[0].username%> chưa được ai chưa theo dõi </h2>
-      <%}else{followed.forEach(function(data){%>
-         <tr><td><label style="width: 50px;height: 50px;border-radius: 30px solid black"><img class="user-avatar" src="/upload/<%-data.avatar%>" width="50px" height="50px" ></label></td><td><a href="/user/other/<%-data.username%>&&<%-user.username%>"><%-data.username%></a></td></tr>
-        <%})%>
-    <%}%>
-    </table>
-    
-    
+      <div id="theo_doi">
+            <table class="theo_doi">
+                <%if(follow.length==0){%>
+                    <h2><%-kq[0].username%> chưa theo dõi ai </h2>
+              <%}else{follow.forEach(function(data){%>
+                <%if(data.avatar==""){%>
+                    <tr><td style="width: auto"><label style="width: 50px;height: 50px;border-radius: 30px solid black"><img class="user-avatar" src="/imagei/usernull.png" width="50px" height="50px" ></label></td><td><a href="/user/other/<%-data.username%>&&<%-user.username%>"><%-data.username%></a></td><td style="width: auto"><img class="delete-follow" src="/imagei/x.png" width="20px" height="20px"></td></tr>
+                <%}else{%>
+                    <tr><td style="width: auto"><label style="width: 50px;height: 50px;border-radius: 30px solid black"><img class="user-avatar" src="/upload/<%-data.avatar%>" width="50px" height="50px" ></label></td><td><a href="/user/other/<%-data.username%>&&<%-user.username%>"><%-data.username%></a></td><td style="width: auto"><img class="delete-follow" src="/imagei/x.png" width="20px" height="20px"></td></tr>
+                    <%}%>
+                    <%})%>
+            <%}%>
+            </table>
+            </div>
+            <div id="duoctheodoi">
+                    <table class="duoctheodoi">
+                        <%if(followed.length==0){%>
+                            <h2><%-kq[0].username%> chưa được ai theo dõi  </h2>
+                      <%}else{followed.forEach(function(data){%>
+                        <%if(data.avatar==""){%>
+                            <tr><td style="width: auto"><label style="width: 50px;height: 50px;border-radius: 30px solid black"><img class="user-avatar" src="/imagei/usernull.png" width="50px" height="50px" ></label></td><td><a href="/user/other/<%-data.username%>&&<%-user.username%>"><%-data.username%></a></td><td style="width: auto"><img class="delete-follow" src="/imagei/x.png" width="20px" height="20px"></td></tr>
+                        <%}else{%>
+                            <tr><td style="width: auto"><label style="width: 50px;height: 50px;border-radius: 30px solid black"><img class="user-avatar" src="/upload/<%-data.avatar%>" width="50px" height="50px" ></label></td><td><a href="/user/other/<%-data.username%>&&<%-user.username%>"><%-data.username%></a></td><td style="width: auto"><img class="delete-follow" src="/imagei/x.png" width="20px" height="20px"></td></tr>
+                            <%}%>
+                            <%})%>
+                    <%}%>
+                    </table>
+                    </div>
     </div>
-</div>
-    <!-- footer starts here-->
-<div id = "container_inner_footer">
-<% include template/footer %>
-</div>
-</div>
-<% include template/body2 %>
+    <div id = "container_inner_footer">
+            <% include template/footer %>
+            </div>
+      
+            <% include template/body2 %>

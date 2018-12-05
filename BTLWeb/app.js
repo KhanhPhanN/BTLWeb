@@ -38,13 +38,7 @@ var storage1=multer.diskStorage({
 
 })
 var upload1 = multer({storage: storage1})
-app.get("/test",function(req,res){
-    res.render('test',{user: false})
-})
-app.post("/test",function(req,res){
-    // res.send({code: "1000", message:"Error Unknown"});
-    res.open('test',{user: false})
-})
+
 var loi;
 
 // set the views
@@ -133,11 +127,10 @@ dsproduct=res;
     db.close();
   })
 })
-
-
+var phone_chat;
 
 // register
-app.get('/register',function(req,res){
+app.get('/signup',function(req,res){
     res.render('register');
     });
 
@@ -155,7 +148,7 @@ var username1;
 var email1;
 var password1;
 var PhoneNumber1;
-app.post('/register', (req, res) => {
+app.post('/signup', (req, res) => {
     var PhoneNumber = req.body.PhoneNumber;
     var password = req.body.password;
 password1 = password;
@@ -184,7 +177,7 @@ PhoneNumber1 = PhoneNumber;
                     var text = parseInt(Math.random()*(9999-1000)+1000);
                     code = text;
                     console.log(text);
-                    res.send({code: "1",message:"Accept",data: text});
+                    res.json({code: "1",message:"Accept",data: text});
                     //res.render("Confirm",{dt: text});
                     // nexmo.message.sendSms(
                     //   '841664925036', number, text, { type: 'unicode' },
@@ -437,6 +430,108 @@ var chuoi2 = Y2.split(" ");
     }
     return a[0][0]
 }
+app.get("/moki.vn/:id",function(req,res){
+    var MongoClient = require('mongodb').MongoClient;
+    var url = "mongodb://localhost:27017/";
+var key = req.params.id;
+var data = new Array();
+var data_num = new Array();
+if(key=="Be-an"){
+    MongoClient.connect(url, function(err, db) {
+        if (err) throw err;
+        var dbo = db.db("mydb");
+        var re = {name: key};
+        dbo.collection("Bé ăn").find().toArray( function(err, result) {
+          if (err) throw err;
+          res.render("searchpage",{kq: result,SP:dsproduct.reverse(),title: "Bé ăn"})
+          db.close();
+        });
+      });
+       }
+else if(key=="Be-mac"){
+        MongoClient.connect(url, function(err, db) {
+            if (err) throw err;
+            var dbo = db.db("mydb");
+            var re = {name: key};
+            dbo.collection("Bé mặc").find().toArray( function(err, result) {
+              if (err) throw err;
+              res.render("searchpage",{kq: result,SP:dsproduct.reverse(),title: "Bé mặc"})
+              db.close();
+            });
+          });
+           }
+else if(key=="Be-ngu"){
+            MongoClient.connect(url, function(err, db) {
+                if (err) throw err;
+                var dbo = db.db("mydb");
+                var re = {name: key};
+                dbo.collection("Bé ngủ").find().toArray( function(err, result) {
+                  if (err) throw err;
+                  res.render("searchpage",{kq: result,SP:dsproduct.reverse(),title: "Bé ngủ"})
+                  db.close();
+                });
+              });
+               }
+else if(key=="Be-tam"){
+                MongoClient.connect(url, function(err, db) {
+                    if (err) throw err;
+                    var dbo = db.db("mydb");
+                    var re = {name: key};
+                    dbo.collection("Bé tắm").find().toArray( function(err, result) {
+                      if (err) throw err;
+                      res.render("searchpage",{kq: result,SP:dsproduct.reverse(),title: "Bé tắm"})
+                      db.close();
+                    });
+                  });
+                   }
+else if(key=="Be-ve-sinh"){
+                    MongoClient.connect(url, function(err, db) {
+                        if (err) throw err;
+                        var dbo = db.db("mydb");
+                        var re = {name: key};
+                        dbo.collection("Bé vệ sinh").find().toArray( function(err, result) {
+                          if (err) throw err;
+                          res.render("searchpage",{kq: result,SP:dsproduct.reverse(),title: "Bé vệ sinh"})
+                          db.close();
+                        });
+                      });
+                       }
+else{
+
+    MongoClient.connect(url, function(err, db) {
+        if (err) throw err;
+        var dbo = db.db("mydb");
+        var re = {name: key};
+        dbo.collection("TempSP").find().toArray( function(err, result) {
+          if (err) throw err;
+          for(var i = 0;i<result.length;i++){
+          if(search_name(result[i].name +" "+ result[i].describle, key)>0){
+              data.push(result[i]);
+              data_num.push(search_name(result[i].name +" "+ result[i].describle, key));
+          }
+      }
+           if(data.length!=0){
+              for(var i = 0; i<data.length-1;i++){
+                 var k2;
+                 var max;
+              for(var j=i+1;j<data.length;j++)
+              if(data_num[i]<data_num[j]){
+                  var k1;
+                  k1=data_num[i];data_num[i]=data_num[j];data_num[j]=k1;
+                  max = j;
+                  k2=data[i];data[i]=data[j];data[j]=k2;
+              }
+          }
+      }
+          res.render("searchpage",{kq: data,SP:dsproduct.reverse(),title: key})
+          db.close();
+        });
+      });
+
+
+}
+
+})
 app.post("/search", function(req,res){
     var key = req.body.product_name;
     var MongoClient = require('mongodb').MongoClient;
@@ -455,7 +550,7 @@ app.post("/search", function(req,res){
                       data.push(result[i]);
                   }
               }
-              res.render("searchuser",{ketqua:data,SP:dsproduct.reverse()});  
+              res.render("searchuser",{ketqua:data,SP:dsproduct.reverse(),title:"Kết quả tìm kiếm"});  
             })
         })
      }else{
@@ -485,7 +580,7 @@ app.post("/search", function(req,res){
             }
         }
     }
-        res.render("searchpage",{kq: data,SP:dsproduct.reverse()})
+        res.render("searchpage",{kq: data,SP:dsproduct.reverse(),title:"Kết quả tìm kiếm"})
         db.close();
       });
     });
@@ -517,26 +612,7 @@ app.get('/login',function(req,res){
 
 app.post('/login',
     passport.authenticate('local', { successRedirect: '/', failureRedirect: '/login',successFlash:"Success", failureFlash: 'Invalid username or password.'}));
-    //list product
-app.get("/listproduct/:id", function(req, res){
-var title = req.params.id;
-    var MongoClient = require('mongodb').MongoClient;
-    var url = "mongodb://localhost:27017/";
-    
-    MongoClient.connect(url, function(err, db) {
-      if (err) throw err;
-      var dbo = db.db("mydb");
-      dbo.collection("TempSP").find({shop: title}).toArray(function(err, result) {
-        if (err) throw err;
-       res.render("listproduct",{kq: result,SP:dsproduct.reverse()});
-        db.close();
-      
-      });
-    });
-
-
-})
-
+ 
 
 //List like
 
@@ -608,7 +684,7 @@ app.get("/befollowList/:id", function(req, res){
       });
     });
 })
-var f1,f2,f3;
+var f1,f2,f3,user1;
 // Thông tin tài khoản người dùng 
 app.get("/userinformation/:id", function(req, res){
 var title = req.params.id;
@@ -620,6 +696,7 @@ var title = req.params.id;
       dbo.collection("users").find({username: title}).toArray(function(err, result) {
         if (err) throw err;
      var bo = db.db("mydb");
+     user1 = result;
      var lfollow=result[0].follow;
      var lfollowed=result[0].be_follow;
      var data=[];
@@ -642,7 +719,7 @@ var title = req.params.id;
          f1=data;
          f2=data_be;
          f3=result1;
-        res.render("userinfomation",{kq: result,sp:result1,follow: data,followed: data_be});
+        res.render("user",{kq: result,sp:result1,follow: data,followed: data_be});
         db.close();
      })
      db.close();
@@ -721,7 +798,7 @@ for(var i=0;i<list_be_follow.length;i++){
          }
          bo.collection("TempSP").find({shop: title}).toArray(function(err,result1){
             if(checksame){
-                res.render("userinfomation",{kq: result,sp:result1,follow: data,followed: data_be});
+                res.render("user",{kq: result,sp:result1,follow: data,followed: data_be});
             }else{
             res.render("otheruserinfomation",{kq: result,sp:result1,follow: data,followed: data_be,checkfollow: checkfollow});
             } 
@@ -759,7 +836,7 @@ app.post('/user/modifier/:id',upload3.single("avatar"),function(req,res){
                 bo.collection("users").find(where).toArray(function(err,re){
                     if(err) throw err;
                     dbo.collection("TempSP").find({}).toArray(function(err,result){
-                    res.render("userinfomation",{
+                    res.render("user",{
                         errors:errors,
                         sp:f3,
                         kq:re,
@@ -784,7 +861,7 @@ app.post('/user/modifier/:id',upload3.single("avatar"),function(req,res){
             })
             dbo.collection("users").find({username:title}).toArray(function(err,result){
                     if(err) throw err;
-                res.render('userinfomation',{kq:result,sp:f3,errors: false,    follow: f1,
+                res.render('user',{kq:result,sp:f3,errors: false,    follow: f1,
                     followed:f2});
                 db.close();
             })
@@ -846,16 +923,20 @@ var errors = req.validationErrors();
      });
 
 io.on("connection",function(socket){
+    console.log(socket.id);
     socket.on("ngat",function(){
         console.log("Ngắt kết nối")
     })
 socket.on("connect",function(){
     console.log(" Có kết nối bị ngắt")
 })
+
+// chat với ai
+
 // log out
 app.get('/logout/:id', function (req, res) {
     req.logout();
-
+var data={code: "1000", message:"OK"};
 for(var i=0;i<List_user_connected.length;i++)
 if(List_user_connected[i].indexOf(req.params.id)!=-1)
 
@@ -869,7 +950,7 @@ if(List_user_connected[i].indexOf(req.params.id)!=-1)
     res.redirect('/');
 });
 
-
+socket.userphone="";
 //khi login thi chay middleware va goi den cai nay
 passport.use(new LocalStrategy(
     function (username, password, done) {
@@ -887,6 +968,7 @@ passport.use(new LocalStrategy(
                     console.log('ok')
                     List_user_connected.push(user.username);
                     tenuser=user.username;
+                    socket.phonechat=user.PhoneNumber;
                     io.sockets.emit("add-user",user.username);
                     return done(null, user);
                 } else {
@@ -899,7 +981,7 @@ passport.use(new LocalStrategy(
     }));
 
 
-
+console.log(socket.phonechat);
 socket.on("gui-comment",function(data){
     var  info = data.split("ooo");
     var MongoClient = require('mongodb').MongoClient;
@@ -1041,7 +1123,7 @@ dbo.collection("users").updateOne({username: data[1]},{$set: {be_follow: be_list
 dbo.collection("users").findOne({username:data[0]},function(err,res){
 if(err) throw err
 listmyfollow = res.follow;
-io.sockets.emit("follow",res.follow.length)
+io.sockets.emit("follow",be_listmyfollow.length)
 })
 dbo.collection("users").findOne({username:data[1]},function(err,res){
     if(err) throw err;
@@ -1101,7 +1183,7 @@ socket.on("unfollow",function(data){
     dbo.collection("users").findOne({username:data[0]},function(err,res){
     if(err) throw err
     listmyfollow = res.follow;
-    io.sockets.emit("unfollow",res.follow.length)
+    io.sockets.emit("unfollow",be_listmyfollow.length)
     })
     dbo.collection("users").findOne({username: data[1]},function(err,res){
         if(err) throw err  
@@ -1122,10 +1204,15 @@ db.close();
     db.close();
     })
     })
-
+    app.post("/chat",function(req,res){
+    phone_chat=req.body.phone;
+    console.log(phone_chat);
+    res.json({code: "1000", message: "OK", data: ""})
+    })
+    socket.phonechat=phone_chat;
     socket.on("Client-send-messages",function(data){
-        socket.emit("Server-send-your-message",data)
-        socket.broadcast.emit("Client-ask",data)
+        socket.emit("server-send",data)
+        socket.to("socket.phonechat").emit("server-send",data);
     })
     socket.on("Admin-send-messages",function(data){
         socket.emit("Server-send-admin-message",data)
@@ -1166,7 +1253,7 @@ const upload = multer({ storage });
 var imageFile;
 // @route GET /
 // @desc Loads form
-app.get('/themsanpham', (req, res) => {
+app.get('/add_product', (req, res) => {
   gfs.files.find({filename: test}).toArray((err, files) => {
     // Check if files
     if (!files || files.length === 0) {
@@ -1192,7 +1279,7 @@ app.get('/themsanpham', (req, res) => {
 // @desc  Uploads file to DB
 app.post('/upload', upload.single('file'), (req, res) => {
   // res.json({ file: req.file });
-  res.redirect('/themsanpham');
+  res.redirect('/add_product');
 });
 
 // @route GET /files
@@ -1234,13 +1321,17 @@ app.get("/sp/sp/:_id",function(req,res){
    var url = "mongodb://localhost:27017/";
     var _id = req.params._id;
     var query = {_id: title[0]};
+    var withshop=[];
     mongoClient.connect(url, function(err, db) {
         if (err) throw err;
         var dbo = db.db("mydb");
         var checkfollow = false;
         dbo.collection("TempSP").findOne(query,function(err, result) {
             if(err) throw err;  
-            var bo = db.db("loginapp")
+            dbo.collection("TempSP").find({shop: result.shop}).toArray(function(erro,resu){
+               withshop=resu;
+            }) 
+            var bo = db.db("loginapp");
 bo.collection("users").findOne({username: result.shop},function(er,re){
 if(er) throw er;
 var list_be_follow=re.be_follow;
@@ -1250,10 +1341,6 @@ for(var i=0;i<list_be_follow.length;i++){
         break;
     }
 }
-// if(list_be_follow.indexOf(title[1])!=-1)
-//    {
-//        checkfollow=true;
-//    }
             Likedata = result.like;
             if(result.like==""){
                 res.render('template',{
@@ -1263,6 +1350,7 @@ for(var i=0;i<list_be_follow.length;i++){
                     checklike : false,
                     likelist: [],
                     checkfollow: checkfollow,
+                    withshop: withshop
                 })
             }else{
                 var checklike = false;
@@ -1276,10 +1364,13 @@ for(var i=0;i<list_be_follow.length;i++){
                 like: numLike.length-1,
                 checklike: checklike,
                 likelist: numLike,
-                checkfollow: checkfollow
+                checkfollow: checkfollow,
+                withshop: withshop
             })
             db.close();
-        }     
+        }   
+    
+        
 })
 db.close();
 
@@ -1346,7 +1437,8 @@ app.delete("/delete",function(req,res){
           });
           dbo.collection("TempSP").find({shop: title}).toArray(function(err, result) {
             if (err) throw err;
-           res.render("listproduct",{kq: result,SP:result});
+            res.render('user',{kq:user1,sp:result,errors: false,    follow: f1,
+                followed:f2});
             db.close();
           });
        });
@@ -1379,17 +1471,7 @@ app.post("/updatesp",function(req,res){
    
     var placesell = req.body.sell;
     var price = req.body.price;
-    console.log(name);
-    console.log(attached);
-    console.log(describle);
-    console.log(bargain);
-    console.log(label);
-    console.log(state);
-    console.log(weight);
-    console.log(placesell);
-    console.log(price);
-    console.log(req.body.filename);
-    var filename = test;
+    var filename = req.body.image;
     var errors=0;
 if(!name || !price || !describle)
       errors = [{msg: "Bạn nhập thiếu dữ liệu"}];
@@ -1413,7 +1495,7 @@ MongoClient.connect(url, function(err, db) {
   dbo.collection("TempSP").find({shop: title}).toArray(function(err, result) {
 
     if (err) throw err;
-   res.render("listproduct",{kq: result,SP:result});
+    res.render('deleteandupdate',{err: [{msg: "OK"}],data: {image: filename,_id: req.body.filename, name: name,describle: describle,bargain: bargain,attached: attached,label: label,weight: weight,state: state,price: price,placeSell:placesell}});
    db.close();
   }); 
   db.close();
@@ -1475,7 +1557,7 @@ app.delete('/deleteimage/:id', (req, res) => {
 
 
 // Thêm sản phẩm
-app.post("/themsanpham",function(req,res){
+app.post("/add_product",function(req,res){
     if(!test){
         res.render('themsanpham',{files: imageFile,err: [{msg:"Error Unknown"}]});
     }else{
@@ -1567,6 +1649,7 @@ app.get("/",function(req,res){
     var user = {username: ""}
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/";
+var u="mongodb://KhanhPhan:khanh2748@ds123664.mlab.com:23664/databaseofmoki"
 var res2,res3,res4,res5;
 var MongoClient1 = require('mongodb').MongoClient;
 MongoClient1.connect(url, function(err, db) {
@@ -1581,7 +1664,6 @@ db1.collection("Bé tắm").find().toArray(function(err,r){
 })
 db1.collection("Bé ăn").find().toArray(function(err,r){
     res2=r;
-    console.log(res2);
 })  
 db1.collection("TempSP").find().toArray(function(err,r){
     res5=r;
@@ -1605,11 +1687,11 @@ MongoClient.connect(url, function(err, db) {
 
                     db.close();
                     res.render('homepage',{
-                        MayTinh: result.reverse(),
-                        Chuot: res1.reverse(),
-                        Banphim:res2.reverse(),
-                        Tainghe:res3.reverse(),
-                        Ocung:res4.reverse(),
+                        bevesinh: result.reverse(),
+                        bemac: res1.reverse(),
+                        bean:res2.reverse(),
+                        bengu:res3.reverse(),
+                        betam:res4.reverse(),
                         SP: res5.reverse(),
                         UserOnline: datastateuser
                     })                  

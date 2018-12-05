@@ -4,7 +4,7 @@
  body {
   margin: 0;
   background-color: #fff;
-  padding:2em 4em;
+  padding:0em 0em;
   font-size:1em;
 }
  .header {
@@ -234,6 +234,7 @@
    border:  0px solid white;
    background-color: white;
    height: 50px;
+   color: black;
  }
 #description{
    float: left ;
@@ -460,7 +461,7 @@
     margin:auto;
 }
 div .button2 {
-  margin-left:83px;
+  margin-left:110px;
   width:290px;
  
 }

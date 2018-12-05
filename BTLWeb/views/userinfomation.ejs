@@ -79,7 +79,7 @@ p {
                                         <a href="/login" >Đăng nhập  /  </a>
                                     </li>
                                     <li>
-                                          <a href="/register" >Đăng kí</a>
+                                          <a href="/signup" >Đăng kí</a>
                                       </li>
                                       
                                       <%}%>
@@ -94,7 +94,7 @@ p {
                                                 <i class="fa fa-shopping-cart" aria-hidden="true" style="color: #ffffff"></i><a href="#" >Giỏ hàng | </a>
                                             </li>
                                           <li>
-                                              <a href="/themsanpham" >Thêm sản phẩm  |  </a> 
+                                              <a href="/add_product" >Thêm sản phẩm  |  </a> 
                                           </li>
                                           <li>
                                                 <a href="/likeList/<%-kq[0].username%>" >Đã thích  |  </a>
@@ -202,10 +202,11 @@ p {
                     <tr><td><b>Địa chỉ:</b></td><td><label class="user-in"><%= data.address%></label><input class="user-out" type="text" name="address" value="<%= data.address%>"></td> </tr>
                     <tr><td><b>Thành Phố:</b></td><td><label class="user-in"><%= data.city%></label><input class="user-out" type="text" name="city" value="<%= data.city%>"></td> </tr>
                 </table>
-                    <input type="button" id="modifier-user" value="Chỉnh sửa thông tin">
+                    <input type="button" id="modifier-user" class="modifier-user" value="Chỉnh sửa thông tin">
+                    <a href="/user/changePassword"> <input type="button" class="modifier-user" id="change-password" value="Thay đổi mật khẩu"></a>
                         <% })} %>
-                        <input type="submit" id="modifier-user-1" value="Cập nhật">
-                        <input type="button" id="modifier-user-2" value="Quay về">
+                        <input type="submit" class="modifier-user" id="modifier-user-1" value="Cập nhật">
+                        <input type="button" class="modifier-user" id="modifier-user-2" value="Quay về">
                     </form>
       </div>
       <div id="sanpham">
@@ -214,8 +215,8 @@ p {
                 <h2>Bạn chưa đăng sản phẩm nào </h2>
 
               <%}else{ sp.forEach((data)=>{%>
-                      <div class="wrapper-image1">
-                          <a href="/sp/sp/<%-data._id%>*<%-kq[0].username%>">  <img src="/image/<%= data.image %>" alt="" width="180px" height="180px"></a><br>
+                      <div class="wrapper-image1" style="text-align: center">
+                        <a href="/deleteandupdate/<%= data._id%>">  <img src="/image/<%= data.image %>" alt="" width="180px" height="180px" style="display:block;text-align:center"></a><br>
                           <span class ="ten" id = "ten-1"><%= data.name%></span><br>
                           <div class="stars">
                             <form action="">

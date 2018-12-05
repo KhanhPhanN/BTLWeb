@@ -37,15 +37,22 @@ for(var i=0;i<data.likelist.length-1;i++)
 $("#listlike").append("<li>"+data.likelist[i]+"</li>")
     })
     socket.on("follow",function(data){
-        
+        $(".numfollowed").html(data);
+    })
+    socket.on("unfollow",function(data){
+        $(".numfollowed").html(data);
     })
 $(document).ready(function(){
+    $(".pop-up-footer").hide();
+    $(".ChatLog").hide();
     $("#moki_small").hide();
-    $("#sanpham").hide();
-    $("#theo-doi").hide();
-    $("#duoc-theo-doi").hide();
+    $("#thongtin").hide();
+    $("#theo_doi").hide();
+    $("#duoctheodoi").hide();
     $(".user-out").hide();
-    $('#AlphaNav > ul > li > a').click(function () {
+    $("#mota-title").css("color","#f16e8e")
+    $("#binhluan-title").css("color","black")
+    $('#AlphaNav > ul > li > i').click(function () {
         $(this).closest('li').siblings().find('ul:visible').slideUp(); // ADDED
         $(this).closest('li').siblings().find('ul:visible').parent().find('i').toggleClass('fa-angle-double-up fa-angle-double-down'); // ADDED 2
         $(this).closest('li').find('ul').slideToggle();
@@ -60,6 +67,7 @@ $(document).ready(function(){
         $("#modifier-user-1").show();
         $("#modifier-user-2").show();
         $("#modifier-user").hide();
+        $("#change-password").hide();
     })
     $("#modifier-user-2").click(function(){
         $(".user-out").hide();
@@ -67,49 +75,50 @@ $(document).ready(function(){
         $("#modifier-user-1").hide();
         $("#modifier-user-2").hide();
         $("#modifier-user").show();
+        $("#change-password").show();
     })
     $(".delete-follow").click(function(){
         alert("ok")
     })
-    $("#tab1").click(function(){
-        $("#sanpham").hide();
-        $("#tab2").css("color","black");
+    $(".tab1").click(function(){
+        $("#showsp").hide();
         $("#thongtin").show();
-        $("#theo-doi").hide();
-        $("#duoc-theo-doi").hide();
-        $("#tab1").css("color","aqua");
-        $("#tab3").css("color","black");
-        $("#tab4").css("color","black");
+        $("#theo_doi").hide();
+        $("#duoctheodoi").hide();
+        $(".tab2").css("color","black");
+        $(".tab1").css("color","aqua");
+        $(".tab3").css("color","black");
+        $(".tab4").css("color","black");
     })
-    $("#tab2").click(function(){
+    $(".tab2").click(function(){
         $("#thongtin").hide();
-        $("#sanpham").show();
-        $("#theo-doi").hide();
-        $("#duoc-theo-doi").hide();
-        $("#tab2").css("color","aqua");
-        $("#tab1").css("color","black");
-        $("#tab3").css("color","black");
-        $("#tab4").css("color","black");
+        $("#showsp").show();
+        $("#theo_doi").hide();
+        $("#duoctheodoi").hide();
+        $(".tab2").css("color","aqua");
+        $(".tab1").css("color","black");
+        $(".tab3").css("color","black");
+        $(".tab4").css("color","black");
     })
-    $("#tab3").click(function(){
+    $(".tab3").click(function(){
         $("#thongtin").hide();
-        $("#sanpham").hide();
-        $("#theo-doi").show();
-        $("#duoc-theo-doi").hide();
-        $("#tab2").css("color","black");
-        $("#tab1").css("color","black");
-        $("#tab3").css("color","aqua");
-        $("#tab4").css("color","black");
+        $("#showsp").hide();
+        $("#theo_doi").show();
+        $("#duoctheodoi").hide();
+        $(".tab2").css("color","black");
+        $(".tab1").css("color","black");
+        $(".tab3").css("color","aqua");
+        $(".tab4").css("color","black");
     })
-    $("#tab4").click(function(){
+    $(".tab4").click(function(){
         $("#thongtin").hide();
-        $("#sanpham").hide();
-        $("#theo-doi").hide();
-        $("#duoc-theo-doi").show();
-        $("#tab2").css("color","black");
-        $("#tab1").css("color","black");
-        $("#tab3").css("color","black");
-        $("#tab4").css("color","aqua");
+        $("#showsp").hide();
+        $("#theo_doi").hide();
+        $("#duoctheodoi").show();
+        $(".tab2").css("color","black");
+        $(".tab1").css("color","black");
+        $(".tab3").css("color","black");
+        $(".tab4").css("color","aqua");
     })
 var stt=0;
 var starImg= 0;
@@ -138,6 +147,37 @@ $("#Previous").click(function(){
     $(".slide").eq(prev-2).show();
     $(".slide").eq(prev-3).show();
     $(".slide").eq(prev-4).show();
+})
+
+var stt1=0;
+var starImg1= 0;
+var endImg1= $(".slide-shop:last").attr("stt-shop");
+$(".slide-shop").each(function(){
+    if($(this).is(':visible'))
+    stt1=$(this).attr("stt-shop")
+})
+$("#Next-shop").click(function(){
+    if(stt1==endImg1){
+        stt1=2;
+    }
+    next1=++stt1;
+    $(".slide-shop").hide();
+    $(".slide-shop").eq(next1).show();
+    $(".slide-shop").eq(next1-1).show();
+    $(".slide-shop").eq(next1-2).show();
+    $(".slide-shop").eq(next1-3).show();
+})
+$("#Previous-shop").click(function(){
+    if(stt1-3==starImg1){
+        stt1=endImg1;
+        prev1=stt++;
+    }
+    prev1=--stt1;
+    $(".slide-shop").hide();
+    $(".slide-shop").eq(prev1).show();
+    $(".slide-shop").eq(prev1-1).show();
+    $(".slide-shop").eq(prev1-2).show();
+    $(".slide-shop").eq(prev1-3).show();
 })
 setInterval(function(){$("#Next").click()},2000)
     $("#btn-report").click(function(){
@@ -209,18 +249,18 @@ setInterval(function(){$("#Next").click()},2000)
         $("#like").attr("src","/imagei/like.png")
         }
     })
-    $("#follow").click(function(){
+    $("img#follow").click(function(){
         if( $("#follow").attr("src")=="/imagei/unfollow.png")
        {
-           $("#follow").attr("src","/imagei/follow.png")
+           $("img#follow").attr("src","/imagei/follow.png")
            $("#theodoi").html("Đã theo dõi");
            $("#theodoi").attr("style","color: blue")
-           socket.emit("follow",$("#tenuser").val()+"\n"+$("#shop").html())
+           socket.emit("follow",$("#tenuser").html()+"\n"+$("#name-user").html());
         }
         else
        { 
-         socket.emit("unfollow",$("#tenuser").val()+"\n"+$("#shop").html())
-           $("#follow").attr("src","/imagei/unfollow.png");
+         socket.emit("unfollow",$("#tenuser").html()+"\n"+$("#name-user").html());
+           $("img#follow").attr("src","/imagei/unfollow.png");
            $("#theodoi").html("Theo dõi");
            $("#theodoi").attr("style","color: rgb(177, 174, 171)")
     }
@@ -242,12 +282,16 @@ setInterval(function(){$("#Next").click()},2000)
 function binhluan(){
 $("#mota").hide();
 $("#binhluan").show();
-$("#ht").show()
+$("#ht").show();
+$("#binhluan-title").css("color","#f16e8e")
+$("#mota-title").css("color","black")
 }
 function  mota(){
     $("#mota").show();
     $("#binhluan").hide();
-    $("#ht").hide()
+    $("#ht").hide();
+    $("#mota-title").css("color","#f16e8e")
+    $("#binhluan-title").css("color","black")
 }
 function checkPhoneNumber() {
     var flag = false;
@@ -274,7 +318,7 @@ function checkPhoneNumber() {
 }
 function checkPassword(){
     var password=$('#UserPassword').val().trim();
-    var w = /[a-zA-Z0-9]+/ 
+    var w = /[a-zA-Z0-9]+/ ;
     if(password!=""){
         if(password.length<6){
             alert("Mật khẩu phải lớn hơn 6 kí tự")
@@ -288,4 +332,3 @@ function checkPassword(){
     }
     return true;
 }
-

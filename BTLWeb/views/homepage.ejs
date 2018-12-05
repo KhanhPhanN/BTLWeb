@@ -73,36 +73,36 @@
                   <div class="group-left">
                     <div class="pb-link">
                         <div class="pb-heading">
-                          <a href="https://moki.vn/Be-an-71.html">Bé ăn</a>
+                          <a href="/moki.vn/Be-an">Bé ăn</a>
                         </div>
                        <div class="pb-link">
                                                                                <li class="shopby-collection-link">
-                                   <a href="https://moki.vn/Ghe-an-bot-cho-be-72.html" class=" current">
+                                   <a href="/moki.vn/Ghế ăn bột cho bé" class=" current">
                                       <span>Ghế ăn bột cho bé</span>
                                    </a>
                                 </li>
                                                          <li class="shopby-collection-link">
-                                   <a href="https://moki.vn/Binh-sua-va-phu-kien-73.html" class=" current">
+                                   <a href="/moki.vn/Bình sữa và phụ kiện" class=" current">
                                       <span>Bình sữa và phụ kiện</span>
                                    </a>
                                 </li>
                                                          <li class="shopby-collection-link">
-                                   <a href="https://moki.vn/Sua-bot-cac-loai-74.html" class=" current">
+                                   <a href="/moki.vn/Sữa bột các loại" class=" current">
                                       <span>Sữa bột các loại</span>
                                    </a>
                                 </li>
                                                          <li class="shopby-collection-link">
-                                   <a href="https://moki.vn/Bot-Chao-Banh-an-dam-75.html" class=" current">
+                                   <a href="/moki.vn/Bột Cháo Bánh ăn dặm" class=" current">
                                       <span>Bột, Cháo, Bánh ăn dặm</span>
                                    </a>
                                 </li>
                                                          <li class="shopby-collection-link">
-                                   <a href="https://moki.vn/Do-dung-phuc-vu-an-uong-76.html" class=" current">
+                                   <a href="/moki.vn/Đồ dùng phục vụ ăn uống" class=" current">
                                       <span>Đồ dùng phục vụ ăn uống</span>
                                    </a>
                                 </li>
                                                          <li class="shopby-collection-link">
-                                   <a href="https://moki.vn/Thuc-pham-dong-hop-cho-be-77.html" class=" current">
+                                   <a href="/moki.vn/Thực phẩm đóng hộp cho bé" class=" current">
                                       <span>Thực phẩm đóng hộp cho bé</span>
                                    </a>
                                 </li>
@@ -114,7 +114,7 @@
               </div>
               <div class="container-inner-listimage">
                 <div class="container-inner-listimage1">
-                  <% MayTinh.forEach((data)=>{%>
+                  <% bean.forEach((data)=>{%>
                     
                    
                           <div class="wrapper-image">
@@ -215,7 +215,7 @@
             </div>
             <div class="container-inner-listimage">
               <div class="container-inner-listimage1">
-                <% Chuot.forEach((data)=>{%>
+                <% bemac.forEach((data)=>{%>
                   
                         <div class="wrapper-image">
                 <%if(user){%>
@@ -340,7 +340,7 @@
           </div>
           <div class="container-inner-listimage">
             <div class="container-inner-listimage1">
-              <% Banphim.forEach((data)=>{%>
+              <% bengu.forEach((data)=>{%>
                 
                
                       <div class="wrapper-image">
@@ -446,7 +446,7 @@
         </div>
         <div class="container-inner-listimage">
           <div class="container-inner-listimage1">
-            <%  Tainghe.forEach((data)=>{%>
+            <%  betam.forEach((data)=>{%>
               
              
                     <div class="wrapper-image">
@@ -552,7 +552,7 @@
       </div>
       <div class="container-inner-listimage">
         <div class="container-inner-listimage1">
-          <% Ocung.forEach((data)=>{%>
+          <% bevesinh.forEach((data)=>{%>
 
                   <div class="wrapper-image">
           <%if(user){%>
@@ -605,13 +605,7 @@
 </div>
 </div>
 </div>
-<span>
-  <% include template/popup %>
-  </span>
-<span>
-  <% include listuseronline %>
-  </span>
-    <!-- footer starts here-->
+
 <div id = "container_inner_footer">
 <% include template/footer %>
 </div>

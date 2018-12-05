@@ -1,4 +1,60 @@
 <!-- FOOTER STARTS HERE -->
+<span>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <!-- <script src="js/jquery.js"></script> -->
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="/js/popup.js"></script>
+        <link rel="stylesheet" href="/css/popup.css">
+        <title>Document</title>
+    </head>
+    <body>
+        <label id="chat"><button id="xxx"><img src="/imagei/fa-envelope.png" style="margin-right: 10px;">Chat với chúng tôi (Hotline: 1900 636 799)</button></label><img id="anhmoki" src="/imagei/chatbox-nv.png" >
+        <div class="pop-up-box"style="height:435px">
+            <div class="pop-up-head" style="height:40px; ">
+                <div class="pop-up-left" style="margin-top: 10px;"><img src="/imagei/fa-envelope.png" style="margin-right: 10px;">Chat với chúng tôi (Hotline: 1900 636 799)</div>
+              
+            </div>
+            <div class="after-mes">
+            <div class="pop-up-mess" style="height:350px">
+                <ul class="ChatLog">
+                        <li class="ChatLog__entry">
+                            <!-- <div class="ChatLog__avatar">A</div> -->
+                                <p class="ChatLog__message">Chào mừng bạn đến với MOKI.VN</p>
+                        </li>
+                    </ul>
+                    <div class="info-phone">
+                        <form>
+                            <input type="number" placeholder="Nhập số điện thoại" name="phone" id="input-phone"><br>
+                            <input type="button" value="Bắt đầu chat" id="start-chat">
+                        </form>
+                    </div>
+            </div>
+
+            <div class="pop-up-footer" >
+                <input name="message" id="mess" placeholder="Nhập tin nhắn...">
+                <button id="btnSend">SEND</button>
+            </div>
+        </div>
+        <script>
+            $("#start-chat").click(function(){
+                $.post("/chat",{phone: $("#input-phone").val()},function(data,status) {
+                    alert(data.code);
+                    $(".pop-up-footer").show();
+                    $(".ChatLog").show();
+                    $(".info-phone").hide();
+                })
+            })
+            
+            </script>
+    </div>
+    </body>
+    </html>
+    </span>
 <div id = "footer_container" >
     <!-- MAIN_WRAPPER STARTS HERE -->
 <div id="footer_wrapper">

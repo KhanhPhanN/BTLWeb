@@ -5,17 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>MOKI</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/jqurey.js"></script>
+    <script src="/js/chucnang.js"></script>
     <link rel="stylesheet" href="/css/themsanpham.css">
     <link rel="stylesheet" href="/css/footer.css">
     <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="/css/template.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <style>
-      img {
-        width: 150px;
-        height: 150px;
-      }
-    </style>
+
 </head>
 <body>
     	<!-- HEADER STARTS HERE -->
@@ -46,37 +44,37 @@
                                     <a href="/login" >Đăng nhập  |  </a>
                                 </li>
                                 <li>
-                                      <a href="/register" >Đăng kí</a>
+                                      <a href="/signup" >Đăng kí</a>
                                   </li>
                                   
                                   <%}%>
                                   <% if(user) {%>
-                                      <li>
-                                          <a href="/themsanpham" >Thêm sản phẩm  |  </a> 
-                                      </li>
-                                      <li>
-                                            <a href="/listproduct/<%-user.username%>" >Sản phẩm đăng  |  </a>
-                                        </li>
-                                        <li>
-                                          <a href="/befollowList/<%-user.username%>" >Người theo dõi  |  </a>
-                                      </li>
-                                      <li>
-                                         <a href="/followList/<%-user.username%>" >Theo dõi  |  </a>
-                                     </li>
-                                      <li>
-                                            <a href="/likeList/<%-user.username%>" >Đã thích  |  </a>
-                                        </li>
-                                      <li>
-                                          <a href="/logout/<%-user.username%>">Đăng xuất  |  </a>
-                                      </li>
-                                      <li id = "user">
-                                       
-                                        <a ><i class="fa fa-user"></i>Hello: <%- user.username%></a>
-                                        <ul id="user-option">
-                                             <li><a href="/user/changePassword">Thay đổi mật khẩu</a></>
-                                             <li><a href="/userinformation/<%-user.username%>">Thông tin tài khoản</a></li>
-                                       </ul>
+                                    <li>
+                                        <a href="#" >Chào mừng bạn đến với MOKI |</a>
                                     </li>
+                                    <li>
+                                        <i class="fa fa-flag-checkered" aria-hidden="true" style="color: #ffffff"></i><a href="#" >Kiểm tra đơn hàng | </a>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-shopping-cart" aria-hidden="true" style="color: #ffffff"></i><a href="#" >Giỏ hàng | </a>
+                                    </li>
+                                  <li>
+                                      <a href="/add_product" >Thêm sản phẩm  |  </a> 
+                                  </li>
+                                  <li>
+                                        <a href="/likeList/<%-user.username%>" >Đã thích  |  </a>
+                                    </li>
+                                  <li>
+                                      <a href="/logout/<%-user.username%>">Đăng xuất  |  </a>
+                                  </li>
+                                  <li id = "user">
+                                   
+                                    <a  href="/userinformation/<%-user.username%>"><img id="user-avatar" src="/upload/<%-user.avatar%>" height="18px" width="18px">Hello: <%- user.username%></a>
+                                    <!-- <ul id="user-option">
+                                         <li><a href="/user/changePassword">Thay đổi mật khẩu</a></>
+                                         <li><a href="/userinformation/<%-user.username%>">Thông tin tài khoản</a></li>
+                                   </ul> -->
+                                </li>
                                       <%}%>
                             </ul>
                 </div>
@@ -96,7 +94,7 @@
                         <div id="header-inner2-right-search">
                                 <form action="/search" method="POST" class="header-inner2-form" id="ProductsSearchProductForm" role="search">
                                     <input class="header-inner2-form-input" type="search" placeholder="Tìm kiếm sản phẩm"  value="" name="product_name" id="product_name" required="" >
-                                    <input type="radio" name="searchUser"><label>Tìm kiếm Username &nbsp&nbsp </label>
+                                    <!-- <input type="radio" name="searchUser"><label>Tìm kiếm Username &nbsp&nbsp </label> -->
                                     <button class="header-inner2-form-button" type="submit">
                                         <i class="fa fa-search" aria-hidden="true"></i>
                                         
@@ -146,13 +144,13 @@
                 <div class="container">
                     <div class="row">
                       <div class="wrapper-image1">
-                      <img src="/image/<%=data.image%>" width="250" height="250">
+                      <img src="/image/<%=data.image%>" width="250px" height="250px">
                       </div>
                     </div>
             </div>
             <form action="/updatesp" method="POST">
             <div class="add">
-               
+               <input type="text" name= "image" value="<%=data.image%>" hidden>
                 <div style="display:inline;">
                 <div style="display:flex;">
                     <p id="name" style="font-size:1em;font-weight:bold;">Tên sản phẩm</p>
@@ -160,7 +158,7 @@
                </div> <hr>
                <div style="display:flex;">
                    <p id = "description" style="font-size:1em;font-weight:bold;">Mô tả sản phẩm</p>
-                   <textarea cols="50" rows="50" id="textarea" name="describleproduct"><%=data.name%></textarea>
+                   <textarea cols="50" rows="50" id="textarea" name="describleproduct"><%=data.describle%></textarea>
                </div><hr>
                <% if(data.bargain =="Miễn phí"){ %>
                <div style="display: flex">
@@ -235,28 +233,28 @@
                      <% } %>
                 <div id="product-detail">
                     <label style="font-size:1em;font-weight:bold;">Chi tiết sản phẩm </label><br><hr>
-                    <label id="product-category">Danh mục</label>
+                    <label id="product-category"> <img src="/imagei/danhmuc.png" width="15px" height="15px" style="padding-right: 5px"> Danh mục</label>
                     <input type="text" name="name" id="product-category-name" value="<%=data.attached%>"><br><hr>
 
-                    <label id="product-state">Trạng thái</label>
+                    <label id="product-state"> <img src="/imagei/status.png" width="15px" height="15px" style="padding-right: 5px"> Trạng thái</label>
                     <input type="text" name="state" id="product-category-state" value="<%=data.state%>"><br><hr>
 
-                    <label id="product-label">Nhãn hiệu</label>
+                    <label id="product-label"> <img src="/imagei/label.png" width="15px" height="15px" style="padding-right: 5px"> Nhãn hiệu</label>
                     <input type="text" name="label" id="product-category-label" value="<%=data.label%>"><br><hr>
 
-                    <label id="product-weight">Khối lượng</label>
+                    <label id="product-weight"> <img src="/imagei/weight.png" width="15px" height="15px" style="padding-right: 5px"> Khối lượng</label>
                     <input type="text" name="weight" id="product-category-weight" value="<%=data.weight%>"><br><hr>
                 </div>
                 <div id="product-transport">
                     <label style="font-size:1em;font-weight:bold;">Vận chuyển</label><br><hr>
-                    <label id="product-place">Nới bán</label>
+                    <label id="product-place"> <img src="/imagei/place.png" width="15px" height="15px" style="padding-right: 5px"> Nới bán</label>
                     <textarea name="sell" id="product-place-sell"><%=data.placeSell%></textarea>
                     <br><hr>
                 </div>
 
                 <div id="product-price">
                     <label style="font-size:1em;font-weight:bold;">Giá</label><br><hr>
-                    <label >Giá bán(VND)</label>
+                    <label >  <img src="/imagei/money.png" width="15px" height="15px" style="padding-right: 5px"> Giá bán(VND)</label>
                     <input type="text" name="price" id="product-price-input" value="<%=data.price%>"><br><hr>
                 </div>
 
@@ -264,27 +262,27 @@
 
                 <dialog id="product-dialog">
                     <p><i class="fa fa-reply"></i>Danh mục</p>
-                    <p id="dialog-detail1">Bé ăn <i class="fa fa-share"></i></p>
-                    <p id="dialog-detail2">Bé mặc <i class="fa fa-share"></i></p>
-                    <p id="dialog-detail3">Bé ngủ <i class="fa fa-share"></i></p>
-                    <p id="dialog-detail4">Bé tắm <i class="fa fa-share"></i></p>
-                    <p id="dialog-detail5">Bé vệ sinh <i class="fa fa-share"></i></p>
+                    <p id="dialog-detail1">Bé ăn<i class="fa fa-share"></i></p>
+                    <p id="dialog-detail2">Bé mặc<i class="fa fa-share"></i></p>
+                    <p id="dialog-detail3">Bé ngủ<i class="fa fa-share"></i></p>
+                    <p id="dialog-detail4">Bé tắm<i class="fa fa-share"></i></p>
+                    <p id="dialog-detail5">Bé vệ sinh<i class="fa fa-share"></i></p>
                 </dialog>
 
                 <dialog id="label-dialog">
                     <p><i class="fa fa-reply"></i>Danh mục</p>
-                    <p id="label-detail1" class="state">CMAX <i class="fa fa-share"></i></p>
-                    <p id="label-detail2" class="state">Made in VietNam <i class="fa fa-share"></i></p>
-                    <p id="label-detail3" class="state">Made in Thailand <i class="fa fa-share"></i></p>
-                    <p id="label-detail4" class="state">Nhãn hiệu khác <i class="fa fa-share"></i></p>
+                    <p id="label-detail1" class="state">CMAX<i class="fa fa-share"></i></p>
+                    <p id="label-detail2" class="state">Made in VietNam<i class="fa fa-share"></i></p>
+                    <p id="label-detail3" class="state">Made in Thailand<i class="fa fa-share"></i></p>
+                    <p id="label-detail4" class="state">Nhãn hiệu khác<i class="fa fa-share"></i></p>
                 </dialog>
 
                 <dialog id="weight-dialog">
                     <p><i class="fa fa-reply"></i>Danh mục</p>
-                    <p id="weight-detail1" class="state">Trên 2kg đến 2.5kg <i class="fa fa-share"></i></p>
+                    <p id="weight-detail1" class="state">Trên 2kg đến 2.5kg<i class="fa fa-share"></i></p>
                     <p id="weight-detail2" class="state">Trên 2.5kg đến 3kg<i class="fa fa-share"></i></p>
-                    <p id="weight-detail3" class="state">Trên 3kg đến 3.5kg <i class="fa fa-share"></i></p>
-                    <p id="weight-detail4" class="state">Trên 3.5kg đến 4kg <i class="fa fa-share"></i></p>
+                    <p id="weight-detail3" class="state">Trên 3kg đến 3.5kg<i class="fa fa-share"></i></p>
+                    <p id="weight-detail4" class="state">Trên 3.5kg đến 4kg<i class="fa fa-share"></i></p>
                     <p id="weight-detail5" class="state">Trên 4kg đến 4.5kg<i class="fa fa-share"></i></p>
                 </dialog>
 
@@ -292,23 +290,23 @@
                     <p><i class="fa fa-reply"></i>Danh mục</p>
                     <div>
                     <p id="state-detail1" class="state" style="font-size:1em;font-weight:bold;margin-bottom:0px;padding-bottom:0px;">Mới <i class="fa fa-share"></i></p>
-                    <p class="state-detail" style="margin-top:0px;padding-top:0px;">Sản phẩm mới 100% chưa qua sử dụng </p>
+                    <p class="state-detail" style="margin-top:0px;padding-top:0px;">Sản phẩm mới 100% chưa qua sử dụng</p>
                 </div>
                 <div>
                     <p id="state-detail2"  class="state" style="font-size:1em;font-weight:bold;margin-bottom:0px;padding-bottom:0px;">Gần như mới <i class="fa fa-share"></i></p>
-                    <p class="state-detail" style="margin-top:0px;padding-top:0px;">Sản phẩm dùng lướt-chất lượng như mới </p>
+                    <p class="state-detail" style="margin-top:0px;padding-top:0px;">Sản phẩm dùng lướt-chất lượng như mới</p>
                 </div>
                 <div>
                     <p id="state-detail3" class="state" style="font-size:1em;font-weight:bold;margin-bottom:0px;padding-bottom:0px;">Tốt <i class="fa fa-share"></i></p>
-                    <p class="state-detail" style="margin-top:0px;padding-top:0px;">Sản phẩm đã qua sử dụng-chất lượng cao </p>
+                    <p class="state-detail" style="margin-top:0px;padding-top:0px;">Sản phẩm đã qua sử dụng-chất lượng cao</p>
                 </div>
                 <div>
                     <p id="state-detail4"  class="state" style="font-size:1em;font-weight:bold;margin-bottom:0px;padding-bottom:0px;">Khá tốt<i class="fa fa-share"></i></p>
-                    <p class="state-detail" style="margin-top:0px;padding-top:0px;">Sản phẩm đã qua sử dụng-chất lượng đảm bảo </p>
+                    <p class="state-detail" style="margin-top:0px;padding-top:0px;">Sản phẩm đã qua sử dụng-chất lượng đảm bảo</p>
                 </div>
                 <div>
                     <p id="state-detail5"  class="state" style="font-size:1em;font-weight:bold;margin-bottom:0px;padding-bottom:0px;">Cũ<i class="fa fa-share"></i></p>
-                    <p class="state-detail" style="margin-top:0px;padding-top:0px;">Sản phẩm cũ </p>
+                    <p class="state-detail" style="margin-top:0px;padding-top:0px;">Sản phẩm cũ</p>
                 </div>
                 </dialog>
                   <br>

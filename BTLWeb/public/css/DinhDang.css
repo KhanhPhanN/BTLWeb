@@ -7,7 +7,7 @@
     overflow: auto;
 }
 .col-sm-6 span{
-    color: blueviolet;
+    color: #f16e8e;
 }
 .title-sp input{
     float: right;
@@ -32,21 +32,43 @@
 }
 .option{
     margin-top: 50px;
-    background-color: #f16e8e;
+    background-color: #f1f1f1;
     margin-left: 0px;
     width: 90%;
     display: block;
     text-align: left;
     border-radius: 5px;
+    font-family: Arial, Helvetica, sans-serif
 }
 .option li{
     list-style-type: none;
     display: inline-block;
     width: 200px;
-    line-height: 40px;
+    line-height: 50px;
+    font-size: 16px;
 }
 .option li:hover{
-color: blueviolet;
+color: #f16e8e;
+}
+.option-shop{
+    margin-top: 50px;
+    background-color: #f1f1f1;
+    margin-left: 0px;
+    width: 90%;
+    display: block;
+    text-align: left;
+    border-radius: 5px;
+    font-family: Arial, Helvetica, sans-serif
+}
+.option-shop li{
+    list-style-type: none;
+    display: inline-block;
+    width: 720px;
+    line-height: 50px;
+    font-size: 16px;
+}
+.option-shop li:hover{
+color: #f16e8e;
 }
 #Comment{
     width: 500px;
@@ -134,7 +156,7 @@ table tr th {
    line-height: 30px;
 }
 #theodoi{
-    bottom: 20px
+    bottom: -10px
 }
 .cuon-1{
     width: 100%;
@@ -154,7 +176,7 @@ margin-left: 20em
         }
     
 
-#modifier-user{
+/* #modifier-user{
    border-radius:5px;
     padding:5px;
     text-align:center;
@@ -162,7 +184,7 @@ margin-left: 20em
 #modifier-user a{
     text-decoration:none;
     color:#000;
-}
+} */
 #update-user{
     padding:5px;
     border-radius: 5px;

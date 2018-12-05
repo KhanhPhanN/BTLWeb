@@ -1,0 +1,126 @@
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+<title>MOKI</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+<link href="/stylesheets/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+<link rel="stylesheet" type="text/css" href="/stylesheets/shop.css">
+<link rel="stylesheet" type="text/css" href="/stylesheets/header.css">
+<link rel="stylesheet" type="text/css" href="/stylesheets/register.css">
+</head>
+<body>
+
+    <div   class="tophead" style="background: url(/img/bkg_top_header.png) bottom center repeat-y;
+   color:#fff;
+    height: 30px;">
+        <div class="container" >
+        <div class="left area col-md-4">
+            <i class= "glyphicon glyphicon-earphone"></i> hotline: 1900 636 779
+            
+        </div>
+        <div class="right area col-md-8"style="margin-right:0px;">
+            <div class="line col-md-4">Chào mừng bạn đến với MOKI</div>
+            <div class="line col-md-3">
+             <a href="#"style="color:#fff;">  <i class=" glyphicon glyphicon-flag"></i> kiểm tra đơn hàng</a> 
+            </div>
+            <div class="line col-md-2">
+                <a href="#"style="color:#fff;" ><i class="glyphicon glyphicon-shopping-cart"></i> giỏ hàng</a>
+            </div>
+            <div class="dangki_dangnhap" style=" <% if(dulieu.user){%> display:none;<% }%> ">
+                <a href="/users/login"style="color:#fff;" col-md-2>đăng nhập</a>
+                <a href="/users/register"style="color:#fff;" col-md-1.5>đăng kí</a>
+            </div>
+            <% var anh= "/img/ImageHandler.png";
+              var ten="";
+            if(dulieu.user){
+                if(dulieu.user.avata!="-1"){anh=dulieu.user.avata;}
+                if(dulieu.user.username==""){ten=dulieu.user.phonenumber;}
+                else {ten=dulieu.user.username;}
+            }
+                 
+            %>
+                        
+            
+            
+            <div class="user_info" style=" <% if(!dulieu.user){%> display:none<% }%>">
+                 <div class="nen">
+                    <div class="inline" id="user">
+                    <%=ten%>
+                    </div>
+                    <div class="inline" id="ava">
+                    <img src="<%=anh%>" alt="">
+                
+                
+                 
+                    </div>
+                </div>
+                <div class="drop_box">
+                    
+                 <ul class="">
+                     <li class=" active"><a href="/shop/usertManager">Quản lý thông tin</a></li>
+                     <li class=""><a href="/shop/showProduct">Quản lý đơn hàng</a></li>
+                     <li class=""><a href="/users/logout">Đăng xuất</a></li>
+                 </ul>
+                </div>
+            </div>
+
+            
+            </div>
+             </div>
+    </div>
+    <div class="shadow">
+        <div class="head">
+                <div class="container">
+                <div class="row">
+                        <div class="col-md-4">
+                            <img src="/img/logo_medium.png">
+                        </div>
+                        <div class="col-md-6">
+                            <div class="search" >
+                               
+                                
+                                      <input type="text" name="value" placeholder="tìm kiếm sản phẩm"/>
+                                      
+                                     <button class="glyphicon glyphicon-search">
+                                     &nbsp;
+                                     </button>
+                                
+                            
+                            </div>
+                            <div class="txthead">
+                                <a class=" float txt" href="/"><h5><B>TRANG CHỦ</B></h5></a>
+                                <a class=" float txt" href="#"><h5><B> GÓC CỦA MẸ</B></h5></a>
+                                <a class="float txt" href="#"><h5><B>GIỚI THIỆU</B></h5></a>
+                                <a class=" float txt" href="/shop/showProduct"><h5><B>SHOP MOKI</B></h5></a>
+                                <div class="float txt">
+                                    <a href="https://www.facebook.com"><p class="icon-facebook"></p></a>
+                                    <span class="icon-youtube"></span>
+                                </div>
+                            </div>
+
+
+                        </div>
+                </div>
+            </div>
+        
+    </div>
+    </div>
+<script>
+//click user_info
+var userBox=document.querySelector('.user_info');
+userBox.addEventListener('click',function(){
+    var drop_box=document.querySelector('.drop_box');
+   
+    
+    drop_box.classList.toggle('active');
+})
+
+</script>
+    <!-- het header -->

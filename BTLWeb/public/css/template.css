@@ -3,6 +3,7 @@ body{
 	padding:2em;
 	padding-top:0.2em;
 	background-color:#ffffff;
+	height: 800px;
 	}
 	
 	
@@ -20,7 +21,7 @@ body{
 	
 	/*=====================INNER=================*/
 	#header-inner,nav-inner,content-inner,footer-inner{
-	overflow:hidden;
+		overflow:hidden;
 	}
 	
 	
@@ -208,6 +209,9 @@ body{
 		
 		h5{
 			margin:14px 0;
+			font-size: 15px;
+            font-weight: bold;
+            display: inline-block;
 		}
 		.fa-angle-double-down,.fa-angle-double-up{
 			float:right;
@@ -248,16 +252,54 @@ body{
 	
 	
 	/*---------------------CONTENT---------------------------*/
-	#content{
-	margin-left:300px;
-	background-color:#f1f1f1;
+	.content{
+	
+	background-color:#fff;
+	height: 360px;
+	width: 718px;
+	margin-left: -200px;
+	
 	}
 	#content-inner{
 	padding:0 1em 1em 1.5em;
 	}
+	.col-sm-3{
+	float: left;
+	color: #333;
+	font-size: 14px;
+	padding-top: 6px;
+	margin-left: 30px;
+	}
 	
+	#input{
+	float: right;
+	margin-left: 30px;
+	margin-right: -50px;
+	margin-top: 0px;
+	height: 20px;
+	width: 303px;
+	}
+	.radiobutton{
+	float: right;
+	font-size: 14px;
+    margin-left: 0px;
+	margin-right:230px;
+	margin-top: 0px;
+	}
+	.radiobutton2{
+	width: 300px;
+	}
+	#inputpassword{
+	float: right;
+	margin-left: 30px;
+	margin-right: 200px;
+	margin-top: 20px;
+	height: 20px;
+	width: 303px;	
+	}
 	
-	
+
+
 	
 	/*-----------------------------FOOOTER---------------------------------------------*/
 	#footer_container{
@@ -280,12 +322,13 @@ body{
 	
 	/*------------LOGIN-----------*/
 	.forgotPS{
+		float: right;
 		text-decoration: none;
-		margin-right:1em;
+		margin-right: 230px;
+		margin-bottom: 30px;
 		font-size:0.9em;
 		float: right;
 		margin-top:0.3em;
-		border: 1px solid #d3d3d3;
 		padding:0.5em;
 	}
 	#numberPhone{
@@ -310,6 +353,35 @@ body{
 		padding:5px;
 		border-radius: 5px;
 	}
+	#sdtdk{
+		margin-left: 50px;
+	}
+	#inputsdt{
+		float: right;
+		margin-left: 0px;
+		margin-right: 185px;
+		margin-top: 0px;
+		height: 20px;
+		width: 303px;	
+	}
+	#inputmk{
+		float: right;
+		margin-left: 0px;
+		margin-right: 185px;
+		margin-top: 0px;
+		height: 20px;
+		width: 303px;	
+	}
+	#mkdk{
+		margin-left: 80px;
+	}
+	#text-name{
+		float: right;
+		width: 321px;
+		margin-right: 200px;
+		font-size: 15px;
+	}
+	
 
 
 
@@ -356,29 +428,47 @@ body{
 		background-color:#f1f1f1;
 	}
 	.checkout_info_price{
-		background-color: rgb(255, 255, 255);
+		background-color:#fff;
+		border: 1px solid #eee;
 		padding: 0 20%;
-		height: 500px;
-		width: 400px;
-		margin-left: 15%
+		height: 400px;
+		width: 288px;
+		margin-left: 20%;
+		
 	}
-	.checkout_info_price1{
+	/*.checkout_info_price1{
 		background-color: rgb(255, 255, 255);
 		padding: 0 20%;
 		height: 800px;
 		width: 400px;
 		margin-left: 15%
-	}
+	}*/
 	.headings{
+		background-color: #fff;
 		height: 30px;
-		font-size: 20px;
+		width: 735px;
 		font-family: Arial, Helvetica, sans-serif;
-	padding: 2px 0px;
-	margin-top: 10px 
+		border-bottom: 1px solid #eee;
+		margin-left: -230px;
+		padding: 10px 15px;
+			
+	}
+	.headings h5{
+		font-size: 15px;
+		margin-top: 7px;
+		margin-bottom: 14px;
+		font-size: 15px;
+        font-weight: bold;
+       
 	}
 	#tb{
+		height: 86px;
+		width: 329px;
 		font-size: 15px;
-		font-family: Arial, Helvetica, sans-serif
+		font-family: Arial, Helvetica, sans-serif;
+		margin-bottom: -15px;
+		margin-top: 30px;
+		margin-left: 200px;
 	}
 	.col-sm-3{
 		font-family: Arial, Helvetica, sans-serif;
@@ -389,8 +479,11 @@ body{
 
 	} 
 	#btdk{
-	   height: 30px;
-	   width: 425px;
+	   float: right;
+	   height: 40px;
+	   width: 329px;
+	   margin-top: 0px;
+	   margin-right:210px;
 	   background-color: #f16e8e;
 	   color: white;
 	   text-align: center;

@@ -3,20 +3,36 @@
 <% include template/header %>
 <div class="checkout_info_price">
   <div class="headings">
-    <h5>Đăng nhập </h5>
-  </div><hr>
-  <div class="content">
+    <h5>Đăng nhập hoặc tạo tài khoản MOKI </h5>
+    
+  </div>
+ 
+  <div class="content" >
     <form action="/login" encoding="" class="form-horizontal form-validate" id="UserRegisterForm" method="post" onsubmit="return checkPhoneNumber()"><div style="display:none;"><input type="hidden" name="_method" value="POST"/></div>						<div class="form-group">
     </div>
     <div class="form-group">
       <div class="col-sm-6">
-        <div class="input number required"><label class="col-sm-3 control-label">Số điện thoại:</label><input id="input" name="username" class="form-control" placeholder="Xin vui lòng nhập số điện thoại" autofocus="autofocus" value="" data-rule-required="true" data-msg-required="Vui lòng nhập số điện thoại của bạn" data-rule-number="true" data-msg-number="Xin vui lòng nhập số" data-rule-minlength="10" data-msg-minlength="Số điện thoại từ 10 - 11 ký tự" data-rule-maxlength="11" data-msg-maxlength="Số điện thoại từ 10 - 11 ký tự" type="text"  required="required" aria-required="true" aria-invalid="true"></div>	
-      								</div>
+        <div class="input number required" style="display: flex">
+          <div><label class="col-sm-3 control-label">Nhập số điện thoại:</label></div>
+          <div><input id="input" name="username" class="form-control" placeholder="Xin vui lòng nhập số điện thoại" autofocus="autofocus" value="" data-rule-required="true" data-msg-required="Vui lòng nhập số điện thoại của bạn" data-rule-number="true" data-msg-number="Xin vui lòng nhập số" data-rule-minlength="10" data-msg-minlength="Số điện thoại từ 10 - 11 ký tự" data-rule-maxlength="11" data-msg-maxlength="Số điện thoại từ 10 - 11 ký tự" type="text"  required="required" aria-required="true" aria-invalid="true"></div>	
         </div>
+      </div><br>
+      <div  class="radiobutton">
+        <form action="#" >
+            <div class="radiobutton1"><input type="radio" name="gender" value="yes">Tạo một tài khoản </div>
+            <br>
+            <div class="radiobutton2"> <input type="radio" name="gender" value="no" >Tôi đã có một tài khoản trước đó </div>
+        </form>
+     </div>
+     <br><br>
         <div class="form-group">
           <div class="col-sm-6">
-            <div class="input password required">  <label class="col-sm-3 control-label">Mật khẩu:</label><input name="password" class="form-control" maxlength="30" placeholder="Xin vui lòng nhập mật khẩu" data-rule-required="true" data-msg-required="Vui lòng nhập mật khẩu" data-rule-lettersonly="true" data-msg-lettersonly="Vui lòng chỉ nhập chữ và số" data-rule-minlength="6" data-msg-minlength="Mật khẩu tối thiểu 6 ký tự" data-rule-maxlength="30" data-msg-maxlength="Mật khẩu tối đa 30 ký tự" type="password" id="password" required="required"/></div>										</div>
+            <div class="input password required">
+               <input  id="inputpassword" name="password" class="form-control" maxlength="30" placeholder="Vui lòng nhập mật khẩu" data-rule-required="true" data-msg-required="Vui lòng nhập mật khẩu" data-rule-lettersonly="true" data-msg-lettersonly="Vui lòng chỉ nhập chữ và số" data-rule-minlength="6" data-msg-minlength="Mật khẩu tối thiểu 6 ký tự" data-rule-maxlength="30" data-msg-maxlength="Mật khẩu tối đa 30 ký tự" type="password" id="password" required="required"/>
+            </div>										
           </div>
+        </div>
+        <br>
           <div class="form-group">
             <div class="col-sm-6 col-sm-offset-3">
               <div class="">
@@ -24,14 +40,15 @@
               </div>
             </div>
           </div>
-          <a class="forgotPS" href="/forgetPassword">Quên mật khẩu</a>
+          <div class="forgotPS" ><a  href="/forgetPassword">Quên mật khẩu?</a></div><br><br><br><br>
           <div class="form-group hidden-xs">
             <div  class="col-sm-6 col-sm-offset-3">
-              <button id ="btdk" class="btn btn-default text-right" type="submit">Đăng nhập</button>										</div>
+              <button id ="btdk" type="submit">Tiếp tục</button>
+            </div>
           </div>
           <div class="hidden-md hidden-lg hidden-sm select-address">
           	</form>									</div>
         </div>
-      </div>
+     </div>
 <% include template/footer %>
 <% include template/body2 %>

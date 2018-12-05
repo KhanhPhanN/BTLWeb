@@ -1125,13 +1125,9 @@ app.get("/sp/sp/:_id",function(req,res){
             var bo = db.db("loginapp")
 bo.collection("users").findOne({username: result.shop},function(er,re){
 if(er) throw er;
-var list_be_follow=re.be_follow;
-for(var i=0;i<list_be_follow.length;i++){
-    if(list_be_follow[i]==title[1]){
+
         checkfollow=true;
-        break;
-    }
-}
+
 // if(list_be_follow.indexOf(title[1])!=-1)
 //    {
 //        checkfollow=true;

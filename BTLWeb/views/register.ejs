@@ -13,36 +13,45 @@
 
 <div class="checkout_info_price">
   <div class="headings">
-    <h5>Đăng ký </h5>
-  </div><hr>
+    <h5>Đăng ký MOKI</h5>
+  </div>
   <div class="content">
     <form action="/register" encoding="" class="form-horizontal form-validate" id="UserRegisterForm" method="post" onsubmit="return checkPhoneNumber()"><div style="display:none;"><input type="hidden" name="_method" value="POST"/></div>						<div class="form-group">
       <div class="col-sm-6 col-sm-offset-3" id="tb">
-        <p style="word-break: break-word;">Tài khoản cần được kích hoạt bằng số điện thoại</p>
+        <p style="word-break: break-word;">MOKI cần được kích hoạt bằng số điện thoại</p>
         <p>Số điện thoại của bạn sẽ được bảo mật.</p>
       </div>
     </div>
     <div class="form-group">
       <div class="col-sm-6">
-        <div class="input number required"><label class="col-sm-3 control-label">Số điện thoại:</label><input id="input" name="PhoneNumber" class="form-control" placeholder="Xin vui lòng nhập số điện thoại" autofocus="autofocus" value="" data-rule-required="true" data-msg-required="Vui lòng nhập số điện thoại của bạn" data-rule-number="true" data-msg-number="Xin vui lòng nhập số" data-rule-minlength="10" data-msg-minlength="Số điện thoại từ 10 - 11 ký tự" data-rule-maxlength="11" data-msg-maxlength="Số điện thoại từ 10 - 11 ký tự" type="number"  required="required" aria-required="true" aria-invalid="true"></div>	
-      								</div>
-        </div>
-        <div class="form-group">
-          <div class="col-sm-6">
-            <div class="input password required">  <label class="col-sm-3 control-label">Mật khẩu:</label><input name="password" class="form-control" maxlength="30" placeholder="Xin vui lòng nhập mật khẩu" data-rule-required="true" data-msg-required="Vui lòng nhập mật khẩu" data-rule-lettersonly="true" data-msg-lettersonly="Vui lòng chỉ nhập chữ và số" data-rule-minlength="6" data-msg-minlength="Mật khẩu tối thiểu 6 ký tự" data-rule-maxlength="30" data-msg-maxlength="Mật khẩu tối đa 30 ký tự" type="password" id="password" required="required"/></div>										</div>
-          </div>
-          <div class="form-group">
+        <div class="input number required">
+          <label class="col-sm-3 control-label" id="sdtdk">Số điện thoại:</label>
+          <input id="inputsdt" name="PhoneNumber" class="form-control" placeholder="Xin vui lòng nhập số điện thoại" autofocus="autofocus" value="" data-rule-required="true" data-msg-required="Vui lòng nhập số điện thoại của bạn" data-rule-number="true" data-msg-number="Xin vui lòng nhập số" data-rule-minlength="10" data-msg-minlength="Số điện thoại từ 10 - 11 ký tự" data-rule-maxlength="11" data-msg-maxlength="Số điện thoại từ 10 - 11 ký tự" type="number"  required="required" aria-required="true" aria-invalid="true">
+        </div>	
+    	</div>
+     </div><br><br>
+    <div class="form-group">
+      <div class="col-sm-6">
+        <div class="input password required"> 
+           <label class="col-sm-3 control-label" id="mkdk">Mật khẩu:</label>
+           <input id="inputmk" name="password" class="form-control" maxlength="30" placeholder="Xin vui lòng nhập mật khẩu" data-rule-required="true" data-msg-required="Vui lòng nhập mật khẩu" data-rule-lettersonly="true" data-msg-lettersonly="Vui lòng chỉ nhập chữ và số" data-rule-minlength="6" data-msg-minlength="Mật khẩu tối thiểu 6 ký tự" data-rule-maxlength="30" data-msg-maxlength="Mật khẩu tối đa 30 ký tự" type="password" id="password" required="required"/>
+         </div>									
+      </div>
+      
+     </div>
+     <div  class="form-group">
             <div class="col-sm-6 col-sm-offset-3">
               <div class="">
                 <div class="g-recaptcha" data-theme="light" data-sitekey="6LdOcCkTAAAAAIs5kfNrv0bmM7CxHEnHeoI_X1PH" style="transform:scale(0.77);-webkit-transform:scale(0.77);transform-origin:0 0;-webkit-transform-origin:0 0;"></div>
               </div>
             </div>
-          </div>
+     </div><br><br>
           <div class="form-group">
             <div class="col-sm-6 col-sm-offset-3">
-              <span class="text-name">Bằng việc bạn click nút <span class="register-link">Đăng ký</span>. Bạn đã đồng ý với <label style="color: #f16e8e" class="dieukhoan-link"><a href="/trang/dieu-khoan-dich-vu-5.html">Điều khoản dịch vụ</a></label> của <span class="register-link">MOKI</span>
+              <div id="text-name">Bằng việc bạn click nút <span class="register-link">Đăng ký</span>. Bạn đã đồng ý với <label style="color: #f16e8e" class="dieukhoan-link"><a href="/trang/dieu-khoan-dich-vu-5.html">Điều khoản dịch vụ</a></label> của <span class="register-link">MOKI</div>
             </div>
-          </div>
+          </div><br><br><br>
+          
           <div class="form-group hidden-xs">
             <div  class="col-sm-6 col-sm-offset-3">
               <button id ="btdk" class="btn btn-default text-right" type="submit">Đăng ký</button>										</div>
